@@ -1,0 +1,30 @@
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=cslatex 2011.4.5)  12 MAY 2011 08:40
+entering extended mode
+ %&-line parsing enabled.
+ encTeX v. Jun. 2004, reencoding enabled
+**spseol.sty
+(./spseol.sty
+The UTF8->ISO-8859-2 re-encoding of Czech+Slovak alphabet activated by encTeX
+LaTeX2e <2009/09/24>
+Loading CZ hyphenation patterns: Pavel Sevecek, v3, 1995
+Loading SK hyphenation patterns: Jana Chlebikova, 1992
+
+! LaTeX Error: \usepackage before \documentclass.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.2 \usepackage{
+                tlatex}
+? x
+ 
+Here is how much of TeX's memory you used:
+ 7 strings out of 494887
+ 275 string characters out of 1180810
+ 46050 words of memory out of 3000000
+ 3420 multiletter control sequences out of 15000+50000
+ 3640 words of font info for 14 fonts, out of 3000000 for 9000
+ 24 hyphenation exceptions out of 8191
+ 5i,0n,5p,34b,14s stack positions out of 5000i,500n,10000p,200000b,50000s
+No pages of output.

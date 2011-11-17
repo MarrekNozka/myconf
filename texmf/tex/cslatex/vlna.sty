@@ -1,0 +1,62 @@
+\ProvidesPackage{vlna}[2007/09/29 vlna]
+\PackageInfo{vlna}{$Id: vlna.sty 57 2007-09-29 17:01:45Z zw $}
+
+% Vlna implementovana jako makra v encTeXu
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Leden 2003                    Petr Olsak
+% Modified for LaTeX by Z. Wagner
+
+% Toto je ukazka moznosti encTeXu. Na urovni maker muzeme
+% naprogramovat program vlna.
+
+% Pomocna makra:
+
+\def\setmu #1#2{\mubyte #1##1 #2\endmubyte} % use encTeX Feb 2003
+\bgroup \uccode`X=\endlinechar \uppercase{\gdef\endchar{X}}
+        \uccode`X=`\{          \uppercase{\gdef\leftbrace{X}}
+\egroup
+
+\def\sylabi #1{%
+   \setmu \spacesylab {\space#1}     % <mezera>v lese -> <mezera>v~lese
+   \setmu \normalsylab {(#1}         % (v lese        -> (v~lese
+   \setmu \normalsylab {\endchar#1}  % <zacatek radku>v lese -> v~lese
+   \setmu \normalsylab {[#1}         % [v lese        -> [v~lese
+   \setmu \specsylab  {\leftbrace#1} % {v lese        -> {v~lese
+   \setmu \normalsylab {"`#1}        % "`v lese        -> "`v~lese (uvozovky "`..."')
+}
+% dve moznosti za predlozkou: mezera nebo konec radku:
+
+\def\sylab #1{\sylabi {#1\space}\sylabi {#1\endchar}}
+
+% seznam predlozek:
+
+\sylab v \sylab k \sylab o \sylab s \sylab u \sylab z
+\sylab V \sylab K \sylab O \sylab S \sylab U \sylab Z
+\sylab A \sylab I \sylab i \sylab a
+
+% makra neudelaji nic v matematickem modu a verbatim prostredi:
+% take se spravne prenesou do \tableofcontents
+
+\def\ZW@exx{\expandafter\expandafter\expandafter
+    \expandafter\expandafter\expandafter\expandafter}
+\def\spacesylab {\ifx\protect\@typeset@protect
+    \ifmmode\else\ifnum\catcode`\ =10 \ZW@exx\spacesylabP \fi\fi\fi}
+\def\normalsylab {\ifx\protect\@typeset@protect
+    \ifmmode\else\ifnum\catcode`\ =10 \ZW@exx\normalsylabP \fi\fi\fi}
+\def\specsylab {\ifx\protect\@typeset@protect
+    \ifmmode\else\ifnum\catcode`\ =10 \ZW@exx\specsylabP \fi\fi\fi}
+
+\def\spacesylabP {\afterassignment\spacesylabR \let\next= }
+\def\spacesylabR {\ifhmode\unskip\fi \next \normalsylabP}
+\def\normalsylabP #1 {#1~}
+\def\specsylabP #1{{\normalsylabP #1}}
+
+\AtBeginDocument{\mubytein=2 \mubyteout=3 \relax}  % potrebujeme i konstrukce "a v lese -> a~v~lese"
+
+% For use with microtye.sty
+
+\def\temp{\g@addto@macro\MT@setupfont@hook{\ifx\mubytein\undefined \else \mubytein 0 \fi}}
+\expandafter\ifx\csname MT@setupfont@hook\endcsname\relax
+  \AtBeginDocument{\expandafter\ifx\csname MT@setupfont@hook\endcsname\relax\else}%
+  \expandafter\AtBeginDocument\expandafter{\temp\fi}%
+\else \temp \fi

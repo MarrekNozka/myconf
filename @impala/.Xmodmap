@@ -1,0 +1,4 @@
+keycode 66 = Escape Escape
+clear lock
+!keycode 117 = Control_R
+!add Control = Control_R

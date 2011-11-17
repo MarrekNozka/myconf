@@ -1,0 +1,26 @@
+==================== ====================
+            ~ nadpis ~
+==================== ====================
+
+
+*)) nadpis ~
+
+=-
+
+
+*)) # write help
+======
+
+Nadpis ~
+-----
+>
+*text* |neco| ~truhlik~ 
+>
+    zdroják
+<   
+   
+
+vim:ft=help :spell spelllang=cs,en
+vim:foldenable:textwidth=80:foldmethod=marker:foldmarker=*)),\=-
+vim:foldopen=all:foldclose=all
+--

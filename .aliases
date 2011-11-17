@@ -1,0 +1,170 @@
+### Aliases and Functions for shell
+#
+#
+##### Glogal aliases ##########
+
+# enable color support of ls and also add handy aliases
+if [ "$TERM" != "dumb" ]; then
+    eval "`dircolors -b`"
+    alias ls='ls --color=auto -F'
+fi
+
+# some more ls aliases
+alias l='ls -CFm'
+alias ll='ls -lFh'
+alias la='ls -AF'
+alias lla='ls -AFlh'
+alias lld='ls -ld'
+lsd () { ls -ld $* && ls -l $*; }
+alias lsX='ls -X'
+alias lsS='ls -S'
+alias lst='ls -t'
+alias llt='ll -t'
+
+alias ip6='ip -6'
+alias less='less --ignore-case'
+
+
+# disk
+alias df='df -h'
+alias du='du -h'
+alias duu='du -hs'
+
+alias cpv='cp -v'
+alias cpr='cp -R'
+alias cprv='cp -Rv'
+alias cpvr='cp -Rv'
+
+mkdircd () { mkdir -p $1 && cd $1; }
+
+# proceses
+psg () { ps ax | grep $* | grep -v grep; }
+
+killg () { kill -9 $(ps ax | grep $* | grep -v grep | cut -d" " -f1,2;) }
+
+alias ps.='ps fux'
+alias pss='ps.'
+#
+alias netstat.='netstat -nap --inet --inet6'
+alias netstatt='netstat.'
+#
+alias zamknout='xtrlock'
+#
+alias cal.='ncal -3M | sed "/^So/i---------------------------------------------------------" | regexcolor "^(Po|St|Pá).*$" bold "\b$(date +%-d)\b" reverse'
+
+#################################################x
+VIMPATH=$(which vim)
+# vim, gvim
+    alias v='vim.basic'
+    alias v.NONE='vim.basic -u NONE' 
+    alias vi="$VIMPATH -p"
+    alias vi.NONE="$VIMPATH -u NONE"
+
+
+#######################################
+###### Dangerous and unimportent #######
+#
+if [ $USER != root ]; then
+    
+    alias akcent-ne='cstocs --onebyone utf8 ascii'
+    alias diakritika-ne='akcent-ne'
+    #alias pravopis='ispell -d czech -b'
+    alias messages-c='LC_MESSAGES=C'
+
+    alias kontroluj.Claws-Mail='md5sum .claws-mail/**/* 2>/dev/null| md5sum; md5sum Mail/**/* 2>/dev/null | md5sum;'
+
+# mocp
+alias m.play="mocp --play"
+alias mY="m.play"
+alias m.stop="mocp --stop"
+alias mS="m.stop"
+alias m.pause="mocp --toggle-pause"
+alias mP="m.pause"
+alias m.next="mocp --next"
+alias m.previous="mocp --previous"
+
+# Remind
+    #alias rem+='remind -n | sort; cat ~/.todo'
+    #alias rem='remind -c+2; cat ~/.todo'
+    alias todo='vi ~/Viki/ToDo.viki'
+    alias cat.todo='cat ~/.todo'
+    alias todo.cat='cat ~/.todo'
+
+# Wine
+    alias sas.exe='export LC_MESSAGES="cs_CZ.UTF-8"; wine "C:\SAS6\Programy\sas.exe"'
+    alias xnview.exe='env WINEPREFIX="/home/marek/.wine" wine "Z:\opt\XnView\xnview.exe"'
+# Lazarus, Delphi
+    alias delphi='wine C:\\Program\ Files\\Borland\\Delphi7\\Bin\\delphi32.exe'
+    alias lazarus.wine='wine C:\\lazarus\\lazarus.exe'
+    alias binarka='~/tmp/binarka'
+
+    #JAVA_HOME=/home/marek/bin/jre1.5.0_02
+    #JAVA_HOME=/usr/lib/sun-j2se5.0-jre
+    #export PATH=$JAVA_HOME/bin:$PATH
+
+    #alias kde='xinit /usr/bin/startkde -- :1'
+
+# mount 
+    alias cdrom='mount /media/cdrom'
+    alias ucdrom='umount /media/cdrom'
+
+    alias karlik='mount /media/karlik'
+    alias kkarlik='mount /media/karlik && cd /media/karlik'
+    alias ukarlik='umount /media/karlik && eject /media/karlik'
+    alias ukkarlik='cd ~ ; sleep 1 ; umount /media/karlik'
+
+    alias ecdrom='eject /media/cdrom'
+    alias zcdrom='eject -t /media/cdrom'
+    alias rcdrom='eject /media/cdrom ;eject -t /media/cdrom; mount /media/cdrom; cd /media/cdrom'
+
+#chmod
+    alias chmod.public_html='chmod -R a+r ~/public_html/'
+    alias nazeleno='chmod +x'
+
+# vim, gvim
+    alias vim='gvim -p'
+    alias vis='gvim -S' #:mksession
+    alias vit="gvim --servername GVIM --remote-send '<C-\><C-N>:tabnew<CR>' --remote "
+    vicd () { gvim "+cd $(dirname $1)" $1; }
+    viS () {
+        if [ -f ./vim.vim ]; then
+            gvim -S vim.vim
+        else
+            gvim $1
+        fi
+    }
+    vi.date() { 
+        l=$1; 
+        shift;
+        vi $(dirname $l)/$(LC_TIME=C date +%Y%m%d-%a)-$(basename $l) $@
+    }
+
+    vi.c() { vi "$(ls -tp *.c |head -n 1)" $@ }
+
+# Web
+    web.caritas () { echo "lcd ~/weby/lipnik.caritas.cz/; open caritas; mirror -Rnve ."|lftp;}
+    #web.farnost.www () { echo "lcd ~/weby/farnostlipnik.cz/; open farnost; mirror -RnveL www"|lftp;}
+    #web.pascal-du () { echo "lcd ~/public_html/; open tlapicka; mirror -ReL pascal-du"|lftp;}
+    #alias mamut.web='unison mamut'
+    alias unison-lenny='unison-2.27'
+    alias web.farnost='unison farnostlipnik.cz'
+    alias web.tlapicka='unison tlapicka.net'
+    alias web.tlapicka.foto='unison foto.tlapicka.net'
+    alias web.hroch='~/bin/web-hroch.sh'
+    alias web.all='web.hroch; web.tlapicka.foto; web.tlapicka; web.farnost'
+
+# PowerOff
+# poweroff () { synchronizuj.sh && sudo poweroff;}
+# poweroff () { sudo poweroff;}
+
+    winxp.lp6() {
+        for i in $@; do
+            PC=$i;
+            cat ~/Documents/SPSe/LP6-laborator/.passwd | 
+            rdesktop -k en-us -u administrator -p -  -g 90% -a 16 -d lp6$PC 172.16.6.1$PC &
+        done
+    }
+fi
+#
+# vim:nospell:ft=zsh:
+

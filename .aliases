@@ -90,6 +90,9 @@ alias m.previous="mocp --previous"
     alias cat.todo='cat ~/.todo'
     alias todo.cat='cat ~/.todo'
 
+# Supl
+alias supl='w3m http://www.spseol.cz/data/rozvrhy/suplobec.htm -dump | egrep No'
+
 # Wine
     alias sas.exe='export LC_MESSAGES="cs_CZ.UTF-8"; wine "C:\SAS6\Programy\sas.exe"'
     alias xnview.exe='env WINEPREFIX="/home/marek/.wine" wine "Z:\opt\XnView\xnview.exe"'

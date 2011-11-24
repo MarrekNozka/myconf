@@ -210,7 +210,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "s",      function () awful.util.spawn("mocp --stop") end),
     awful.key({ modkey,           }, "p",      function () awful.util.spawn("mocp --play") end),
     awful.key({ modkey, "Shift"   }, "Return", function () awful.util.spawn(smallTerminal) end),
-    awful.key({ modkey, "Control"   }, "Return", function () awful.util.spawn(iPython) end),
+    awful.key({ modkey, "Shift"   }, "p", function () awful.util.spawn(iPython) end),
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),

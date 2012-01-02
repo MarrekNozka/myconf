@@ -34,11 +34,11 @@ syn region  asm8051Commentc	start="/\*" end="\*/" contains=asmx86Todo
 syn keyword asm8051Todo		contained TODO ToDo XXX FIX FIXME CHANGED
 
 " Valid labels
-syn match   asm8051Label	"^[a-z_?.][a-z0-9_?.$]*[:]"
+syn match   asm8051Label	"^\s*[a-z_?.][a-z0-9_?.$]*[:]"
 
 " Various number formats
 syn match   hexNumber		"0x[0-9a-fA-F]\+\>"
-syn match hexNumber		"\<[0][0-9a-fA-F]*H\>"
+syn match hexNumber		"\<[0-9][0-9a-fA-F]*H\>"
 " syn match octNumber		"@[0-7]\+\>"
 syn match octNumber		"\<[0-7]\+[QO]\>"
 " syn match binNumber		"%[01]\+\>"
@@ -50,7 +50,7 @@ syn match decNumber		"\<[0-9]\+D\=\>"
 syn match   asm8051Reg		"[Rr][0-7]"
 
 " Ports
-syn match   asm8051Port		"[Pp][0-3]"
+syn match   asm8051Port		"[Pp][0-3]\(\.[0-7]\)\?"
 
 " SFRs
 syn keyword asm8051Reg		a b psw dps dptr dpl dph dpl1 dph1 
@@ -82,8 +82,7 @@ syn match   asm8051Opcode	"\<xch{d]*\>"
 
 " Program Branch Operations
 syn match   asm8051Opcode	"\<[al]\?call\>"
-syn match   asm8051Opcode	"\<ret{i]*\>"
-syn match   asm8051Opcode	"\<ret\>"
+syn match   asm8051Opcode	"\<ret[i]*\>"
 syn match   asm8051Opcode	"\<[als]*jmp\>"
 syn match   asm8051Opcode	"\<j[n]*[zcb]\>"
 syn match   asm8051Opcode	"\<jbc\>"
@@ -177,6 +176,12 @@ syn match   asm8051Directive	"\<STACK\s"
 
 " Value Assignment
 syn match   asm8051Directive	"="
+syn match   asm8051Directive 	"\<bit\s"
+syn match   asm8051Directive 	"\<equ\s"
+syn match   asm8051Directive 	"\<code\s"
+syn match   asm8051Directive 	"\<i\?data\s"
+syn match   asm8051Directive 	"\<db\s"
+syn match   asm8051Directive 	"\<dw\s"
 syn match   asm8051Directive	"\<EQU\s"
 syn match   asm8051Directive	"\<ALIAS\s"
 syn match   asm8051Directive	"\<ASSIGN\s"
@@ -217,6 +222,12 @@ syn match   asm8051Directive	"\<WHILE\s"
 " Data Definition/Allocation
 syn match   asm8051Directive	"\<D[BDSTW]\s"
 syn match   asm8051Directive	"\<D[CS]\(\(8\)\|\(16\)\|\(24\)\|\(32\)\)\s"
+
+" label after instruction
+"\<[als]*jmp\>
+syn region  asm8051Label matchgroup=asm8051Opcode start="\<[als]*jmp\s\+" end="\s\|$"
+syn region  asm8051Label matchgroup=asm8051Opcode start="\<[al]*call\s\+" end="\s\|$"
+
 
 syn case match
 

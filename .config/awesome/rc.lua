@@ -19,7 +19,8 @@ beautiful.init(awful.util.getdir("config") .. "/themes/default/wine.lua")
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"
 smallTerminal = "urxvt  -fn -*-terminus-medium-r-*--16-*-*-*-*-*-iso10646-1"
-iPython = "rxvt-unicode -e ipython -pylab -p marek"
+-- iPython = "rxvt-unicode -e ipython -pylab -q4thread -p marek"
+iPython = "rxvt-unicode -e ipython -pylab -q4thread"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -320,6 +321,8 @@ awful.rules.rules = {
       properties = { floating = false } },
     { rule = { class = "ImageMagick" },
       properties = { floating = true } },
+    { rule = { class = "gmrun" },
+      properties = { ontop = true } }
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { tag = tags[1][2] } },

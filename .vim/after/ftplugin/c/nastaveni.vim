@@ -21,10 +21,14 @@ imap <Leader>ru <Esc>:Run<Return>
 command! Go write | !easymake %
 map <Leader>go :Go<Return>
 imap <Leader>go <Esc>:Go<Return>
-"indent
+
+"indent aktuální funkce
 set formatprg=indent
-map <Leader><Return> mygggqG`y
-imap <Leader><Return> <Esc>mygggqG`ya
+map <Leader><Return> my[[gq]]`y
+imap <Leader><Return> <Esc><Leader><Return>
+" indent celého souboru
+map <Leader>g<Return> mygggqG`y
+imap <Leader>g<Return> <Esc><Leader><Return>
 
 set nospell
 set nowrap

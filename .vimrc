@@ -102,6 +102,7 @@ let maplocalleader = ",,"
 au BufNewFile,BufRead *.t2t set ft=txt2tags
 au BufNewFile *.t2t 0r ~/.vim/sablony/txt2tags.t2t
 au BufNewFile,BufRead *.asm set ft=asm8051
+au BufNewFile,BufRead *.inc set ft=asm8051
 
 au BufRead *.PAS set ft=pascal
 au BufRead *.lpr set ft=pascal
@@ -120,7 +121,8 @@ set nofoldenable
 set tags=./tags,./TAGS,tags,TAGS,~/.vim/tags
 
 "Vzhled
-colorscheme torte
+colorscheme desert
+"colorscheme torte
 "colorscheme koehler
 set guioptions=aAcrLm " Vzhled
 command Nomenu set guioptions=aAcrLm "e

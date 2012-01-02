@@ -24,6 +24,8 @@ alias llt='ll -t'
 alias ip6='ip -6'
 alias less='less --ignore-case'
 
+alias py='ipython -pylab -q4thread'
+
 
 # disk
 alias df='df -h'
@@ -143,6 +145,7 @@ alias supl='w3m http://www.spseol.cz/data/rozvrhy/suplobec.htm -dump | egrep No'
     }
 
     vi.c() { vi "$(ls -tp *.c |head -n 1)" $@ }
+    vi.py() { vi "$(ls -tp *.py |head -n 1)" $@ }
 
 # Web
     web.caritas () { echo "lcd ~/weby/lipnik.caritas.cz/; open caritas; mirror -Rnve ."|lftp;}

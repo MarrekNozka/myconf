@@ -12,19 +12,21 @@ command W write
 command Nazeleno !chmod +x %
 "set printencoding=iso8859-2 
 "set printexpr=system('kprinter'\ .\ '\ '\ .\ v:fname_in)\ .\ delete(v:fname_in)\ +\ v:shell_error
-set printexpr=system('gtklp'\ .\ '\ '\ .\ v:fname_in)\ .\ delete(v:fname_in)\ +\ v:shell_error
+set printexpr=system('gtklp'\ .\ (&printdevice\ ==\ ''\ ?\ ''\ :\ '\ -P'\ .\ &printdevice)\ .\ '\ '\ .\ v:fname_in)\ .\ delete(v:fname_in)\ +\ v:shell_error
+
 set showcmd	 "ukazuje příkazy na posledním řádku
 set showmode 	 "ukazuj režim INZERT, REPLACE ....
 set number	 "ukazuje čísla řádků
 set ruler	 "ukazuj pozici kurzoru
 set laststatus=2 " znamená, že chceme, aby byl stavový řádek zapnutý vždy
 "set statusline=%1*%n:%*\ %<%f\ %y%m%2*%r%*%=[%b,0x%B]\ \ %l/%L,%c%V\ \ %P\ %{VimBuddy()} "stavový řádek
-set statusline=%1*%n:%*\ %<%f\ %y%m%2*%r%*%=[%b,0x%B]\ \ %l/%L,%c%V\ \ %P\ } "stavový řádek
+"set statusline=%1*%n:%*\ %<%f\ %y%m%2*%r%*\ \(%F\)%=[%b,0x%B]\ \ %l/%L,%c%V\ \ %P\ } "stavový řádek
+set statusline=%1*%n:%*\ %<%f\ %y%m%2*%r%*\ %=[%b,0x%B]\ \ %l/%L,%c%V\ \ %P\ "stavový řádek
 highlight User1 guibg=white guifg=blue 
 highlight User2 guibg=white guifg=red
 
 " pwd
-set autochdir
+"set autochdir
 
 set lazyredraw
 set display=lastline "Zobrazovat alespoň část řádku místo nehezkých @.
@@ -121,7 +123,7 @@ set nofoldenable
 set tags=./tags,./TAGS,tags,TAGS,~/.vim/tags
 
 "Vzhled
-colorscheme desert
+"colorscheme desert
 "colorscheme torte
 "colorscheme koehler
 set guioptions=aAcrLm " Vzhled

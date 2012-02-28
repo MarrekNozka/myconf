@@ -10,17 +10,39 @@ require("naughty")
 -- Load Debian menu entries
 require("debian.menu")
 
+-- {{{ Error handling
+-- Check if awesome encountered an error during startup and fell back to
+-- another config (This code will only ever execute for the fallback config)
+if awesome.startup_errors then
+    naughty.notify({ preset = naughty.config.presets.critical,
+                     title = "Oops, there were errors during startup!",
+                     text = awesome.startup_errors })
+end
+
+-- Handle runtime errors after startup
+do
+    local in_error = false
+    awesome.add_signal("debug::error", function (err)
+        -- Make sure we don't go into an endless error loop
+        if in_error then return end
+        in_error = true
+
+        naughty.notify({ preset = naughty.config.presets.critical,
+                         title = "Oops, an error happened!",
+                         text = err })
+        in_error = false
+    end)
+end
+-- }}}
+
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
--- beautiful.init("/usr/share/awesome/themes/default/theme.lua")
-beautiful.init(awful.util.getdir("config") .. "/themes/default/wine.lua")
-
+--beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
+beautiful.init(awful.util.getdir("config") .. "/themes/wine.lua")
+--beautiful.init("/home/marek/.config/awesome/themes/wine.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "urxvt"
-smallTerminal = "urxvt  -fn -*-terminus-medium-r-*--16-*-*-*-*-*-iso10646-1"
--- iPython = "rxvt-unicode -e ipython -pylab -q4thread -p marek"
-iPython = "rxvt-unicode -e ipython -pylab -q4thread"
+terminal = "x-terminal-emulator"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -39,13 +61,13 @@ layouts =
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
---    awful.layout.suit.fair,
+    awful.layout.suit.fair,
     awful.layout.suit.fair.horizontal,
---    awful.layout.suit.spiral,
---    awful.layout.suit.spiral.dwindle,
-    awful.layout.suit.magnifier,
+    awful.layout.suit.spiral,
+    awful.layout.suit.spiral.dwindle,
+    awful.layout.suit.max,
     awful.layout.suit.max.fullscreen,
-    awful.layout.suit.max
+    awful.layout.suit.magnifier
 }
 -- }}}
 
@@ -62,7 +84,7 @@ end
 -- Create a laucher widget and a main menu
 myawesomemenu = {
    { "manual", terminal .. " -e man awesome" },
-   { "edit config", editor_cmd .. " " .. awful.util.getdir("config") .. "/rc.lua" },
+   { "edit config", editor_cmd .. " " .. awesome.conffile },
    { "restart", awesome.restart },
    { "quit", awesome.quit }
 }
@@ -100,11 +122,17 @@ mytaglist.buttons = awful.util.table.join(
 mytasklist = {}
 mytasklist.buttons = awful.util.table.join(
                      awful.button({ }, 1, function (c)
-                                              if not c:isvisible() then
-                                                  awful.tag.viewonly(c:tags()[1])
+                                              if c == client.focus then
+                                                  c.minimized = true
+                                              else
+                                                  if not c:isvisible() then
+                                                      awful.tag.viewonly(c:tags()[1])
+                                                  end
+                                                  -- This will also un-minimize
+                                                  -- the client, if needed
+                                                  client.focus = c
+                                                  c:raise()
                                               end
-                                              client.focus = c
-                                              c:raise()
                                           end),
                      awful.button({ }, 3, function ()
                                               if instance then
@@ -172,17 +200,15 @@ root.buttons(awful.util.table.join(
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
-    awful.key({ modkey,           }, ",",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
-    awful.key({ modkey,           }, ".",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
 
-    awful.key({ modkey,           }, "k",
+    awful.key({ modkey,           }, "j",
         function ()
             awful.client.focus.byidx( 1)
             if client.focus then client.focus:raise() end
         end),
-    awful.key({ modkey,           }, "j",
+    awful.key({ modkey,           }, "k",
         function ()
             awful.client.focus.byidx(-1)
             if client.focus then client.focus:raise() end
@@ -203,15 +229,6 @@ globalkeys = awful.util.table.join(
             end
         end),
 
-    awful.key({ modkey,           }, "e",      function () awful.util.spawn("gmrun") end),
-    awful.key({ modkey,           }, "z",      function () awful.util.spawn("gmrun xtrlock ") end),
-    awful.key({ modkey,           }, "b",      function () awful.util.spawn("mocp --next") end),
-    awful.key({ modkey,           }, "v",      function () awful.util.spawn("mocp --previous") end),
-    awful.key({ modkey,           }, "c",      function () awful.util.spawn("mocp --toggle-pause") end),
-    awful.key({ modkey,           }, "s",      function () awful.util.spawn("mocp --stop") end),
-    awful.key({ modkey,           }, "p",      function () awful.util.spawn("mocp --play") end),
-    awful.key({ modkey, "Shift"   }, "Return", function () awful.util.spawn(smallTerminal) end),
-    awful.key({ modkey, "Shift"   }, "p", function () awful.util.spawn(iPython) end),
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
@@ -226,8 +243,10 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
 
+    awful.key({ modkey, "Control" }, "n", awful.client.restore),
+
     -- Prompt
-    --awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
+    awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
 
     awful.key({ modkey }, "x",
               function ()
@@ -246,7 +265,12 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
     awful.key({ modkey, "Shift"   }, "r",      function (c) c:redraw()                       end),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
-    awful.key({ modkey,           }, "n",      function (c) c.minimized = not c.minimized    end),
+    awful.key({ modkey,           }, "n",
+        function (c)
+            -- The client currently has the input focus, so it cannot be
+            -- minimized, since minimized clients can't have the focus.
+            c.minimized = true
+        end),
     awful.key({ modkey,           }, "m",
         function (c)
             c.maximized_horizontal = not c.maximized_horizontal
@@ -317,12 +341,6 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
-    { rule = { class = "ufraw" },
-      properties = { floating = false } },
-    { rule = { class = "ImageMagick" },
-      properties = { floating = true } },
-    { rule = { class = "gmrun" },
-      properties = { ontop = true } }
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { tag = tags[1][2] } },

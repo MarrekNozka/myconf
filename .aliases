@@ -24,7 +24,7 @@ alias llt='ll -t'
 alias ip6='ip -6'
 alias less='less --ignore-case'
 
-alias py='ipython -pylab -q4thread'
+alias py='ipython -pylab -q4thread -p pysh'
 
 
 # disk
@@ -152,6 +152,7 @@ alias supl='w3m http://www.spseol.cz/data/rozvrhy/suplobec.htm -dump | egrep No'
     #web.farnost.www () { echo "lcd ~/weby/farnostlipnik.cz/; open farnost; mirror -RnveL www"|lftp;}
     #web.pascal-du () { echo "lcd ~/public_html/; open tlapicka; mirror -ReL pascal-du"|lftp;}
     #alias mamut.web='unison mamut'
+    alias unison-squeeze='unison-2.32.52'
     alias unison-lenny='unison-2.27'
     alias web.farnost='unison farnostlipnik.cz'
     alias web.tlapicka='unison tlapicka.net'

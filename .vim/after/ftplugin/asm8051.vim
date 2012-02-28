@@ -2,6 +2,7 @@
 """"""""""""""""""""""""""""""""
 
 " Makej
+"command! Make write | make %
 command! Make write | make %<.hex
 map <Leader>ma :Make<Return>
 imap <Leader>ma <Esc>:Make<Return>

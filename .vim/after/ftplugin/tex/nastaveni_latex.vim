@@ -3,6 +3,7 @@
 "set makeprg=cslatex
 command! MakeDVI write | !cslatex %
 command! MakePDF write | !pdfcslatex %
+map <Leader>go :MakeDVI<Return>
 map <Leader>md :MakeDVI<Return>
 imap <Leader>md <Esc>:MakeDVI<Return>
 map <Leader>mp :MakePDF<Return>

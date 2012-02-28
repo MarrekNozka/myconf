@@ -1,5 +1,5 @@
-#!/usr/bin/python -Wall
-#!/usr/bin/env python -Wall
+#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf8 -*-
 # Soubor:  skeletonVIM_FILE_NAME
 # Datum:   skeletonVIM_CREATION_CZDATETIME
@@ -9,4 +9,13 @@
 # Popis:   
 # 
 
+import sys
 from sys import stdin, stdout, stderr
+from math import pi
+#########################################
+while True:
+    try:
+        line = raw_input('app>> ')    
+    except EOFError:
+        exit(0)
+

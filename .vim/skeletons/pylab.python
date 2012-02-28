@@ -6,15 +6,23 @@
 # Licence: GNU/GPL 
 # Úloha: 
 # Popis:   
-# 
-import pylab as lab
-import numpy as num
-from pylab import pi
-
-from matplotlib import rcParams #, rc
-#rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
+###################################################3 
+import matplotlib as mpl
+mpl.use('GTKAgg')
+mpl.use('Qt4Agg')
+#mpl.rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
 ## for Palatino and other serif fonts use:
-#rc('font',**{'family':'serif','serif':['Palatino']})
+#mpl.rc('font',**{'family':'serif','serif':['Palatino']})
+#mpl.rc('lines', linewidth=2, color='r')
 
-rcParams['text.usetex']=True
-rcParams['text.latex.unicode']=True
+mpl.rcParams['text.usetex']=True
+mpl.rcParams['text.latex.unicode']=True
+
+import numpy as num
+import scipy as sci
+import pylab as lab
+from pylab import pi
+#interactive mode 
+lab.ion()
+lab.ioff()
+

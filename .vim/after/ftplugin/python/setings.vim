@@ -1,7 +1,7 @@
 " Nastaveni pro python
 
 " Go
-map ,,go <Esc>:write \| !python %<Return>
+map ,,go <Esc>:write \| !python "%"<Return>
 imap ,,go <Esc><Leader>go
 
 " Makej

@@ -1,4 +1,4 @@
-set guifont=Terminus\ 19
+set guifont=Terminus\ 16
 colorscheme desert
 "colorscheme koehler
 "colorscheme torte

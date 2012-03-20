@@ -3,7 +3,7 @@
 # Datum:   01.09.2011 12:33
 # Autor:   Marek Nožka, marek <@T> tlapicka <dot> net
 # Licence: GNU/GPL 
-# Úloha:   downloat files form ~ to .
+# Úloha:   smázne soubory
 ############################################################
 setopt EXTENDED_GLOB
 

@@ -10,44 +10,17 @@ require("naughty")
 -- Load Debian menu entries
 require("debian.menu")
 
--- {{{ Error handling
--- Check if awesome encountered an error during startup and fell back to
--- another config (This code will only ever execute for the fallback config)
-if awesome.startup_errors then
-    naughty.notify({ preset = naughty.config.presets.critical,
-                     title = "Oops, there were errors during startup!",
-                     text = awesome.startup_errors })
-end
-
--- Handle runtime errors after startup
-do
-    local in_error = false
-    awesome.add_signal("debug::error", function (err)
-        -- Make sure we don't go into an endless error loop
-        if in_error then return end
-        in_error = true
-
-        naughty.notify({ preset = naughty.config.presets.critical,
-                         title = "Oops, an error happened!",
-                         text = err })
-        in_error = false
-    end)
-end
--- }}}
-
 -- {{{ Variable definitions
-homepath = os.getenv("HOME")
 -- Themes define colours, icons, and wallpapers
---beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
+-- beautiful.init("/usr/share/awesome/themes/default/theme.lua")
+beautiful.init(awful.util.getdir("config") .. "/themes/default/wine.lua")
 
-beautiful.init(awful.util.getdir("config") .. "/themes/wine.lua")
---beautiful.init(awful.util.getdir("config") .. "/themes/zenburn.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"
 smallTerminal = "urxvt  -fn -*-terminus-medium-r-*--16-*-*-*-*-*-iso10646-1"
 -- iPython = "rxvt-unicode -e ipython -pylab -q4thread -p marek"
-iPython = "rxvt-unicode -e ipython -pylab=gtk "
+iPython = "rxvt-unicode -e ipython -pylab -q4thread"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -81,20 +54,16 @@ layouts =
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ ' 1',' 2',' 3',' 4','_5_',' 6',' 7',' 8',' 9 |' }, s, layouts[1])
+    tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s, layouts[1])
 end
-awful.tag.setproperty(tags[1][4], "layout", layouts[9])
-awful.tag.setproperty(tags[1][5], "layout", layouts[2])
-awful.tag.setproperty(tags[1][6], "layout", layouts[2])
-awful.tag.setproperty(tags[1][7], "layout", layouts[2])
 -- }}}
 
 -- {{{ Menu
 -- Create a laucher widget and a main menu
 myawesomemenu = {
-   { "restart", awesome.restart },
    { "manual", terminal .. " -e man awesome" },
-   { "edit config", editor_cmd .. " " .. awesome.conffile },
+   { "edit config", editor_cmd .. " " .. awful.util.getdir("config") .. "/rc.lua" },
+   { "restart", awesome.restart },
    { "quit", awesome.quit }
 }
 
@@ -110,8 +79,7 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
 
 -- {{{ Wibox
 -- Create a textclock widget
---mytextclock = awful.widget.textclock({ align = "right" })
-mytextclock = awful.widget.textclock({ align = "right" }, "| %d.%m.%Y %H:%M " )
+mytextclock = awful.widget.textclock({ align = "right" })
 
 -- Create a systray
 mysystray = widget({ type = "systray" })
@@ -132,17 +100,11 @@ mytaglist.buttons = awful.util.table.join(
 mytasklist = {}
 mytasklist.buttons = awful.util.table.join(
                      awful.button({ }, 1, function (c)
-                                              if c == client.focus then
-                                                  c.minimized = true
-                                              else
-                                                  if not c:isvisible() then
-                                                      awful.tag.viewonly(c:tags()[1])
-                                                  end
-                                                  -- This will also un-minimize
-                                                  -- the client, if needed
-                                                  client.focus = c
-                                                  c:raise()
+                                              if not c:isvisible() then
+                                                  awful.tag.viewonly(c:tags()[1])
                                               end
+                                              client.focus = c
+                                              c:raise()
                                           end),
                      awful.button({ }, 3, function ()
                                               if instance then
@@ -207,25 +169,7 @@ root.buttons(awful.util.table.join(
 ))
 -- }}}
 
--- {{{
--- Function that show command output on screen 
--- Funkce pro vypsani vystupu prikazu na obrazovku
-local function notify_cmd(title, cmd, spawn)
-
-	-- Get data from command
-	local out = awful.util.pread(cmd)
-	
-	-- Escape output
-	out = awful.util.escape(out)
-	
-naughty.notify{text = title .. "\n" .. out, timeout = spawn}
-	
-end
--- }}}
-
 -- {{{ Key bindings
--- Ke zjištění správného kódu klávesy nám pomůže program xev.
--- potom jako klávesu zadávám #123
 globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, ",",   awful.tag.viewprev       ),
@@ -259,12 +203,8 @@ globalkeys = awful.util.table.join(
             end
         end),
 
-    -- Přidáno
     awful.key({ modkey,           }, "e",      function () awful.util.spawn("gmrun") end),
-    awful.key({ modkey            }, "F2",      function () awful.util.spawn("gmrun") end),
-    -- zamknuti pc (lock)
     awful.key({ modkey,           }, "z",      function () awful.util.spawn("gmrun xtrlock ") end),
---    awful.key({ modkey            }, "z",      function () awful.util.spawn("xtrlock") end),
     awful.key({ modkey,           }, "b",      function () awful.util.spawn("mocp --next") end),
     awful.key({ modkey,           }, "v",      function () awful.util.spawn("mocp --previous") end),
     awful.key({ modkey,           }, "c",      function () awful.util.spawn("mocp --toggle-pause") end),
@@ -272,68 +212,6 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "p",      function () awful.util.spawn("mocp --play") end),
     awful.key({ modkey, "Shift"   }, "Return", function () awful.util.spawn(smallTerminal) end),
     awful.key({ modkey, "Shift"   }, "p", function () awful.util.spawn(iPython) end),
-
-    -- hlasitost - multimedialni tlacitka (thinkpad r61)
-    awful.key({ }       , "#122", function () awful.util.spawn("amixer -q set Master 2- unmute") end),
-    awful.key({ }       , "#123", function () awful.util.spawn("amixer -q set Master 2+ unmute") end),
-    awful.key({ modkey }, "#122", function () awful.util.spawn("amixer -q set PCM 2- unmute") end),
-    awful.key({ modkey }, "#123", function () awful.util.spawn("amixer -q set PCM 2+ unmute") end),
-
-    -- plovouci okno na vsechny plochy
-    awful.key({ modkey }, "s",   function () client.focus.sticky = not client.focus.sticky end),
-
-    -- plovouci okno vzdy navrchu
-    awful.key({ modkey }, "y",   function () client.focus.ontop = not client.focus.ontop end),
-
-    -- schova okno
-    awful.key({ modkey },          "d",   function () client.focus.hide = not client.focus.hide end),
-
-    -- Notifikace - HELP
-    awful.key({ modkey },          "F1",   function ()
-        notify_cmd("Tahák Awesome : \n==========================\n", "cat " .. homepath .. "/.config/awesome/help.txt", 0)
-    end),
-
-    -- Notifikace - main info
-    awful.key({ modkey },          "F7",   function ()
-        notify_cmd("Volné místo", "df-wrapper.sh", 10)
-    end),
-
-    -- Notifikace - logs
-    awful.key({ modkey },          "F8",   function ()
-        notify_cmd("dmesg", "dmesg | tail -n 30", 10)
-        -- notify_cmd("/var/log/Xorg.0.log", "cat /var/log/Xorg.0.log | tail", 5)
-    end),
-        
-    -- Notifikace - net info
-    awful.key({ modkey },          "F5",   function ()
-        notify_cmd("Netstat ", "netstat -nat", 0)
-    end),
-        
-    -- Notifikace - proc
-    awful.key({ modkey },          "F3",   function ()
-        notify_cmd("Procesy", "ps -u | tail -n 30", 10)
-    end),	
-
-    -- cal
-    awful.key({ modkey },          "F9",   function ()
-        notify_cmd("Kalendář", "cal. -t", 0)
-    end),	
-
-    -- SSH connect
-    awful.key({modkey }, "F6", function ()
-        awful.prompt.run({ prompt = "SSH Connect: " }, mypromptbox[mouse.screen].widget,
-            function (host) awful.util.spawn(terminal .. " -e ssh " .. host, false) end)
-    end),
-
-    -- vertikalni a horzontalni resaiz oken
-    awful.key({ modkey, "Mod1" }, "Down", function () awful.client.incwfact(0.05) end),
-    awful.key({ modkey, "Mod1" }, "Up", function () awful.client.incwfact(-0.05) end),
-    awful.key({ modkey, "Mod1" }, "Right", function () awful.tag.incmwfact( 0.05)    end),
-    awful.key({ modkey, "Mod1" }, "Left", function () awful.tag.incmwfact(-0.05)    end),
-
-    -- Zobrazí / schová titlebar (20px vysoky).
-    awful.key({ modkey }, "q",   function () if client.focus.titlebar then awful.titlebar.remove(client.focus, { modkey = modkey, height = "20" }) else awful.titlebar.add(client.focus, { modkey = modkey, height = "20" }) end end),
-
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
@@ -348,10 +226,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
 
-    awful.key({ modkey, "Control" }, "n", awful.client.restore),
-
     -- Prompt
-    awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
+    --awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
 
     awful.key({ modkey }, "x",
               function ()
@@ -365,19 +241,13 @@ globalkeys = awful.util.table.join(
 clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
-    awful.key({ modkey            }, "F4",     function (c) c:kill()                         end),
+    awful.key({ modkey,           }, "F4",     function (c) c:kill()                         end),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
-    awful.key({ modkey            }, "a",      awful.client.floating.toggle                     ),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
     awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
     awful.key({ modkey, "Shift"   }, "r",      function (c) c:redraw()                       end),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
-    awful.key({ modkey,           }, "n",
-        function (c)
-            -- The client currently has the input focus, so it cannot be
-            -- minimized, since minimized clients can't have the focus.
-            c.minimized = true
-        end),
+    awful.key({ modkey,           }, "n",      function (c) c.minimized = not c.minimized    end),
     awful.key({ modkey,           }, "m",
         function (c)
             c.maximized_horizontal = not c.maximized_horizontal
@@ -433,9 +303,6 @@ clientbuttons = awful.util.table.join(
 root.keys(globalkeys)
 -- }}}
 
---
--- $ xprop | egrep -i class 
--- 
 -- {{{ Rules
 awful.rules.rules = {
     -- All clients will match this rule.
@@ -445,23 +312,42 @@ awful.rules.rules = {
                      focus = true,
                      keys = clientkeys,
                      buttons = clientbuttons } },
-    { rule = { class = "MPlayer" }, properties = { floating = true } },
-    { rule = { class = "Stickynotes_applet" }, properties = { floating = true } },
-    { rule = { class = "Topshelf.py" }, properties = { floating = true } },
-    { rule = { class = "Display" }, properties = { floating = true } },
-    { rule = { class = "Ipython" }, properties = { floating = true } },
-    { rule = { class = "Pinentry" }, properties = { floating = true } },
-    { rule = { class = "Stardict" }, properties = { floating = true } },
-    { rule = { class = "Gimp" }, properties = { floating = true } },
-    { rule = { class = "Stardict" }, properties = { floating = true } },
-    { rule = { class = "Tilda" }, properties = { floating = true } },
-    { rule = { class = "Yakuake" }, properties = { floating = true, border_width = 0 } },
-    { rule = { class = "Guake" }, properties = { floating = true } },
-    { rule = { class = "Wine" }, properties = { floating = true, border_color = "#d1940c" } },
-    { rule = { class = "foo" }, properties = { floating = false } },
-    { rule = { class = " " }, properties = { floating = true } },
-    { rule = { class = "Wpa_gui" }, properties = { floating = true } },
-    { rule = { class = "Gmrun" }, properties = { ontop = true } }
+    { rule = { class = "MPlayer" },
+      properties = { floating = true } },
+    { rule = { class = "Stickynotes_applet" },
+      properties = { floating = true } },
+    { rule = { class = "Topshelf.py" },
+      properties = { floating = true } },
+    { rule = { class = "Display" },
+      properties = { floating = true } },
+    { rule = { class = " " },
+      properties = { floating = true } },
+    { rule = { class = "Ipython" },
+      properties = { floating = true } },
+    { rule = { class = "Pinentry" },
+      properties = { floating = true } },
+    { rule = { class = "Stardict" },
+      properties = { floating = true } },
+    { rule = { class = "Gimp" },
+      properties = { floating = true } },
+    { rule = { class = "Stardict" },
+      properties = { floating = true } },
+    { rule = { class = "Tilda" },
+      properties = { floating = true } },
+    { rule = { class = "Yakuake" },
+      properties = { floating = true,
+                     border_width = 0
+                   } },
+    { rule = { class = "Wine" },
+      properties = { floating = true,
+                     border_color = "#d1940c"
+                   } },
+    { rule = { class = "Guake" },
+      properties = { floating = true } },
+    { rule = { class = "Ufraw" },
+      properties = { floating = false } },
+    { rule = { class = "Gmrun" },
+      properties = { ontop = true } }
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { tag = tags[1][2] } },
@@ -472,7 +358,7 @@ awful.rules.rules = {
 -- Signal function to execute when a new client appears.
 client.add_signal("manage", function (c, startup)
     -- Add a titlebar
-    -- awful.titlebar.add(c, { modkey = modkey , height = "18"})
+    -- awful.titlebar.add(c, { modkey = modkey })
 
     -- Enable sloppy focus
     c:add_signal("mouse::enter", function(c)
@@ -485,7 +371,7 @@ client.add_signal("manage", function (c, startup)
     if not startup then
         -- Set the windows at the slave,
         -- i.e. put it at the end of others instead of setting it master.
-        awful.client.setslave(c)
+        -- awful.client.setslave(c)
 
         -- Put windows in a smart way, only if they does not set an initial position.
         if not c.size_hints.user_position and not c.size_hints.program_position then

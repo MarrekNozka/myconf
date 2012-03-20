@@ -1,0 +1,14 @@
+" ~/.vimperatorrc
+
+set wildmode=list:longest,list:full
+map ,,m :set gui=menu<CR>
+map ,,M :set gui=nomenu<CR>
+map ,,b :set gui=bookmarks<CR>
+map ,,B :set gui=nobookmarks<CR>
+map ,,t :set gui=navigation<CR>
+map ,,T :set gui=nonavigation<CR>
+
+map <C-b> :emenu Zobrazení.Postranní lišta.Záložky<Return>
+map <C-d> :emenu Záložky.Přidat stránku do záložek<Return>
+
+" vim:ft=vim:

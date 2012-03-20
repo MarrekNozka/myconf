@@ -24,9 +24,6 @@ alias llt='ll -t'
 alias ip6='ip -6'
 alias less='less --ignore-case'
 
-alias py='ipython -pylab -q4thread -p pysh'
-
-
 # disk
 alias df='df -h'
 alias du='du -h'
@@ -52,7 +49,7 @@ alias netstatt='netstat.'
 #
 alias zamknout='xtrlock'
 #
-alias cal.='ncal -3M | sed "/^So/i---------------------------------------------------------" | regexcolor "^(Po|St|Pá).*$" bold "\b$(date +%-d)\b" reverse'
+#alias cal.='ncal -3M | sed "/^So/i---------------------------------------------------------" | regexcolor "^(Po|St|Pá).*$" bold "\b$(date +%-d)\b" reverse'
 
 #################################################x
 VIMPATH=$(which vim)
@@ -154,7 +151,7 @@ alias supl='w3m http://www.spseol.cz/data/rozvrhy/suplobec.htm -dump | egrep No'
     #alias mamut.web='unison mamut'
     alias unison-squeeze='unison-2.32.52'
     alias unison-lenny='unison-2.27'
-    alias web.farnost='unison farnostlipnik.cz'
+    alias web.farnost='unison-2.32.52 farnostlipnik.cz'
     alias web.tlapicka='unison tlapicka.net'
     alias web.tlapicka.foto='unison foto.tlapicka.net'
     alias web.hroch='~/bin/web-hroch.sh'

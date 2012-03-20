@@ -18,7 +18,7 @@ for file in .Xdefaults .Xresources .Xsession .xinitrc .Xmodmap; do
 done
 
 ### shell Vim a TeX
-for file in .aliases .zshrc .vimrc .gvimrc texmf/ ; do
+for file in .aliases .zshrc .vimrc .vimperatorrc .gvimrc texmf/ ; do
     cp -av ~/$file ./
 done
 
@@ -40,10 +40,10 @@ cp -av ~/.config/awesome/ ./.config/
 ####################################
 ### Binárky
 binarky="regexcolor.pl regexcount.pl easymake.sh easyssh.sh"
-binarky="$binarky xplanet-vymena.sh"
+binarky="$binarky xplanet.sh"
 
 odkazy="regexcolor regexcount"
-odkazy="$odkazy xplanet-vymena.sh"
+odkazy="$odkazy xplanet.sh"
 
 echo "######## binaries #########"
 [ -d ./bin ] || mkdir bin

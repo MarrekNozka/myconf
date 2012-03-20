@@ -1,12 +1,10 @@
 #!/bin/bash
-# Soubor:  xplanet-vymena.sh
-# Datum:   12.01.2011 21:12
+# Soubor:  xplanet.sh
+# Datum:   27.02.2012 14L08
 # Autor:   Marek Nožka, marek <@T> tlapicka <dot> net
 # Licence: GNU/GPL 
-# Úloha: vymění xplanet obrázek na ploše
+# Úloha:   vymění xplanet obrázek na ploše
 ############################################################
-
-kill $(cat $XPLANET_PID_FILE)
 
 
 #display -window root /home/marek/Grafika/pozadi/straznice.png
@@ -53,13 +51,8 @@ DELKA=${#XPLANETCMD[@]}
 INDEX=$[ $RANDOM % $DELKA ]
 #INDEX=6
 ROTATE=$[ $RANDOM % 70 ]
-nice -n 19 ${XPLANETCMD[$INDEX]} -rotate $ROTATE &
-XPLANETPID=$!
 
-echo ${XPLANETCMD[$INDEX]}
-echo XPLANETINDEX=$INDEX
-echo XPLANETROTATE=$ROTATE
-echo XPLANETPID=$XPLANETPID
-echo $XPLANETPID >$XPLANET_PID_FILE
+nice -n 19 ${XPLANETCMD[$INDEX]} -rotate $ROTATE -geometry 1680x1050 -num_times 1 -output ~/bg.png && awsetbg ~/bg.png
+
 
 # vim:nospell:

@@ -1,0 +1,46 @@
+Win+F2   gmrun
+Win+F3   ps -u
+Win+F4   Zavře okno
+Win+F5   netstat
+Win+F6   ssh
+Win+F7   df
+Win+F8   dmesg
+------------------------------------------------------
+Win+B    mocp --next
+Win+V    mocp --previous
+Win+C    mocp --toggle-pause
+Win+S    mocp --stop
+Win+P    mocp --play
+------------------------------------------------------
+Win+Shift+Enter               Prohodí pozici vybraného okna s master oknem
+Win+Enter,  Win+Shifti+Enter  Terminal
+Win+Control+J/K               Fokus na další/předchozí obrazovku
+
+Win+Shift+J/K         Prohodí pozici klientského okna s následujícím/předchozím
+Win+Shift+H/L         Zvýší/Sníží počet master oken o 1
+Win+Control+H/L       Zvýší/Sníží počet sloupců non-master oken o 1
+
+Win+LevýKlik  1-9     Přesune vybraného klienta daný tag
+Win+Shift +   1-9     Přesune vybrané okno na zvolený tag(1-9)
+
+    PravýKlik 1-9     Přidá tento tag do současného pohledu
+Win+Control + 1-9     Spojí pohled na vybrané tagy
+
+Win+PravýKlik 1-9     Spojí tento tag s vybraným klientem
+Win+Shift+Control+1-9 Zobrazí okno klienta i na dalším zvoleném tagu
+
+------------------------------------------------------
+Win+A, W+C+Space  Přepne plovoucí okno
+Win+S             plovouci okno na vsechny plochy
+Win+Y, Win+T      plovouci okno vzdy navrchu
+Win+D             schová okno
+Win+Q             Titlebar 
+Win+U             Jdi na urgentní okno
+Win+F             Nastaví vybrané klientské okno na fullscreen
+Win+N/M           Minimalizace/Maximalizace
+------------------------------------------------------
+Win+R           Run
+Win+X           Run Lua code
+Win+Control+R   Restart awesome
+Win+Shift+Q     Ukončit awesome
+-------------------------------------------------------------------------------------------

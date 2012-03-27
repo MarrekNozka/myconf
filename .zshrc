@@ -26,7 +26,10 @@ autoload -U compinit # -z
 compinit
 # automatické doplňování má barvičky
 zmodload -i zsh/complist
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+eval $(dircolors -b) 
+#zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
 
 setopt nohup
 #LC_MESSAGES=C

@@ -95,6 +95,7 @@ if ($opts{'g'} and !$max) {
 foreach $ex (@boxKeys) {
     printf "%-14s -> %7d ","#$ex#", $box{$ex};
     if ($opts{'g'} ) {
+        print "\n";
         for ( my $i=0; $i < $graphwidth * $box{$ex}/$box{$max}; $i++) {
             print "+";
         }

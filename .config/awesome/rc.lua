@@ -83,10 +83,10 @@ for s = 1, screen.count() do
     -- Each screen has its own tag table.
     tags[s] = awful.tag({ ' 1',' 2',' 3',' 4','_5_',' 6',' 7',' 8',' 9 |' }, s, layouts[1])
 end
-awful.tag.setproperty(tags[1][4], "layout", layouts[9])
-awful.tag.setproperty(tags[1][5], "layout", layouts[2])
-awful.tag.setproperty(tags[1][6], "layout", layouts[2])
-awful.tag.setproperty(tags[1][7], "layout", layouts[2])
+awful.tag.setproperty(tags[1][1], "layout", layouts[9])
+awful.tag.setproperty(tags[1][2], "layout", layouts[2])
+awful.tag.setproperty(tags[1][3], "layout", layouts[2])
+awful.tag.setproperty(tags[1][4], "layout", layouts[2])
 -- }}}
 
 -- {{{ Menu
@@ -278,9 +278,11 @@ globalkeys = awful.util.table.join(
     awful.key({ }       , "#123", function () awful.util.spawn("amixer -q set Master 2+ unmute") end),
     awful.key({ modkey }, "#122", function () awful.util.spawn("amixer -q set PCM 2- unmute") end),
     awful.key({ modkey }, "#123", function () awful.util.spawn("amixer -q set PCM 2+ unmute") end),
+    awful.key({ }       , "#146", function () awful.util.spawn("amixer -q set Master   mute") end),
+    awful.key({ modkey} , "#146", function () awful.util.spawn("zsh -c 'amixer -q set Master unmute; amixer -q set PCM unmute'") end),
 
     -- plovouci okno na vsechny plochy
-    awful.key({ modkey }, "s",   function () client.focus.sticky = not client.focus.sticky end),
+    awful.key({ modkey }, "d",   function () client.focus.sticky = not client.focus.sticky end),
 
     -- plovouci okno vzdy navrchu
     awful.key({ modkey }, "y",   function () client.focus.ontop = not client.focus.ontop end),
@@ -459,6 +461,9 @@ awful.rules.rules = {
     { rule = { class = "Guake" }, properties = { floating = true } },
     { rule = { class = "Wine" }, properties = { floating = true, border_color = "#d1940c" } },
     { rule = { class = "foo" }, properties = { floating = false } },
+    { rule = { class = "fooo" }, properties = { floating = false } },
+    { rule = { class = "fo0o" }, properties = { floating = false } },
+    { rule = { class = "Mssh" }, properties = { floating = true } },
     { rule = { class = " " }, properties = { floating = true } },
     { rule = { class = "Wpa_gui" }, properties = { floating = true } },
     { rule = { class = "Gmrun" }, properties = { ontop = true } }
@@ -497,4 +502,7 @@ end)
 
 client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+
+-- skočím hned na pátou plochu
+awful.tag.viewonly(tags[1][2])
 -- }}}

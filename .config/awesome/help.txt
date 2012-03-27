@@ -31,7 +31,7 @@ Win+Shift+Control+1-9 Zobrazí okno klienta i na dalším zvoleném tagu
 
 ------------------------------------------------------
 Win+A, W+C+Space  Přepne plovoucí okno
-Win+S             plovouci okno na vsechny plochy
+Win+D             plovouci okno na vsechny plochy
 Win+Y, Win+T      plovouci okno vzdy navrchu
 Win+D             schová okno
 Win+Q             Titlebar 

@@ -52,7 +52,8 @@ INDEX=$[ $RANDOM % $DELKA ]
 #INDEX=6
 ROTATE=$[ $RANDOM % 70 ]
 
-nice -n 19 ${XPLANETCMD[$INDEX]} -rotate $ROTATE -geometry 1680x1050 -num_times 1 -output ~/bg.png && awsetbg ~/bg.png
+RESOLUTION=$(xrandr 2>/dev/null | egrep '\*' | awk '{print $1;}' )
+nice -n 19 ${XPLANETCMD[$INDEX]} -rotate $ROTATE -num_times 1 -geometry $RESOLUTION -output ~/bg.png && awsetbg ~/bg.png
 
 
 # vim:nospell:

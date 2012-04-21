@@ -191,13 +191,13 @@ nnoremap <silent> <F8> :TlistToggle<CR>
  let g:EnhCommentifyUseSyntax = 'yes'
  
 """""  PotWiki
- let potwiki_home = "~/Documents/potWiki/HomePage"
- highlight PotwikiWord          guifg=darkcyan
- highlight PotwikiWordNotFound  guibg=Red guifg=Yellow
- au Filetype potwiki set sts=4
- let potwiki_upper = "A-ZĚŠČŘŽÝÁÍÉÚŮÓĎŤŘŇ:"
- let potwiki_lower = "a-zěščřžýáíéúůóďťřň"
- let potwiki_other ='0-9_'
+" let potwiki_home = "~/Documents/potWiki/HomePage"
+" highlight PotwikiWord          guifg=darkcyan
+" highlight PotwikiWordNotFound  guibg=Red guifg=Yellow
+" au Filetype potwiki set sts=4
+" let potwiki_upper = "A-ZĚŠČŘŽÝÁÍÉÚŮÓĎŤŘŇ:"
+" let potwiki_lower = "a-zěščřžýáíéúůóďťřň"
+" let potwiki_other ='0-9_'
  
 """""" Viki
  let g:vikiUpperCharacters = "A-ZĚŠČŘŽÝÁÍÉÚŮÓĎŤŘŇ"

@@ -288,7 +288,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "y",   function () client.focus.ontop = not client.focus.ontop end),
 
     -- schova okno
-    awful.key({ modkey },          "d",   function () client.focus.hide = not client.focus.hide end),
+    awful.key({ modkey },          "g",   function () client.focus.hide = not client.focus.hide end),
 
     -- Notifikace - HELP
     awful.key({ modkey },          "F1",   function ()
@@ -448,6 +448,7 @@ awful.rules.rules = {
                      keys = clientkeys,
                      buttons = clientbuttons } },
     { rule = { class = "MPlayer" }, properties = { floating = true } },
+    { rule = { class = "mplayer2" }, properties = { floating = true } },
     { rule = { class = "Stickynotes_applet" }, properties = { floating = true } },
     { rule = { class = "Topshelf.py" }, properties = { floating = true } },
     { rule = { class = "Display" }, properties = { floating = true } },
@@ -461,9 +462,10 @@ awful.rules.rules = {
     { rule = { class = "Guake" }, properties = { floating = true } },
     { rule = { class = "Wine" }, properties = { floating = true, border_color = "#d1940c" } },
     { rule = { class = "foo" }, properties = { floating = false } },
-    { rule = { class = "fooo" }, properties = { floating = false } },
-    { rule = { class = "fo0o" }, properties = { floating = false } },
+    { rule = { class = "MyPasswordSafe" }, properties = { floating = true } },
     { rule = { class = "Mssh" }, properties = { floating = true } },
+    { rule = { class = "Krusader" }, properties = { floating = true } },
+    { rule = { class = "f00" }, properties = { floating = true } },
     { rule = { class = " " }, properties = { floating = true } },
     { rule = { class = "Wpa_gui" }, properties = { floating = true } },
     { rule = { class = "Gmrun" }, properties = { ontop = true } }

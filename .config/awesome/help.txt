@@ -33,7 +33,7 @@ Win+Shift+Control+1-9 Zobrazí okno klienta i na dalším zvoleném tagu
 Win+A, W+C+Space  Přepne plovoucí okno
 Win+D             plovouci okno na vsechny plochy
 Win+Y, Win+T      plovouci okno vzdy navrchu
-Win+D             schová okno
+Win+G             schová okno
 Win+Q             Titlebar 
 Win+U             Jdi na urgentní okno
 Win+F             Nastaví vybrané klientské okno na fullscreen

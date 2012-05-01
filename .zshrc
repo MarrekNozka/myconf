@@ -26,7 +26,7 @@ autoload -U compinit # -z
 compinit
 # automatické doplňování má barvičky
 zmodload -i zsh/complist
-eval $(dircolors -b) 
+eval $(dircolors -b ~/.dir_colors) 
 #zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 

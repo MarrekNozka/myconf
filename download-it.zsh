@@ -18,7 +18,7 @@ for file in .Xdefaults .Xresources .Xsession .xinitrc .Xmodmap; do
 done
 
 ### shell Vim a TeX
-for file in .aliases .zshrc .vimrc .vimperatorrc .gvimrc texmf/ ; do
+for file in .aliases .zshrc .dir_colors .vimrc .vimperatorrc .gvimrc texmf/ ; do
     cp -av ~/$file ./
 done
 

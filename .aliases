@@ -72,6 +72,11 @@ if [ $USER != root ]; then
 
     alias kontroluj.Claws-Mail='md5sum .claws-mail/**/* 2>/dev/null| md5sum; md5sum Mail/**/* 2>/dev/null | md5sum;'
 
+# util
+hist() {
+    egrep $* ~/.histfile 
+}
+
 # mocp
 alias m.play="mocp --play"
 alias mY="m.play"
@@ -91,6 +96,7 @@ alias m.previous="mocp --previous"
 
 # Supl
 alias supl='w3m http://www.spseol.cz/data/rozvrhy/suplobec.htm -dump | egrep No'
+alias supl.='w3m http://www.spseol.cz/data/rozvrhy/suplobec.htm -dump | regexcolor No "bold yellow"'
 
 # Wine
     alias sas.exe='export LC_MESSAGES="cs_CZ.UTF-8"; wine "C:\SAS6\Programy\sas.exe"'

@@ -123,6 +123,7 @@ set nofoldenable
 set tags=./tags,./TAGS,tags,TAGS,~/.vim/tags
 
 "Vzhled
+colorscheme default
 "colorscheme desert
 "colorscheme torte
 "colorscheme koehler

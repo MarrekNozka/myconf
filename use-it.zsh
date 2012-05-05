@@ -6,4 +6,4 @@
 # Úloha:   install files from . to ~
 ############################################################
 
-cp -a .aliases .config .gvimrc .vim .vimrc .zshrc .dir_colors texmf bin ~
+cp -av .aliases .config .gvimrc .vim .vimrc .zshrc .dir_colors texmf bin ~

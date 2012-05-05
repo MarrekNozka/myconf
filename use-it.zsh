@@ -5,5 +5,11 @@
 # Licence: GNU/GPL 
 # Úloha:   install files from . to ~
 ############################################################
+setopt EXTENDED_GLOB
 
-cp -av .aliases .config .gvimrc .vim .vimrc .zshrc .dir_colors texmf bin ~
+cp -av .*~.git* *~*-it.zsh~README~@* ~
+
+### Konfiguráky závislé na hostitelské stanici
+host=$(hostname | sed -r -e "s/^([^.]+).*$/\1/")
+#cp -av ./@$host/.* ./@$host/* ~
+cp -av ./@$host/.*  ~

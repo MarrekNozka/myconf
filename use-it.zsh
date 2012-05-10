@@ -7,6 +7,8 @@
 ############################################################
 setopt EXTENDED_GLOB
 
+cd $(dirname $0)
+
 cp -av .*~.git* *~*-it.zsh~README~@* ~
 
 ### Konfiguráky závislé na hostitelské stanici

@@ -42,10 +42,6 @@ XPLANETCMD=(
 "xplanet -target mercury -radius $RADIUS"
 "xplanet -target venus -radius $RADIUS"
 "xplanet -target mars -radius $RADIUS"
-"xplanet -target uranus -radius $RADIUS"
-"xplanet -target neptune -radius $RADIUS"
-"xplanet -target pluto -radius $RADIUS"
-"xplanet -target sun -radius 1"
 )
 DELKA=${#XPLANETCMD[@]}
 INDEX=$[ $RANDOM % $DELKA ]

@@ -37,6 +37,11 @@
 % sází vodorovnou čáru
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \Kc{100}
+%
+% sází 100\,Kč
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \adresát{Karel Novák}
 %
 % \noindent \large \textbf{}
@@ -77,12 +82,15 @@
 }
 % oslovaní
 \newcommand{\osloveni}[1]{%
-    #1 
-    \par
-    \medskip
-    \par
-    \noindent\,%
+    #1% 
+    \par%
+    \medskip%
+    \par%
+    \noindent%
 }
+
+
+\newcommand{\Kc}[1]{#1\,Kč}
 
 % naše značka, vaše značka Horizontálně
 \newcommand{\znackaH}[2]{%
@@ -90,7 +98,7 @@
         \textbf{Vše značka}\hspace{1in}\= 
         \textbf{Naše značka}\hspace{0.5in} \= 
         \textbf{Vyžizuje} \hspace{0.7in}\= 
-        \textbf{Datum}   \\
+        \textbf{V Olomouci dne}   \\
         {\small#1} \> 
         {\small #2} \> 
         {\small Ing.\,Marek Nožka} 

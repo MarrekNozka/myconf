@@ -34,6 +34,8 @@ alias cpr='cp -R'
 alias cprv='cp -Rv'
 alias cpvr='cp -Rv'
 
+alias cleanlatex='rm ./*.aux ./*.log'
+
 mkdircd () { mkdir -p $1 && cd $1; }
 
 # proceses
@@ -47,7 +49,7 @@ alias pss='ps.'
 alias netstat.='netstat -nap --inet --inet6'
 alias netstatt='netstat.'
 #
-alias zamknout='xtrlock'
+alias 'forge=screen  -d -R -S forge'
 #
 #alias cal.='ncal -3M | sed "/^So/i---------------------------------------------------------" | regexcolor "^(Po|St|Pá).*$" bold "\b$(date +%-d)\b" reverse'
 
@@ -74,7 +76,7 @@ if [ $USER != root ]; then
 
 # util
 hist() {
-    egrep $* ~/.histfile 
+    egrep "$*" ~/.histfile 
 }
 
 # mocp

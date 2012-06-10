@@ -81,7 +81,7 @@ layouts =
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ ' 1',' 2',' 3',' 4','_5_',' 6',' 7',' 8',' 9 |' }, s, layouts[1])
+    tags[s] = awful.tag({ '!1!','@2@','#3#','$4$','%5%','^6^','&7&','*8*','_9_ |' }, s, layouts[1])
 end
 awful.tag.setproperty(tags[1][1], "layout", layouts[9])
 awful.tag.setproperty(tags[1][2], "layout", layouts[2])
@@ -449,6 +449,7 @@ awful.rules.rules = {
                      buttons = clientbuttons } },
     { rule = { class = "MPlayer" }, properties = { floating = true } },
     { rule = { class = "mplayer2" }, properties = { floating = true } },
+    { rule = { class = "Smplayer" }, properties = { floating = true } },
     { rule = { class = "Stickynotes_applet" }, properties = { floating = true } },
     { rule = { class = "Topshelf.py" }, properties = { floating = true } },
     { rule = { class = "Display" }, properties = { floating = true } },

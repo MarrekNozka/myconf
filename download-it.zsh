@@ -41,9 +41,11 @@ cp -av ~/.config/awesome/ ./.config/
 ### Binárky
 binarky="regexcolor.pl regexcount.pl easymake.sh easyssh.sh"
 binarky="$binarky xplanet.sh without.pl avi-x264-lame.sh video-z-fotaku.zsh"
+binarky="$binarky chwall.sh"
 
 odkazy="regexcolor regexcount"
 odkazy="$odkazy xplanet.sh without.pl avi-x264-lame video-z-fotaku.zsh" 
+odkazy="$odkazy chwall" 
 
 echo "######## binaries #########"
 [ -d ./bin ] || mkdir bin

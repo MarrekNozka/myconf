@@ -1,6 +1,22 @@
 #!/bin/bash
+# File:    chwall.sh
+# Date:    11.11.2011
+# Author:  Marek Nožka, marek <@t> tlapicka <d.t> net
+# Base on: Michal Pemčák: http://xbl7.skauting.cz/Navody/bgchanger/
+# Licence: GNU/GPL 
+# Task:    Change wallpaper
+# Description:
+#       Download random image from Google images, resize it
+#       and wallpapering it.
+############################################################
 
-echo "Hello. I'm ChWall"
+if [ -z $1 ]; then 
+    echo "Hello. I'm ChWall"
+    echo "I'm changing your wallpaper."
+    echo -ne "\n\t\$ chwall theme words for search"
+    echo -ne "\n\t\$ chwall star universe space\n"
+    exit 0;
+fi
 
 img="$HOME/img"
 

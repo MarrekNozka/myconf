@@ -1,10 +1,10 @@
 #!/bin/bash
-# Soubor:  skeletonVIM_FILE_NAME
-# Datum:   skeletonVIM_CREATION_CZDATETIME
-# Autor:   Marek Nožka, marek <@t> tlapicka <d.t> net
+# File:    skeletonVIM_FILE_NAME
+# Date:    skeletonVIM_CREATION_CZDATETIME
+# Author:  Marek Nožka, marek <@t> tlapicka <d.t> net
 # Licence: GNU/GPL 
-# Úloha: 
-# Popis:   
+# Task: 
+# Description:
 #
 ######################################################################
 #                         Proměnné                                   #

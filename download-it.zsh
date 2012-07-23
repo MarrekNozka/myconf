@@ -16,6 +16,12 @@ host=$(hostname | sed -r -e "s/^([^.]+).*$/\1/")
 for file in .Xdefaults .Xresources .Xsession .xinitrc .Xmodmap; do
     cp -av ~/$file ./@$host
 done
+cd @$host
+## awesome
+[ -d ./.config ] || mkdir ./.config
+cp -av ~/.config/awesome/ ./.config/
+cd -
+###############################################
 
 ### shell Vim a TeX
 for file in .aliases .zshrc .dir_colors .vimrc .vimperatorrc .gvimrc texmf/ ; do
@@ -23,7 +29,7 @@ for file in .aliases .zshrc .dir_colors .vimrc .vimperatorrc .gvimrc texmf/ ; do
 done
 
 [ -d ./.vim ] || mkdir .vim
-cp -av ~/.vim/.*~*.netrwhist ~/.vim/*~*(backup|viminfo|.zip|vba) ./.vim/
+cp -av ~/.vim/.*~*.netrwhist ~/.vim/*~*(backup|viminfo|.zip|.tmp|vba) ./.vim/
 if [ -d ./.vim/backup ]; then 
     rm ./.vim/backup/*
 else
@@ -32,9 +38,6 @@ else
 fi
 
 
-## awesome
-[ -d ./.config ] || mkdir .config
-cp -av ~/.config/awesome/ ./.config/
 
 
 ####################################

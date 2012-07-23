@@ -19,6 +19,7 @@ if [ -z $1 ]; then
 fi
 
 img="$HOME/img"
+work="/tmp/img"
 
 # čte počet obrázku z příkazovky
 for i in "$@"; do
@@ -47,8 +48,8 @@ wget -O $img "$url"
 
 identify $img
 
-RESOLUTION=$(xrandr 2>/dev/null | egrep '\*' | awk '{print $1;}' )
-mogrify -resize "$RESOLUTION>" $img
+RESOLUTION=$( randr 2>/dev/null | sed '/DVI.* connect/,$!d' | egrep '\*' | awk '{print $1;}' )
+convert -resize "$RESOLUTION>" $img $work
 #display  -backdrop -window root $img
-awsetbg -c $img
+awsetbg -c $work
 

@@ -12,5 +12,5 @@ cd $(dirname $0)
 ### Konfiguráky závislé na hostitelské stanici
 host=$(hostname | sed -r -e "s/^([^.]+).*$/\1/")
 
-rm -Rf ./.aliases bin ./.config ./.*vim* ./.z* ./texmf/
+rm -Rf ./.aliases bin ./.config ./.*vim* ./.z* ./texmf/ ./.dir_colors
 rm -Rf ./@$host

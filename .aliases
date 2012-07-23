@@ -49,7 +49,7 @@ alias pss='ps.'
 alias netstat.='netstat -nap --inet --inet6'
 alias netstatt='netstat.'
 #
-alias 'forge=screen  -d -R -S forge'
+#alias 'forge=screen  -d -R -S forge'
 #
 #alias cal.='ncal -3M | sed "/^So/i---------------------------------------------------------" | regexcolor "^(Po|St|Pá).*$" bold "\b$(date +%-d)\b" reverse'
 

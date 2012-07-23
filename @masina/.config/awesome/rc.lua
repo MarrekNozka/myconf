@@ -81,12 +81,17 @@ layouts =
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ '!1!','@2@','#3#','$4$','%5%','^6^','&7&','*8*','_9_ |' }, s, layouts[1])
+    if s == 1 then 
+        tags[s] = awful.tag({ '1','2','3','4','5','6','7','8','9 |' }, s, layouts[4])
+    end
+    if s == 2 then 
+        tags[s] = awful.tag({ '!1!','@2@','#3#','$4$','%5%','^6^','&7&','*8*','_9_ |' }, s, layouts[1])
+    end
 end
-awful.tag.setproperty(tags[1][1], "layout", layouts[9])
-awful.tag.setproperty(tags[1][2], "layout", layouts[2])
-awful.tag.setproperty(tags[1][3], "layout", layouts[2])
-awful.tag.setproperty(tags[1][4], "layout", layouts[2])
+awful.tag.setproperty(tags[2][1], "layout", layouts[9])
+awful.tag.setproperty(tags[2][2], "layout", layouts[4])
+awful.tag.setproperty(tags[2][3], "layout", layouts[4])
+awful.tag.setproperty(tags[2][4], "layout", layouts[4])
 -- }}}
 
 -- {{{ Menu
@@ -192,7 +197,8 @@ for s = 1, screen.count() do
         },
         mylayoutbox[s],
         mytextclock,
-        s == 1 and mysystray or nil,
+--        mysystray,
+        s == 2 and mysystray or nil,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
@@ -218,7 +224,9 @@ local function notify_cmd(title, cmd, spawn)
 	-- Escape output
 	out = awful.util.escape(out)
 	
-naughty.notify{text = title .. "\n" .. out, timeout = spawn}
+naughty.notify{text = title .. "\n" .. out, timeout = spawn,
+               screen = mouse.screen  
+}
 	
 end
 -- }}}
@@ -243,7 +251,7 @@ globalkeys = awful.util.table.join(
             awful.client.focus.byidx(-1)
             if client.focus then client.focus:raise() end
         end),
-    awful.key({ modkey,           }, "w", function () mymainmenu:show({keygrabber=true}) end),
+    awful.key({ modkey, "Shift"   }, "w", function () mymainmenu:show({keygrabber=true}) end),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end),
@@ -260,8 +268,9 @@ globalkeys = awful.util.table.join(
         end),
 
     -- Přidáno
-    awful.key({ modkey,           }, "e",      function () awful.util.spawn("gmrun") end),
+--    awful.key({ modkey,           }, "e",      function () awful.util.spawn("gmrun") end),
     awful.key({ modkey            }, "F2",      function () awful.util.spawn("gmrun") end),
+    awful.key({ modkey            }, "w",      function () awful.util.spawn("apwal") end),
     -- zamknuti pc (lock)
     awful.key({ modkey,           }, "z",      function () awful.util.spawn("gmrun xtrlock ") end),
 --    awful.key({ modkey            }, "z",      function () awful.util.spawn("xtrlock") end),
@@ -292,7 +301,7 @@ globalkeys = awful.util.table.join(
 
     -- Notifikace - HELP
     awful.key({ modkey },          "F1",   function ()
-        notify_cmd("Tahák Awesome : \n==========================\n", "cat " .. homepath .. "/.config/awesome/help.txt", 0)
+        notify_cmd("== Tahák Awesome ==", "cat " .. homepath .. "/.config/awesome/help.txt", 0)
     end),
 
     -- Notifikace - main info
@@ -353,7 +362,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
     -- Prompt
-    awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
+--    awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
 
     awful.key({ modkey }, "x",
               function ()
@@ -450,6 +459,7 @@ awful.rules.rules = {
     { rule = { class = "MPlayer" }, properties = { floating = true } },
     { rule = { class = "mplayer2" }, properties = { floating = true } },
     { rule = { class = "Smplayer" }, properties = { floating = true } },
+    { rule = { class = "Vlc" }, properties = { floating = true } },
     { rule = { class = "Stickynotes_applet" }, properties = { floating = true } },
     { rule = { class = "Topshelf.py" }, properties = { floating = true } },
     { rule = { class = "Display" }, properties = { floating = true } },
@@ -507,5 +517,5 @@ client.add_signal("focus", function(c) c.border_color = beautiful.border_focus e
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 
 -- skočím hned na pátou plochu
-awful.tag.viewonly(tags[1][2])
+awful.tag.viewonly(tags[2][2])
 -- }}}

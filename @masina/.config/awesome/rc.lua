@@ -103,14 +103,25 @@ myawesomemenu = {
    { "quit", awesome.quit }
 }
 
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
+mymainmenu = awful.menu({ items = { { "APWAL", function () awful.util.spawn("apwal") end},
+                                    { "awesome", myawesomemenu, beautiful.awesome_icon },
                                     { "Debian", debian.menu.Debian_menu.Debian },
                                     { "open terminal", terminal }
                                   }
                         })
 
+--mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
+--                                     menu = mymainmenu })
 mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
-                                     menu = mymainmenu })
+                                     command = "" }) 
+
+mylauncher:buttons(awful.util.table.join(
+                        mylauncher:buttons(),
+                        awful.button({ }, 1, function () mymainmenu:toggle({ keygrabber = true }) end),
+                        awful.button({ }, 3, function () awful.util.spawn("apwal") end)
+                        )
+                  )
+
 -- }}}
 
 -- {{{ Wibox
@@ -207,9 +218,11 @@ end
 
 -- {{{ Mouse bindings
 root.buttons(awful.util.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
+    awful.button({ }, 2, function () mymainmenu:toggle() end),
+    awful.button({ }, 3, function () awful.util.spawn("apwal") end),
     awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
+    awful.button({ }, 5, awful.tag.viewprev),
+    awful.button({ }, 6, function () awful.util.spawn("apwal") end)
 ))
 -- }}}
 
@@ -438,7 +451,8 @@ end
 clientbuttons = awful.util.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
     awful.button({ modkey }, 1, awful.mouse.client.move),
-    awful.button({ modkey }, 3, awful.mouse.client.resize))
+    awful.button({ modkey }, 3, awful.mouse.client.resize)
+    )
 
 -- Set keys
 root.keys(globalkeys)
@@ -517,5 +531,5 @@ client.add_signal("focus", function(c) c.border_color = beautiful.border_focus e
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 
 -- skočím hned na pátou plochu
-awful.tag.viewonly(tags[2][2])
+awful.tag.viewonly(tags[2][1])
 -- }}}

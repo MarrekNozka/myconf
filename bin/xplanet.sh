@@ -48,7 +48,8 @@ INDEX=$[ $RANDOM % $DELKA ]
 #INDEX=6
 ROTATE=$[ $RANDOM % 70 ]
 
-RESOLUTION=$(xrandr 2>/dev/null | egrep '\*' | awk '{print $1;}' )
+#RESOLUTION=$( xrandr 2>/dev/null | sed '/DVI.* connect/,$!d' | egrep '\*' | awk '{print $1;}' )
+RESOLUTION=$( xrandr 2>/dev/null | egrep '\*' | awk '{print $1;}' |tail -n 1 )
 nice -n 19 ${XPLANETCMD[$INDEX]} -rotate $ROTATE -num_times 1 -geometry $RESOLUTION -output ~/bg.png && awsetbg ~/bg.png
 
 

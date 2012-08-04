@@ -46,10 +46,16 @@ w3m -dump_source \
 
 wget -O $img "$url"
 
-identify $img
 
-RESOLUTION=$( randr 2>/dev/null | sed '/DVI.* connect/,$!d' | egrep '\*' | awk '{print $1;}' )
-convert -resize "$RESOLUTION>" $img $work
+RESOLUTION=$( xrandr 2>/dev/null | sed '/DVI.* connect/,$!d' | egrep '\*' | awk '{print $1;}' )
+
+#cp $img $work
+#mogrify -resize "$RESOLUTION>" $work
+convert $img -resize $RESOLUTION -background black -compose Copy -gravity center -extent $RESOLUTION $work 
+
 #display  -backdrop -window root $img
-awsetbg -c $work
+#awsetbg -c $work
+awsetbg $work
 
+echo "IMG:  $(identify $img)"
+echo "WORK: $(identify $work)"

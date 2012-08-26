@@ -82,7 +82,7 @@ tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
     if s == 1 then 
-        tags[s] = awful.tag({ '1','2','3','4','5','6','7','8','9 |' }, s, layouts[4])
+        tags[s] = awful.tag({ '1','2','3','4','5','6','7','8','9 |' }, s, layouts[9])
     end
     if s == 2 then 
         tags[s] = awful.tag({ '!1!','@2@','#3#','$4$','%5%','^6^','&7&','*8*','_9_ |' }, s, layouts[1])
@@ -103,8 +103,9 @@ myawesomemenu = {
    { "quit", awesome.quit }
 }
 
-mymainmenu = awful.menu({ items = { { "APWAL", function () awful.util.spawn("apwal") end},
+mymainmenu = awful.menu({ items = { 
                                     { "awesome", myawesomemenu, beautiful.awesome_icon },
+                                    { "APWAL", function () awful.util.spawn("apwal") end},
                                     { "Debian", debian.menu.Debian_menu.Debian },
                                     { "open terminal", terminal }
                                   }

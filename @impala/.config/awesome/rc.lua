@@ -98,14 +98,26 @@ myawesomemenu = {
    { "quit", awesome.quit }
 }
 
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
+mymainmenu = awful.menu({ items = { 
+                                    { "awesome", myawesomemenu, beautiful.awesome_icon },
+                                    { "APWAL", function () awful.util.spawn("apwal") end},
                                     { "Debian", debian.menu.Debian_menu.Debian },
                                     { "open terminal", terminal }
                                   }
                         })
 
+--mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
+--                                     menu = mymainmenu })
 mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
-                                     menu = mymainmenu })
+                                     command = "" }) 
+
+mylauncher:buttons(awful.util.table.join(
+                        mylauncher:buttons(),
+                        awful.button({ }, 1, function () mymainmenu:toggle({ keygrabber = true }) end),
+                        awful.button({ }, 3, function () awful.util.spawn("apwal") end)
+                        )
+                  )
+
 -- }}}
 
 -- {{{ Wibox
@@ -201,9 +213,11 @@ end
 
 -- {{{ Mouse bindings
 root.buttons(awful.util.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
+    awful.button({ }, 2, function () mymainmenu:toggle() end),
+    awful.button({ }, 3, function () awful.util.spawn("apwal") end),
     awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
+    awful.button({ }, 5, awful.tag.viewprev),
+    awful.button({ }, 6, function () awful.util.spawn("apwal") end)
 ))
 -- }}}
 
@@ -243,7 +257,7 @@ globalkeys = awful.util.table.join(
             awful.client.focus.byidx(-1)
             if client.focus then client.focus:raise() end
         end),
-    awful.key({ modkey,           }, "w", function () mymainmenu:show({keygrabber=true}) end),
+    awful.key({ modkey, "Shift"   }, "w", function () mymainmenu:show({keygrabber=true}) end),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end),
@@ -260,8 +274,9 @@ globalkeys = awful.util.table.join(
         end),
 
     -- Přidáno
-    awful.key({ modkey,           }, "e",      function () awful.util.spawn("gmrun") end),
+--    awful.key({ modkey,           }, "e",      function () awful.util.spawn("gmrun") end),
     awful.key({ modkey            }, "F2",      function () awful.util.spawn("gmrun") end),
+    awful.key({ modkey            }, "w",      function () awful.util.spawn("apwal") end),
     -- zamknuti pc (lock)
     awful.key({ modkey,           }, "z",      function () awful.util.spawn("gmrun xtrlock ") end),
 --    awful.key({ modkey            }, "z",      function () awful.util.spawn("xtrlock") end),
@@ -292,7 +307,7 @@ globalkeys = awful.util.table.join(
 
     -- Notifikace - HELP
     awful.key({ modkey },          "F1",   function ()
-        notify_cmd("Tahák Awesome : \n==========================\n", "cat " .. homepath .. "/.config/awesome/help.txt", 0)
+        notify_cmd("== Tahák Awesome ==", "cat " .. homepath .. "/.config/awesome/help.txt", 0)
     end),
 
     -- Notifikace - main info
@@ -353,7 +368,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
     -- Prompt
-    awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
+--    awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
 
     awful.key({ modkey }, "x",
               function ()
@@ -429,7 +444,8 @@ end
 clientbuttons = awful.util.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
     awful.button({ modkey }, 1, awful.mouse.client.move),
-    awful.button({ modkey }, 3, awful.mouse.client.resize))
+    awful.button({ modkey }, 3, awful.mouse.client.resize)
+    )
 
 -- Set keys
 root.keys(globalkeys)
@@ -450,6 +466,7 @@ awful.rules.rules = {
     { rule = { class = "MPlayer" }, properties = { floating = true } },
     { rule = { class = "mplayer2" }, properties = { floating = true } },
     { rule = { class = "Smplayer" }, properties = { floating = true } },
+    { rule = { class = "Vlc" }, properties = { floating = true } },
     { rule = { class = "Stickynotes_applet" }, properties = { floating = true } },
     { rule = { class = "Topshelf.py" }, properties = { floating = true } },
     { rule = { class = "Display" }, properties = { floating = true } },

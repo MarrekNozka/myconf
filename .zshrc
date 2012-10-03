@@ -214,7 +214,7 @@ fi
 #     Starrt terminálu, ToDo, Remind
 #############################################################
 if [ -z $loginsh ] && [ $USER != root ] && [ -z $NOTODO ]; then
-    cat .vim/linuxlogo  
+    cat ~/.vim/linuxlogo  
     if [ -x /usr/games/fortune ]; then
         fortune
     fi

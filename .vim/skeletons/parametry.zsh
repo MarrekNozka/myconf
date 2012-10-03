@@ -38,9 +38,13 @@ TOaONO() {
 ##.................................................................###
 #        zpracování přepínačů příkazového řádku
 
+if [ -z $1 ]; then
+    printHelp
+    exit 0;
+fi
 # pokud je zadán parametr -h nebo --help vytiskne help s končí
 for param in $@; do
-    if [ $param == "-h" ] || [ $param == "--help" ]; then
+    if [[ $param == "-h" ]] || [[ $param == "--help" ]]; then
         printHelp
         exit 0;
     fi

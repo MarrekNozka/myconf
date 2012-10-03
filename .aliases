@@ -9,6 +9,7 @@ if [ "$TERM" != "dumb" ]; then
     alias ls='ls --color=auto -F'
 fi
 
+alias uspat='sync && sudo s2disk'
 # some more ls aliases
 alias l='ls -CFm'
 alias ll='ls -lFh'

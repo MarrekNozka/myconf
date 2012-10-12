@@ -489,6 +489,7 @@ awful.rules.rules = {
     { rule = { class = "Guake" }, properties = { floating = true } },
     { rule = { class = "Wine" }, properties = { floating = true, border_color = "#d1940c" } },
     { rule = { class = "foo" }, properties = { floating = false } },
+    { rule = { class = "kvm" }, properties = { floating = true } },
     { rule = { class = "MyPasswordSafe" }, properties = { floating = true } },
     { rule = { class = "Mssh" }, properties = { floating = true } },
     { rule = { class = "Krusader" }, properties = { floating = true } },

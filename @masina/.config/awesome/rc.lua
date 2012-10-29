@@ -49,7 +49,8 @@ smallTerminal = "urxvt  -fn -*-terminus-medium-r-*--16-*-*-*-*-*-iso10646-1"
 -- iPython = "rxvt-unicode -e ipython -pylab -q4thread -p marek"
 iPython = "rxvt-unicode -e ipython -pylab=gtk "
 editor = os.getenv("EDITOR") or "editor"
-editor_cmd = terminal .. " -e " .. editor
+--editor_cmd = terminal .. " -e " .. editor
+editor_cmd = "gvim"
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -89,9 +90,48 @@ for s = 1, screen.count() do
     end
 end
 awful.tag.setproperty(tags[2][1], "layout", layouts[9])
+
 awful.tag.setproperty(tags[2][2], "layout", layouts[4])
+awful.tag.setproperty(tags[2][2], "setslave", true)
+awful.tag.setproperty(tags[2][2], "nmaster", 1)
+awful.tag.setproperty(tags[2][2], "mwfact", 0.70)
+
 awful.tag.setproperty(tags[2][3], "layout", layouts[4])
+awful.tag.setproperty(tags[2][3], "mwfact", 0.7)
+
 awful.tag.setproperty(tags[2][4], "layout", layouts[4])
+awful.tag.setproperty(tags[2][4], "mwfact", 0.7)
+-- }}}
+-- {{{ Tags
+-- Alternativní způsob
+-- Define tags table
+--tags = {}
+--tags.settings = {
+--    { name = "term",     layout = layouts[1], setslave = true, nmaster = 1, ncol = 1, mwfact = 0.600000 },
+--    { name = "file",     layout = layouts[7], setslave = true },
+--    { name = "work",     layout = layouts[1]  },
+--    { name = "web",      layout = layouts[7]  },
+--    { name = "mail/im",  layout = layouts[1]  },
+--    { name = "grafx",    layout = layouts[8]  },
+--    { name = "média",    layout = layouts[1]  },
+--    { name = "office",   layout = layouts[8]  },
+--    { name = "ostatní",  layout = layouts[1]  }
+--}
+---- Initialize tags
+--for s = 1, screen.count() do
+--    tags[s] = {}
+--    for i, v in ipairs(tags.settings) do
+--        tags[s][i] = tag(v.name)
+--        tags[s][i].screen = s
+--        awful.tag.setproperty(tags[s][i], "layout",   v.layout)
+--        awful.tag.setproperty(tags[s][i], "setslave", v.setslave)
+--        awful.tag.setproperty(tags[s][i], "mwfact",   v.mwfact)
+--        awful.tag.setproperty(tags[s][i], "nmaster",  v.nmaster)
+--        awful.tag.setproperty(tags[s][i], "ncols",    v.ncols)
+--        awful.tag.setproperty(tags[s][i], "icon",     v.icon)
+--    end
+--    tags[s][1].selected = true
+--end
 -- }}}
 
 -- {{{ Menu
@@ -143,8 +183,8 @@ mytaglist.buttons = awful.util.table.join(
                     awful.button({ modkey }, 1, awful.client.movetotag),
                     awful.button({ }, 3, awful.tag.viewtoggle),
                     awful.button({ modkey }, 3, awful.client.toggletag),
-                    awful.button({ }, 4, awful.tag.viewnext),
-                    awful.button({ }, 5, awful.tag.viewprev)
+                    awful.button({ }, 5, awful.tag.viewnext),
+                    awful.button({ }, 4, awful.tag.viewprev)
                     )
 mytasklist = {}
 mytasklist.buttons = awful.util.table.join(
@@ -221,8 +261,8 @@ end
 root.buttons(awful.util.table.join(
     awful.button({ }, 2, function () mymainmenu:toggle() end),
     awful.button({ }, 3, function () awful.util.spawn("apwal") end),
-    awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev),
+    awful.button({ }, 5, awful.tag.viewnext),
+    awful.button({ }, 4, awful.tag.viewprev),
     awful.button({ }, 6, function () awful.util.spawn("apwal") end)
 ))
 -- }}}
@@ -286,6 +326,7 @@ globalkeys = awful.util.table.join(
 --    awful.key({ modkey,           }, "e",      function () awful.util.spawn("gmrun") end),
     awful.key({ modkey            }, "F2",      function () awful.util.spawn("gmrun") end),
     awful.key({ modkey            }, "w",      function () awful.util.spawn("apwal") end),
+    awful.key({ modkey            }, "e",      function () awful.util.spawn("kupfer") end),
     -- zamknuti pc (lock)
     awful.key({ modkey,           }, "z",      function () awful.util.spawn("gmrun xtrlock ") end),
 --    awful.key({ modkey            }, "z",      function () awful.util.spawn("xtrlock") end),
@@ -308,8 +349,18 @@ globalkeys = awful.util.table.join(
     -- plovouci okno na vsechny plochy
     awful.key({ modkey }, "d",   function () client.focus.sticky = not client.focus.sticky end),
 
-    -- plovouci okno vzdy navrchu
-    awful.key({ modkey }, "y",   function () client.focus.ontop = not client.focus.ontop end),
+    -- plovouci okno vzdy navrchu, viz modkey+"t"
+--    awful.key({ modkey }, "y",   function () client.focus.ontop = not client.focus.ontop end),
+
+    -- přepne setslave
+    awful.key({ modkey   }, "y",
+        function ()
+            local screen = mouse.screen
+            local selTag = awful.tag.selected(screen)
+            awful.tag.setproperty(selTag, 
+                                 "setslave",
+                                 not awful.tag.getproperty(selTag,"setslave") )
+        end),
 
     -- schova okno
     awful.key({ modkey },          "g",   function () client.focus.hide = not client.focus.hide end),
@@ -408,6 +459,26 @@ clientkeys = awful.util.table.join(
         function (c)
             c.maximized_horizontal = not c.maximized_horizontal
             c.maximized_vertical   = not c.maximized_vertical
+        end),
+    -- přesune na vedlejší tag
+    awful.key({ modkey, "Shift"   }, ",",
+        function (c)
+            local curidx = awful.tag.getidx(c:tags()[1])
+            if curidx == 1 then
+                c:tags({screen[mouse.screen]:tags()[9]})
+            else
+                c:tags({screen[mouse.screen]:tags()[curidx - 1]})
+            end
+        end),
+    -- přesune na vedlejší tag
+    awful.key({ modkey, "Shift"   }, ".",
+    function (c)
+            local curidx = awful.tag.getidx(c:tags()[1])
+            if curidx == 9 then
+                c:tags({screen[mouse.screen]:tags()[1]})
+            else
+                c:tags({screen[mouse.screen]:tags()[curidx + 1]})
+            end
         end)
 )
 
@@ -483,12 +554,27 @@ awful.rules.rules = {
     { rule = { class = "Pinentry" }, properties = { floating = true } },
     { rule = { class = "Stardict" }, properties = { floating = true } },
     { rule = { class = "Gimp" }, properties = { floating = true } },
+    { rule = { class = "Gtklp" }, properties = { floating = true } },
+    { rule = { class = "GtkFoo" }, 
+                properties = { floating = true,
+                               tag = tags[2][1],
+                               x=110,
+                               y=100,
+                               maximized_vertical = true,
+                               maximized_horizontal = true
+                              } 
+             },
+    { rule = { class = "Iceweasel" }, 
+      except = { instance = "Navigator"},
+      properties = {floating = true}
+    },
     { rule = { class = "Stardict" }, properties = { floating = true } },
     { rule = { class = "Tilda" }, properties = { floating = true } },
     { rule = { class = "Yakuake" }, properties = { floating = true, border_width = 0 } },
     { rule = { class = "Guake" }, properties = { floating = true } },
     { rule = { class = "Wine" }, properties = { floating = true, border_color = "#d1940c" } },
-    { rule = { class = "foo" }, properties = { floating = false } },
+    { rule = { class = "psi", }, properties = { floating = true } },
+    { rule = { class="Psi-plus"}, properties = { floating = true } },
     { rule = { class = "kvm" }, properties = { floating = true } },
     { rule = { class = "MyPasswordSafe" }, properties = { floating = true } },
     { rule = { class = "Mssh" }, properties = { floating = true } },
@@ -496,6 +582,7 @@ awful.rules.rules = {
     { rule = { class = "f00" }, properties = { floating = true } },
     { rule = { class = " " }, properties = { floating = true } },
     { rule = { class = "Wpa_gui" }, properties = { floating = true } },
+    { rule = { class = "URxvt" }, callback = awful.client.setslave },
     { rule = { class = "Gmrun" }, properties = { ontop = true } }
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
@@ -520,7 +607,12 @@ client.add_signal("manage", function (c, startup)
     if not startup then
         -- Set the windows at the slave,
         -- i.e. put it at the end of others instead of setting it master.
-        awful.client.setslave(c)
+        -- nový clienti budou jako slave, ale jen na označených plochách
+        local curidx = awful.tag.getidx(c:tags()[1])
+        local screen = mouse.screen
+        if awful.tag.getproperty(tags[screen][curidx],"setslave") then
+            awful.client.setslave(c)
+        end
 
         -- Put windows in a smart way, only if they does not set an initial position.
         if not c.size_hints.user_position and not c.size_hints.program_position then

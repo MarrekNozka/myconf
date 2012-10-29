@@ -93,6 +93,7 @@
 
 \newcommand{\Kc}[1]{#1\,Kč}
 
+\let\dneska\today
 % naše značka, vaše značka Horizontálně
 \newcommand{\znackaH}[2]{%
     \begin{tabbing}
@@ -102,17 +103,16 @@
         \textbf{V Olomouci dne}   \\
         {\small#1} \> 
         {\small #2} \> 
-        {\small Ing.\,Marek Nožka} 
-        \> {\small \today} \\
+        {\small Ing.\,Marek Nožka} \> {\small \today} \\
     \end{tabbing}
 }
 % naše značka, vaše značka Vertikálně
-\newcommand{\znackaV}[2]{%
+\DeclareRobustCommand{\znackaV}[3][\today{}]{%
     \begin{tabbing}
-        \textbf{Vše značka:}\hspace{0.5in} \= #1 \\
-        \textbf{Naše značka:} \> #2 \\ 
+        \textbf{Vše značka:}\hspace{0.5in} \= #2 \\
+        \textbf{Naše značka:} \> #3 \\ 
         \textbf{Vyžizuje:} \> Ing.\,Marek Nožka \\
-        \textbf{Datum:}\> {\small \today} \\
+        \textbf{Datum:} \> #1 \\
     \end{tabbing}
 }
 

@@ -89,7 +89,8 @@ CDPATH=".:~:~/Documents/SPSe:~/Documents/VOS"
 ###      Completion
 #############################################################
 setopt autonamedirs alwaystoend nomenucomplete
-setopt COMPLETE_ALIASES AUTO_NAME_DIRS AUTO_PARAM_SLASH AUTO_REMOVE_SLASH 
+#setopt COMPLETE_ALIASES AUTO_NAME_DIRS AUTO_PARAM_SLASH AUTO_REMOVE_SLASH 
+setopt COMPLETE_ALIASES AUTO_NAME_DIRS 
 setopt automenu autolist
 setopt autoparamkeys listambiguous listbeep listpacked listtypes
 

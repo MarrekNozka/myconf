@@ -10,7 +10,7 @@ command Unix set ff=unix | set fenc=utf-8
 command UlozISO set ff=unix | set fenc=iso8859-2
 command W write
 command Nazeleno !chmod +x %
-"set printencoding=iso8859-2 
+set printencoding=iso8859-2 
 "set printexpr=system('kprinter'\ .\ '\ '\ .\ v:fname_in)\ .\ delete(v:fname_in)\ +\ v:shell_error
 set printexpr=system('gtklp'\ .\ (&printdevice\ ==\ ''\ ?\ ''\ :\ '\ -P'\ .\ &printdevice)\ .\ '\ '\ .\ v:fname_in)\ .\ delete(v:fname_in)\ +\ v:shell_error
 
@@ -216,11 +216,13 @@ nnoremap <silent> <F8> :TlistToggle<CR>
  let g:vikiOpenUrlWith_http = "silent !iceweasel -new-tab %{URL} &"
  let g:vikiOpenFileWith_html  = "silent !iceweasel -new-tab %{FILE} &"
  let g:vikiOpenFileWith_pdf  = "silent !okular %{FILE} &"
- "let g:vikiOpenFileWith_ANY   = "silent !start %{FILE}"
+ let g:vikiOpenFileWith_png  = "silent !display %{FILE} &"
+ let g:vikiOpenFileWith_ANY   = "silent !VikiStart %{FILE} &"
  
  let g:vikiNameSuffix = ".viki"
  autocmd! BufRead,BufNewFile *.viki set filetype=viki
  autocmd! BufRead,BufNewFile $HOME/Viki/* set filetype=viki
+ autocmd! BufRead,BufNewFile $HOME/Viki/* cd ~/Viki
  let g:vikiHomePage = "~/Viki/index.viki"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

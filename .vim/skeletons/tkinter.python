@@ -1,0 +1,32 @@
+#!/usr/bin/python
+#!/usr/bin/env python
+# -*- coding: utf8 -*-
+# Soubor:  skeletonVIM_FILE_NAME
+# Datum:   skeletonVIM_CREATION_CZDATETIME
+# Autor:   Marek Nožka, nozka <@t> spseol <d.t> cz
+# Licence: GNU/GPL 
+# Úloha: 
+# Popis:   
+####################################################
+
+import sys
+from sys import stdin, stdout, stderr
+from Tkinter import *
+####################################################
+
+def exit(event=None):
+    sys.exit(0)
+
+
+####################################################
+
+mainWin = Tk(className="foo")
+mainWin.title("skeletonVIM_FILE_NAME")
+mainWin.option_add('*Font', 'Terminus 14')
+mainWin.bind("<Escape>",exit)
+
+lbl = Label(mainWin, text=u"Ahoj světe!")
+lbl.pack()
+
+mainWin.mainloop()
+

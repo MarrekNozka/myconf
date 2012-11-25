@@ -555,6 +555,8 @@ awful.rules.rules = {
     { rule = { class = "Stardict" }, properties = { floating = true } },
     { rule = { class = "Gimp" }, properties = { floating = true } },
     { rule = { class = "Gtklp" }, properties = { floating = true } },
+    { rule = { class = "Qmv" }, properties = { floating = true } },
+    { rule = { class = "Turpial" }, properties = { floating = true } },
     { rule = { class = "GtkFoo" }, 
                 properties = { floating = true,
                                tag = tags[2][1],

@@ -24,7 +24,7 @@ for i in $@; do
         cat <<EOF
 
     py           -- IPython whith PyLab ( X kernel )
-    py.c         -- IPython whith PyLab ( X kernel )
+    py.c         -- IPython whith PyLab ( X kernel ) clasic prompt
     pysh         -- IPython whith PySh
     py.black     -- IPython Qt black console ( X kernel )
     py.white     -- IPython Qt white console ( X kernel )

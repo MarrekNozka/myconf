@@ -32,7 +32,9 @@ while (my $line = <>) {
     foreach my $regex (keys(%colors)) {
         my $begin=color($colors{$regex});
         my $end=color('reset');
-        $line =~ s/($regex)/$begin$1$end/g;
+#        $line =~ m/($regex)/;
+        $line =~ s/($regex)/${begin}$1${end}/g;
+
     }
     print $line;
 }

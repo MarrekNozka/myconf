@@ -225,5 +225,8 @@ nnoremap <silent> <F8> :TlistToggle<CR>
  autocmd! BufRead,BufNewFile $HOME/Viki/* cd ~/Viki
  let g:vikiHomePage = "~/Viki/index.viki"
 
+map <Leader>h :VikiHome<Return>
+imap <Leader>h <Esc>:VikiHome<Return>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim:nospell:

@@ -16,7 +16,7 @@ Toto je $0
 Slouží jako wrapper pro /usr/bin/script
 
 Volání
-    $0 [-t] [-a] <file>
+    $0 [-T] [-a] [file]
 
     -T 
         NEzaznamenává i časové údaje
@@ -24,7 +24,7 @@ Volání
         nemaže ... přidává
 
 Sezení lze přehrát pomocí scriptreplay nebo 
- less -R ~root/upgrade-wheezy.script.
+ less -R FILE.script.
 EOF
 }
 

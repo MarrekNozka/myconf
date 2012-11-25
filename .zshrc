@@ -1,5 +1,5 @@
 setopt ALL_EXPORT
-#############################################################
+############################################################
 #    The following lines were added by compinstall
 #############################################################
 zstyle ':completion:*' completer _oldlist _complete _match _prefix _list _approximate
@@ -15,6 +15,7 @@ zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
 zstyle ':completion:*' group-name ''
 zstyle ':completion::complete:*' use-cache on
 zstyle ':completion::complete:*' cache-path ~/.zsh/cache/$HOST
+zstyle ':completion:*' squeeze-slashes false
 
 # End of lines added by compinstall
 #############################################################
@@ -89,8 +90,7 @@ CDPATH=".:~:~/Documents/SPSe:~/Documents/VOS"
 ###      Completion
 #############################################################
 setopt autonamedirs alwaystoend nomenucomplete
-#setopt COMPLETE_ALIASES AUTO_NAME_DIRS AUTO_PARAM_SLASH AUTO_REMOVE_SLASH 
-setopt COMPLETE_ALIASES AUTO_NAME_DIRS 
+setopt COMPLETE_ALIASES AUTO_NAME_DIRS AUTO_PARAM_SLASH AUTO_REMOVE_SLASH 
 setopt automenu autolist
 setopt autoparamkeys listambiguous listbeep listpacked listtypes
 

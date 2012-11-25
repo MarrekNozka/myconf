@@ -85,6 +85,11 @@ syn region htmlH6       start="^\s*######"              end="\($\|#\+\)" contain
 syn match  htmlH1       /^.\+\n=\+$/ contains=@Spell
 syn match  htmlH2       /^.\+\n-\+$/ contains=@Spell
 
+"MatlaG regions
+syn region matlaInclude start="\[\[\!"  end="]]" nextgroup=mkdURL
+syn match matlaShort /\v(if-?)?code|(gg|gi|wk)(c[zs])?/ containedin=matlaInclude
+syn match matlaMath  /\v\$\$?[^$]+\$\$?/
+
 
 
 " fold region for headings
@@ -105,6 +110,11 @@ syn sync fromstart
 setlocal foldmethod=syntax
 
 
+
+"highlighting for MatlaG groups
+HtmlHiLink matlaInclude	    String
+HtmlHiLink matlaShort       Identifier
+HtmlHiLink matlaMath        Identifier
 
 "highlighting for Markdown groups
 HtmlHiLink mkdString	    String

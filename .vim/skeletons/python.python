@@ -7,15 +7,18 @@
 # Licence: GNU/GPL 
 # Úloha: 
 # Popis:   
-# 
+############################################################################
 
 import sys
 from sys import stdin, stdout, stderr
 from math import pi
-#########################################
+############################################################################
 while True:
     try:
         line = raw_input('app>> ')    
     except EOFError:
         exit(0)
-
+    except KeyboardInterrupt:
+        exit(1)
+    except:
+        stdout.write("ERROR\n")

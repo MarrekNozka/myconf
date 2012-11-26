@@ -357,9 +357,21 @@ globalkeys = awful.util.table.join(
         function ()
             local screen = mouse.screen
             local selTag = awful.tag.selected(screen)
+            local show = ""
             awful.tag.setproperty(selTag, 
                                  "setslave",
                                  not awful.tag.getproperty(selTag,"setslave") )
+
+            if awful.tag.getproperty(selTag,"setslave") then
+                show = "Slave"
+            else
+                show = "Master"
+            end
+            naughty.notify({title="New window", 
+                            text=show,
+                            timeout = 2,
+                            screen = mouse.screen
+                           })
         end),
 
     -- schova okno

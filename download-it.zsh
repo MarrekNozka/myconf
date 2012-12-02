@@ -46,7 +46,7 @@ binarky="regexcolor.pl regexcount.pl easymake.sh easyssh.sh"
 binarky="$binarky xplanet.sh without.pl avi-x264-lame.sh video-z-fotaku.zsh"
 binarky="$binarky chwall.sh prumer.pl without.pl spark rename4date.zsh"
 binarky="$binarky ipython-wrapper.zsh"
-binarky="$binarky screen.wrapper.zsh script-wrapper.zsh"
+binarky="$binarky screen.wrapper.zsh script-wrapper.zsh tmux.wrapper.zsh"
 
 odkazy="regexcolor regexcount"
 odkazy="$odkazy xplanet.sh without.pl avi-x264-lame video-z-fotaku.zsh" 

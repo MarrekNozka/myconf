@@ -24,7 +24,7 @@ cd -
 ###############################################
 
 ### shell Vim a TeX
-for file in .aliases .zshrc .dir_colors .vimrc .vimperatorrc .gvimrc texmf/ ; do
+for file in .aliases .zshrc .dir_colors .terminfo .vimrc .vimperatorrc .gvimrc texmf/ ; do
     cp -av ~/$file ./
 done
 
@@ -46,13 +46,13 @@ binarky="regexcolor.pl regexcount.pl easymake.sh easyssh.sh"
 binarky="$binarky xplanet.sh without.pl avi-x264-lame.sh video-z-fotaku.zsh"
 binarky="$binarky chwall.sh prumer.pl without.pl spark rename4date.zsh"
 binarky="$binarky ipython-wrapper.zsh"
-binarky="$binarky screen.wrapper.zsh script-wrapper.zsh tmux.wrapper.zsh"
+binarky="$binarky screen.wrapper.zsh script-wrapper.zsh tmux.wrapper.zsh Tilda.zsh"
 
 odkazy="regexcolor regexcount"
 odkazy="$odkazy xplanet.sh without.pl avi-x264-lame video-z-fotaku.zsh" 
 odkazy="$odkazy chwall prumer.pl without.pl spark rename4date" 
 odkazy="$odkazy py py.black py.c py.inline py.kernel py.notebook pysh py.white"
-odkazy="$odkazy bagr meloun forge Tilda script-wrapper" 
+odkazy="$odkazy bagr meloun forge Tilda programming script-wrapper" 
 
 echo "######## binaries #########"
 [ -d ./bin ] || mkdir bin

@@ -44,7 +44,7 @@ done
 
 # zpracuje parametry příkazového řádku
 #args=$(getopt --name $(basename $0) -o ab:c -- "$@") || exit 1
-args=$(getopt --name $(basename $0) -o d -- "$@") || exit 1
+args=$(getopt --name $(basename $0) -o 2d -- "$@") || exit 1
 # zpracované parametry předá zpět do $@ a $*
 eval set -- $args
 # projde a posune parametry
@@ -55,6 +55,10 @@ while true; do
 #            echo "volba -b je \"$1\""
 #            shift
 #            ;;
+        -2)
+            shift
+            color='256'
+            ;;
         -d)
             shift
             detach=''
@@ -77,6 +81,10 @@ done
 
 name=$(basename $0)
 
+if [[ $TERM =~ 'xterm' ]] || [ $color ] ; then
+    echo 256
+    alias tmux='tmux -2'
+fi
 if  tmux has-session -t $name ; then 
     tmux attach $detach -t $name 
 else

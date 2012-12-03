@@ -1,4 +1,5 @@
 version 7.0
+"set t_Co=256
 " volba -u soubor načte soubor a ostatní konfirutaci přeskočí
 " vim -u NONE načte čistý vim, bez konfigurace
 set nocompatible "nejí to vi ale vim
@@ -126,11 +127,9 @@ set nofoldenable
 set tags=./tags,./TAGS,tags,TAGS,~/.vim/tags
 
 "Vzhled
-colorscheme default
+colorscheme murphy
 "colorscheme torte
 "colorscheme desert
-"colorscheme koehler
-"colorscheme elflord
 set guioptions=aAcrLm " Vzhled
 command Nomenu set guioptions=aAcrLm "e
 command Menu set guioptions=aArcLmtTh "e

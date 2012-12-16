@@ -14,24 +14,24 @@ host=$(hostname | sed -r -e "s/^([^.]+).*$/\1/")
 
 [ -d @$host ] || mkdir @$host
 for file in .Xdefaults .Xresources .Xsession .xinitrc .Xmodmap; do
-    cp -av ~/$file ./@$host
+    cp -a ~/$file ./@$host
 done
 cd @$host
 ## awesome
 [ -d ./.config ] || mkdir ./.config
-cp -av ~/.config/awesome/ ./.config/
+cp -a ~/.config/awesome/ ./.config/
 cd -
 ###############################################
 
 ### shell Vim a TeX
 for file in .aliases .zshrc .dir_colors .terminfo .vimrc .vimperatorrc .gvimrc texmf/ ; do
-    cp -av ~/$file ./
+    cp -a ~/$file ./
 done
 
 [ -d ./.vim ] || mkdir .vim
-cp -av ~/.vim/.*~*.netrwhist ~/.vim/*~*(backup|viminfo|.zip|.tmp|vba) ./.vim/
+cp -a ~/.vim/.*~*.netrwhist ~/.vim/*~*(backup|viminfo|.zip|.tmp|vba) ./.vim/
 if [ -d ./.vim/backup ]; then 
-    rm  ./.vim/backup/*
+    rm  -f ./.vim/backup/*
 else
     mkdir ./.vim/backup/
     rm -Rf ./.vim/backup/* ./.vim/backup/.*
@@ -57,11 +57,11 @@ odkazy="$odkazy bagr meloun forge Tilda programming script-wrapper"
 echo "######## binaries #########"
 [ -d ./bin ] || mkdir bin
 for file in  $(eval echo $binarky); do
-    cp -av ~/bin/$file ./bin
+    cp -a ~/bin/$file ./bin
 done
 
 [ -d ./bin/bin ] || mkdir bin/bin
 for file in $(eval echo $odkazy); do
-    cp -av ~/bin/bin/$file ./bin/bin
+    cp -a ~/bin/bin/$file ./bin/bin
 done
 

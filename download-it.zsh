@@ -13,7 +13,7 @@ cd $(dirname $0)
 host=$(hostname | sed -r -e "s/^([^.]+).*$/\1/")
 
 [ -d @$host ] || mkdir @$host
-for file in .Xdefaults .Xresources .Xsession .xinitrc .Xmodmap; do
+for file in .Xdefaults .Xresources .Xsession .xinitrc .Xmodmap .gvimrc ; do
     cp -a ~/$file ./@$host
 done
 cd @$host
@@ -24,7 +24,7 @@ cd -
 ###############################################
 
 ### Shell, Vim,  TeX, colors
-for file in .aliases .zshrc .dir_colors .terminfo .vimrc .vimperatorrc .gvimrc texmf/ ; do
+for file in .aliases .zshrc .dir_colors .terminfo .vimrc .vimperatorrc texmf/ ; do
     cp -a ~/$file ./
 done
 

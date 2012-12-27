@@ -86,11 +86,14 @@ for s = 1, screen.count() do
 end
 awful.tag.setproperty(tags[1][1], "layout", layouts[9])
 awful.tag.setproperty(tags[1][2], "layout", layouts[2])
+awful.tag.setproperty(tags[1][3], "layout", layouts[2])
+awful.tag.setproperty(tags[1][4], "layout", layouts[2])
+
+awful.tag.setproperty(tags[1][2], "layout", layouts[2])
 awful.tag.setproperty(tags[1][2], "setslave", true)
 awful.tag.setproperty(tags[1][2], "nmaster", 1)
 awful.tag.setproperty(tags[1][2], "mwfact", 0.60)
-awful.tag.setproperty(tags[1][3], "layout", layouts[2])
-awful.tag.setproperty(tags[1][4], "layout", layouts[2])
+
 -- }}}
 
 -- {{{ Menu
@@ -306,17 +309,6 @@ globalkeys = awful.util.table.join(
     -- plovouci okno vzdy navrchu, viz modkey+"t"
 --    awful.key({ modkey }, "y",   function () client.focus.ontop = not client.focus.ontop end),
 
-    -- přepne setslave
-    awful.key({ modkey   }, "y",
-        function ()
-            local screen = mouse.screen
-            local selTag = awful.tag.selected(screen)
-            awful.tag.setproperty(selTag, 
-                                 "setslave",
-                                 not awful.tag.getproperty(selTag,"setslave") )
-        end),
-
-
     -- schova okno
     awful.key({ modkey },          "g",   function () client.focus.hide = not client.focus.hide end),
 
@@ -510,17 +502,9 @@ awful.rules.rules = {
     { rule = { class = "Stardict" }, properties = { floating = true } },
     { rule = { class = "Gimp" }, properties = { floating = true } },
     { rule = { class = "Gtklp" }, properties = { floating = true } },
-    { rule = { class = "Turpial" }, properties = { floating = true } },
-    { rule = { class = "Foo" }, properties = { floating = true } },
-    { rule = { class = "Mssh" }, 
-                properties = { floating = true,
-                               maximized_vertical = true,
-                               maximized_horizontal = true
-                              } 
-             },
     { rule = { class = "GtkFoo" }, 
                 properties = { floating = true,
-                               tag = tags[1][1],
+                               tag = tags[2][1],
                                x=110,
                                y=100,
                                maximized_vertical = true,
@@ -535,11 +519,15 @@ awful.rules.rules = {
     { rule = { class = "Tilda" }, properties = { floating = true } },
     { rule = { class = "Yakuake" }, properties = { floating = true, border_width = 0 } },
     { rule = { class = "Guake" }, properties = { floating = true } },
+    { rule = { class = "Qmv" }, properties = { floating = true } },
+    { rule = { class = "Arandr" }, properties = { floating = true } },
     { rule = { class = "Wine" }, properties = { floating = true, border_color = "#d1940c" } },
-    { rule = { class = "psi", }, properties = { floating = true } },
-    { rule = { class = "foo" }, properties = { floating = false } },
+    { rule = { class = "Foo" }, properties = { floating = true } },
+    { rule = { class = "Turpial" }, properties = { floating = true } },
+    { rule = { class = "Tkinter" }, properties = { floating = true } },
     { rule = { class = "kvm" }, properties = { floating = true } },
     { rule = { class = "MyPasswordSafe" }, properties = { floating = true } },
+    { rule = { class = "Mssh" }, properties = { floating = true } },
     { rule = { class = "Krusader" }, properties = { floating = true } },
     { rule = { class = "f00" }, properties = { floating = true } },
     { rule = { class = " " }, properties = { floating = true } },
@@ -569,12 +557,6 @@ client.add_signal("manage", function (c, startup)
         -- Set the windows at the slave,
         -- i.e. put it at the end of others instead of setting it master.
 --        awful.client.setslave(c)
-        -- nový clienti budou jako slave, ale jen na označených plochách
-        local curidx = awful.tag.getidx(c:tags()[1])
-        local screen = mouse.screen
-        if awful.tag.getproperty(tags[screen][curidx],"setslave") then
-            awful.client.setslave(c)
-        end
 
 
         -- Put windows in a smart way, only if they does not set an initial position.

@@ -23,7 +23,7 @@ cp -a ~/.config/awesome/ ./.config/
 cd -
 ###############################################
 
-### shell Vim a TeX
+### Shell, Vim,  TeX, colors
 for file in .aliases .zshrc .dir_colors .terminfo .vimrc .vimperatorrc .gvimrc texmf/ ; do
     cp -a ~/$file ./
 done

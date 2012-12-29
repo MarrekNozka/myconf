@@ -13,8 +13,12 @@ cd $(dirname $0)
 host=$(hostname | sed -r -e "s/^([^.]+).*$/\1/")
 
 [ -d @$host ] || mkdir @$host
-for file in .Xdefaults .Xresources .Xsession .xinitrc .Xmodmap .gvimrc ; do
-    cp -a ~/$file ./@$host
+files=()
+files+=(.Xdefaults .Xresources .Xsession .xinitrc .Xmodmap)
+files+=(.gvimrc)
+files+=(.zprofile .zlogout)
+for f in $files; do
+    cp -a ~/$f ./@$host
 done
 cd @$host
 ## awesome
@@ -35,10 +39,7 @@ done
 [ -d ./.vim ] || mkdir .vim
 cp -a ~/.vim/.*~*.netrwhist ~/.vim/*~*(backup|viminfo|.zip|.tmp|vba) ./.vim/
 if [ -d ./.vim/backup ]; then 
-    rm -Rf ./.vim/backup/*
-    rm -Rf ./.vim/backup/.*
-else
-    mkdir ./.vim/backup/
+    rm -Rf ./.vim/backup/
 fi
 
 

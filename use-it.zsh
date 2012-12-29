@@ -9,9 +9,14 @@ setopt EXTENDED_GLOB
 
 cd $(dirname $0)
 
+if ! [ -d ./.vim/backup/ ]; then
+    mkdir ./.vim/backup/
+fi
+
 cp -av .*~.git* *~*-it.zsh~README~@* ~
 
 ### Konfiguráky závislé na hostitelské stanici
 host=$(hostname | sed -r -e "s/^([^.]+).*$/\1/")
 #cp -av ./@$host/.* ./@$host/* ~
 cp -av ./@$host/.*  ~
+

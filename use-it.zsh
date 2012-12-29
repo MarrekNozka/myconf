@@ -15,3 +15,7 @@ cp -av .*~.git* *~*-it.zsh~README~@* ~
 host=$(hostname | sed -r -e "s/^([^.]+).*$/\1/")
 #cp -av ./@$host/.* ./@$host/* ~
 cp -av ./@$host/.*  ~
+
+if ! [ -d ~/.vim/backup/ ]; then
+    mkdir ~/.vim/backup/
+fi

@@ -24,17 +24,21 @@ cd -
 ###############################################
 
 ### Shell, Vim,  TeX, colors
-for file in .aliases .zshrc .dir_colors .terminfo .vimrc .vimperatorrc texmf/ ; do
-    cp -a ~/$file ./
+files=()
+files+=(.aliases .zshrc .dir_colors .terminfo)
+files+=(.vimrc .vimperatorrc)
+files+=(texmf/ .tmux.conf)
+for f in $files; do
+    cp -a ~/$f ./
 done
 
 [ -d ./.vim ] || mkdir .vim
 cp -a ~/.vim/.*~*.netrwhist ~/.vim/*~*(backup|viminfo|.zip|.tmp|vba) ./.vim/
 if [ -d ./.vim/backup ]; then 
-    rm  -f ./.vim/backup/*
+    rm -Rf ./.vim/backup/*
+    rm -Rf ./.vim/backup/.*
 else
     mkdir ./.vim/backup/
-    rm -Rf ./.vim/backup/* ./.vim/backup/.*
 fi
 
 
@@ -42,26 +46,28 @@ fi
 
 ####################################
 ### Binárky
-binarky="regexcolor.pl regexcount.pl easymake.sh easyssh.sh"
-binarky="$binarky xplanet.sh without.pl avi-x264-lame.sh video-z-fotaku.zsh"
-binarky="$binarky chwall.sh prumer.pl without.pl spark rename4date.zsh"
-binarky="$binarky ipython-wrapper.zsh"
-binarky="$binarky screen.wrapper.zsh script-wrapper.zsh tmux.wrapper.zsh Tilda.zsh"
+binarky=()
+binarky+=(regexcolor.pl regexcount.pl easymake.sh easyssh.sh)
+binarky+=(xplanet.sh without.pl avi-x264-lame.sh video-z-fotaku.zsh)
+binarky+=(chwall.sh prumer.pl without.pl spark rename4date.zsh)
+binarky+=(ipython-wrapper.zsh)
+binarky+=(screen.wrapper.zsh script-wrapper.zsh tmux.wrapper.zsh Tilda.zsh)
 
-odkazy="regexcolor regexcount"
-odkazy="$odkazy xplanet.sh without.pl avi-x264-lame video-z-fotaku.zsh" 
-odkazy="$odkazy chwall prumer.pl without.pl spark rename4date" 
-odkazy="$odkazy py py.black py.c py.inline py.kernel py.notebook pysh py.white"
-odkazy="$odkazy bagr meloun forge Tilda programming script-wrapper" 
+odkazy=()
+odkazy+=(regexcolor regexcount)
+odkazy+=(xplanet.sh without.pl avi-x264-lame video-z-fotaku.zsh) 
+odkazy+=(chwall prumer.pl without.pl spark rename4date) 
+odkazy+=(py py.black py.c py.inline py.kernel py.notebook pysh py.white)
+odkazy+=(bagr meloun forge Tilda programming script-wrapper) 
 
 echo "######## binaries #########"
 [ -d ./bin ] || mkdir bin
-for file in  $(eval echo $binarky); do
+for file in $binarky; do
     cp -a ~/bin/$file ./bin
 done
 
 [ -d ./bin/bin ] || mkdir bin/bin
-for file in $(eval echo $odkazy); do
+for file in $odkazy; do
     cp -a ~/bin/bin/$file ./bin/bin
 done
 

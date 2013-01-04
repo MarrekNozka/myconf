@@ -51,8 +51,9 @@ fi
 #############################################################
 
 transp=(-y 1)
+dstDir=$(dirname $2)
 # zpracuje parametry příkazového řádku
-args=$(getopt --name $(basename $0) -o T -- "$@") || exit 1
+args=$(getopt --name $(basename $0) -o Td: -- "$@") || exit 1
 # zpracované parametry předá zpět do $@ a $*
 eval set -- $args
 # projde a posune parametry
@@ -61,6 +62,11 @@ while true; do
     case $i in 
         -T)
             transp=''
+            shift
+            ;;
+        -d)
+            shift
+            dstDir=$1
             shift
             ;;
         --)
@@ -73,9 +79,9 @@ done
 #############################################################
 
 if [[ $0 =~ pdf ]]; then 
-    destination=(-A $(basename $2 .svg).pdf)
+    destination=(-A $dstDir/$(basename $2 .svg).pdf)
 else
-    destination=(-e $(basename $2 .svg).png)
+    destination=(-e $dstDir/$(basename $2 .svg).png)
 fi
 
 #############################################################

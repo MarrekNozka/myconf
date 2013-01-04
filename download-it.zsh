@@ -51,7 +51,7 @@ binarky=()
 binarky+=(regexcolor.pl regexcount.pl easymake.sh easyssh.sh)
 binarky+=(xplanet.sh without.pl avi-x264-lame.sh video-z-fotaku.zsh)
 binarky+=(chwall.sh prumer.pl without.pl spark rename4date.zsh)
-binarky+=(ipython-wrapper.zsh)
+binarky+=(ipython-wrapper.zsh svg2x.zsh)
 binarky+=(screen.wrapper.zsh script-wrapper.zsh tmux.wrapper.zsh Tilda.zsh)
 
 odkazy=()
@@ -59,6 +59,7 @@ odkazy+=(regexcolor regexcount)
 odkazy+=(xplanet.sh without.pl avi-x264-lame video-z-fotaku.zsh) 
 odkazy+=(chwall prumer.pl without.pl spark rename4date) 
 odkazy+=(py py.black py.c py.inline py.kernel py.notebook pysh py.white)
+odkazy+=(svg2png svg2pdf)
 odkazy+=(bagr meloun forge Tilda programming script-wrapper) 
 
 echo "######## binaries #########"

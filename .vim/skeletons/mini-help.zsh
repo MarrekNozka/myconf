@@ -8,13 +8,17 @@
 #
 
 #######           HELP           ##########
-# pokud existuje parametr -h vytiskne help
-for param in $@; do
-    if [ $param == "-h" ] || [ $param == "--help" ]; then
-        cat <<EOF
+printHelp() {
+cat <<EOF
 Skript $0
+slouží pro jednoduchou kompilaci zdrojového kódu.
 
 EOF
+}
+# pokud existuje parametr -h vytiskne help
+for param in $@; do
+    if [[ $param == "-h" ]] || [[ $param == "--help" ]]; then
+        printHelp
         exit 0;
     fi
 done

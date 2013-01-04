@@ -215,7 +215,6 @@ nnoremap <silent> <F8> :TlistToggle<CR>
  let g:vikiOpenUrlWith_http = "silent !iceweasel -new-tab %{URL} &"
  let g:vikiOpenFileWith_html  = "silent !iceweasel -new-tab %{FILE} &"
  let g:vikiOpenFileWith_pdf  = "silent !okular %{FILE} &"
- let g:vikiOpenFileWith_png  = "silent !display %{FILE} &"
  let g:vikiOpenFileWith_ANY   = "silent !VikiStart %{FILE} &"
  
  let g:vikiNameSuffix = ".viki"

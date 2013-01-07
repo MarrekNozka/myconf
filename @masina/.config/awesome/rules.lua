@@ -24,6 +24,12 @@ awful.rules.rules = {
     { rule = { class = "Turpial" }, properties = { floating = true } },
     { rule = { class = "Foo" }, properties = { floating = true } },
     { rule = { class = "Deluge" }, properties = { floating = true } },
+    { rule = { class = "Mssh" }, 
+                properties = { floating = true,
+                               maximized_vertical = true,
+                               maximized_horizontal = true
+                              } 
+             },
     { rule = { class = "GtkFoo" }, 
                 properties = { floating = true,
                                tag = tags[1][1],
@@ -43,7 +49,7 @@ awful.rules.rules = {
     { rule = { class = "Guake" }, properties = { floating = true } },
     { rule = { class = "Wine" }, properties = { floating = true, border_color = "#d1940c" } },
     { rule = { class = "psi", }, properties = { floating = true } },
-    { rule = { class="Psi-plus"}, properties = { floating = true } },
+    { rule = { class = "Psi-plus"}, properties = { floating = true } },
     { rule = { class = "kvm" }, properties = { floating = true } },
     { rule = { class = "MyPasswordSafe" }, properties = { floating = true } },
     { rule = { class = "Mssh" }, properties = { floating = true } },

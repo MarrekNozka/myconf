@@ -1,11 +1,14 @@
 Xcursor.theme: ComixCursors-Red-Large
+
 URxvt.background:	black
 URxvt.foreground:	white
 URxvt.cursorColor:	green
 URxvt.scrollBar:	off
 URxvt.transparent:	on
 URxvt.tintColor:	gray
-URxvt.shading:	    20 
+URxvt.shading:	    20
+URxvt.urgentOnBell: True
+
 URxvt.font: -*-terminus-medium-r-*--20-*-*-*-*-*-iso10646-1
 
 ! Alt+Ctrl+<cislo> přepne velikost písma

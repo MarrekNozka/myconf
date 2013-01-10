@@ -28,7 +28,7 @@ cd -
 ###############################################
 
 ### Shell, Vim,  TeX, colors
-files=()
+files=(.gmrunrc)
 files+=(.aliases .zshrc .dir_colors .terminfo)
 files+=(.vimrc .vimperatorrc)
 files+=(texmf/ .tmux.conf)

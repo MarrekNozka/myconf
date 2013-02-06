@@ -14,7 +14,7 @@ mpl.use('Qt4Agg')
 ## for Palatino and other serif fonts use:
 #mpl.rc('font',**{'family':'serif','serif':['Palatino']})
 #mpl.rc('lines', linewidth=2, color='r')
-
+mpl.rc('font', family = 'serif', serif = 'cmr10') 
 mpl.rcParams['text.usetex']=True
 mpl.rcParams['text.latex.unicode']=True
 

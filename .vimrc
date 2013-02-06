@@ -213,6 +213,7 @@ nnoremap <silent> <F8> :TlistToggle<CR>
  
  let g:vikiOpenUrlWith_mailto = 'silent !claws-mail --compose %{URL} & '
  let g:vikiOpenUrlWith_http = "silent !iceweasel -new-tab %{URL} &"
+ let g:vikiOpenUrlWith_file = "silent !iceweasel -new-tab %{URL} &"
  let g:vikiOpenFileWith_html  = "silent !iceweasel -new-tab %{FILE} &"
  let g:vikiOpenFileWith_pdf  = "silent !okular %{FILE} &"
  let g:vikiOpenFileWith_ANY   = "silent !VikiStart %{FILE} &"

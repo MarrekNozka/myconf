@@ -15,7 +15,7 @@ if  tmux has-session -t Tilda ; then
 else
     tmux new-session -d -s Tilda -n Root zsh
     tmux new-window -t Tilda -n Shell zsh
-    tmux new-window -t Tilda -n IPython "py.kernel; py ; zsh"
+    tmux new-window -t Tilda -n IPython "py ; zsh"
     tmux new-window -t Tilda -n MC  "mc ; zsh"
     tmux select-window -t Tilda:0 
     tmux attach-session -t Tilda

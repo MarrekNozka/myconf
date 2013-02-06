@@ -23,6 +23,11 @@ if [ -d ~/man ]; then
     export MANPATH
 fi
 
+if [ -d ~/bin/lib/python/ ]; then
+    PYTHONPATH="${PYTHONPATH}:~/bin/lib/python/"
+    export PYTHONPATH
+fi
+
 # Agents
 #if [ -z $SSH_AGENT_PID ]; then
     echo "ssh-agetn run!"

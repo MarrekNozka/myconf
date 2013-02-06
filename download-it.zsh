@@ -17,6 +17,8 @@ files=()
 files+=(.Xdefaults .Xresources .Xsession .xinitrc .Xmodmap)
 files+=(.gvimrc)
 files+=(.zprofile .zlogout)
+## notion
+files+=(.notion)
 for f in $files; do
     cp -a ~/$f ./@$host
 done

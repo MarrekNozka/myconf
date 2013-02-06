@@ -1,0 +1,47 @@
+#!/bin/zsh -l
+
+##/bin/sh -f
+
+#export PATH=/home/marek/bin/bin:$PATH
+#export EDITOR="vim"
+#export PAGER="less"
+#export TEXDOCVIEW_pdf="kpdf %s"
+export TEXDOCVIEW_pdf="xpdf %s"
+
+# tuto proměnnou využívá skript xplanet-vymena.sh
+#export XPLANET_PID_FILE=$(mktemp);  
+#~/bin/xplanet-vymena.sh &
+
+#gconftool-2 --type bool --set /apps/nautilus/preferences/show_desktop False
+#ck-launch-session gnome-session &
+#gnome-settings-daemon & 
+
+#setxkbmap -model pc105 -layout cz,us -variant qwerty, -option grp:shifts_toggle,grp:switch
+setxkbmap -model pc105 -layout us,cz -variant ,qwerty -option grp:shifts_toggle,grp:switch -print | xkbcomp - $DISPLAY 2>/dev/null                   
+xmodmap ~/.Xmodmap
+
+time=5
+
+#xscreensaver -no-splash &
+xfce4-panel &
+( sleep $time; xfce4-power-manager; )&
+#blueman-applet&
+(sleep $time; parcellite)&
+#tilda&
+( sleep $time; kteatime; )&
+( sleep $time; stardict; )&
+
+# IPython
+~/bin/bin/py.kernel &
+# vypnutí klávesnice při psaní
+syndaemon -K -i 0.9 -d &
+
+#awesome
+notion
+
+#kill $(cat $XPLANET_PID_FILE)
+#rm $XPLANET_PID_FILE
+killall gnome-keyring-daemon
+
+. ~/.zlogout
+# vim:nospell:

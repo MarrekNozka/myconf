@@ -14,7 +14,8 @@ host=$(hostname | sed -r -e "s/^([^.]+).*$/\1/")
 
 [ -d @$host ] || mkdir @$host
 files=()
-files+=(.Xdefaults .Xresources .Xsession .xinitrc .Xmodmap)
+files+=(.Xdefaults .Xresources .xinitrc .Xmodmap)
+files+=(.Xsession .Xsession-notion .Xsession-awesome)
 files+=(.gvimrc)
 files+=(.zprofile .zlogout)
 ## notion
@@ -22,6 +23,7 @@ files+=(.notion)
 for f in $files; do
     cp -a ~/$f ./@$host
 done
+rm -R ./@$host/.notion/default-session-*
 cd @$host
 ## awesome
 [ -d ./.config ] || mkdir ./.config

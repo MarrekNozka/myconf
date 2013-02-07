@@ -81,7 +81,7 @@ set backupdir=~/.vim/backup
 "set exrc " načítej soubor $PWD/.vimrc
 
 set title 
-set titlestring=VI:\ %t  "titulek
+set titlestring=vim:\ \"%t\"(%L)%m%R  "titulek
 set mouse=a          "myš v konzole
 "set mousemodel=popup "pravé tlačítko myši v grafické verzi otevírat vyskakovací menu
 

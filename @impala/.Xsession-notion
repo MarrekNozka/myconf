@@ -36,6 +36,7 @@ xfce4-panel &
 # vypnutí klávesnice při psaní
 syndaemon -K -i 0.9 -d &
 
+awsetbg ~/Documents/Catolic/obrazy/MariaJasef/josef_maria-1680x1050.png
 #awesome
 notion
 

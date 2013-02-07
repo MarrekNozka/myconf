@@ -173,7 +173,9 @@ ZSHlen=${#${(%):-.%?.:....%n@%m...%~...}}
     if [ $ISMC ] || [ $MC_SID ]; then
         prompt walters $ZSHcol 
     fi
-
+    if [ -z $terminaltitle ]; then
+        echo -ne "\033]0;${USER}@`hostname -s`:` pwd | sed s%$HOME%\~%`\007"
+    fi
 }
 
 ##########################################

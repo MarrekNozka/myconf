@@ -101,6 +101,17 @@ alias m.previous="mocp --previous"
 alias supl='w3m http://www.spseol.cz/data/rozvrhy/suplobec.htm -dump | egrep No'
 alias supl.='w3m http://www.spseol.cz/data/rozvrhy/suplobec.htm -dump | regexcolor No "bold yellow"'
 
+
+#set_term_title
+chtitle(){
+    if [ $1 = '-d' ]; then
+        unset terminaltitle
+    else
+        terminaltitle='True'
+        echo -en "\033]0;$1\a"
+    fi
+}
+
 # Wine
     alias sas.exe='export LC_MESSAGES="cs_CZ.UTF-8"; wine "C:\SAS6\Programy\sas.exe"'
     alias xnview.exe='env WINEPREFIX="/home/marek/.wine" wine "Z:\opt\XnView\xnview.exe"'

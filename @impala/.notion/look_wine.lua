@@ -171,8 +171,12 @@ de.defstyle("stdisp", {
 --    text_align = "left",
     font = "-*-terminus-medium-r-*--24-*-*-*-*-*-iso10646-1",
     background_colour = "#444444",
-    foreground_colour = "gray",
+--    foreground_colour = "gray",
+    foreground_colour = "yellow",
     
+    de.substyle("normal", {
+        foreground_colour = "gray",
+    }),
     de.substyle("important", {
         foreground_colour = "#00c216",
     }),

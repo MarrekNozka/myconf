@@ -4,8 +4,19 @@
 
 defwinprop{ class = "Kupfer.py", float = true }
 defwinprop{ class = "Stardict", float = true }
-defwinprop{ class = "Xfce4-notifyd", float = true }
---defwinprop{ class = "", float = true }
+defwinprop{ class = "Xfce4-notifyd", float = true, jumpto = false, 
+                                                    switchto = false }
+--defwinprop{ class = "sxiv", instance="sxiv", float = true }
+--defwinprop{ class = "Claws-mail", acrobatic = true }
+defwinprop{ class = "Claws-mail", role="foldersel", float = true }
+defwinprop{ class = "Claws-mail", acrobatic=true, float = true }
+defwinprop{ class = "Claws-mail", role="mainwindow", float = false }
+defwinprop{ class = "Claws-mail", role="compose", float = false }
+
+defwinprop{ class = "Iceweasel", float = true }
+defwinprop{ class = "Iceweasel", role="browser", float = false }
+
+defwinprop{ class = "Italc", instance = "italc", float = true }
 
 defwinprop{
     class = "AcroRead",
@@ -58,7 +69,16 @@ defwinprop{
 -- Define some additional title shortening rules to use when the full
 -- title doesn't fit in the available space. The first-defined matching 
 -- rule that succeeds in making the title short enough is used.
-ioncore.defshortening("(.*) - Claws Mail", "Mail", true)
+
+-- Claws Mail
+ioncore.defshortening(".+@.+ - Claws Mail", "Claws Mail", true)
+-- Iceweasel
+ioncore.defshortening("(.*) - Vimperator", 
+                      "Iceweasel: $1$|Iceweasel$<..$1$|$1$<..", true )
+-- terminal
+ioncore.defshortening("(.+)@(.+):(.+)", "$1@$2:$3$|$1@$2:$<..$3$|..$>$3")
+
+------------------------------------------------------------------------
 ioncore.defshortening("(.*) - Mozilla(<[0-9]+>)", "$1$2$|$1$<...$2")
 ioncore.defshortening("(.*) - Mozilla", "$1$|$1$<...")
 ioncore.defshortening("XMMS - (.*)", "$1$|...$>$1")

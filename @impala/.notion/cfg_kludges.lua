@@ -12,6 +12,7 @@ defwinprop{ class = "Claws-mail", role="foldersel", float = true }
 defwinprop{ class = "Claws-mail", acrobatic=true, float = true }
 defwinprop{ class = "Claws-mail", role="mainwindow", float = false }
 defwinprop{ class = "Claws-mail", role="compose", float = false }
+defwinprop{ class = "Claws-mail", role="messageview", float = false }
 
 defwinprop{ class = "Iceweasel", float = true }
 defwinprop{ class = "Iceweasel", role="browser", float = false }
@@ -75,6 +76,7 @@ ioncore.defshortening(".+@.+ - Claws Mail", "Claws Mail", true)
 -- Iceweasel
 ioncore.defshortening("(.*) - Vimperator", 
                       "Iceweasel: $1$|Iceweasel$<..$1$|$1$<..", true )
+ioncore.defshortening("^\ *Vimperatar\ *$", "Iceweasel", true)
 -- terminal
 ioncore.defshortening("(.+)@(.+):(.+)", "$1@$2:$3$|$1@$2:$<..$3$|..$>$3")
 

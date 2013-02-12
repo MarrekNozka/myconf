@@ -83,8 +83,11 @@ dopath("cfg_defaults")
 --dopath("mod_statusbar")
 --dopath("mod_sp")
 dopath("mod_xinerama")
+--dopath("mod_xrandr")
 --dopath("mod_dock")
 dopath("look_wine")
+dopath("statusbar_workspace")
+dopath("statusbar_wsname")
 
 --
 -- Common customisations

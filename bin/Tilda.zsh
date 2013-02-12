@@ -6,6 +6,9 @@
 # Úloha:   tmux for Tilda
 ############################################################
 
+terminaltitle='True'
+echo -en "\033]0;Tilda\a"
+
 if [[ $TERM =~ 'xterm' ]] || [[ $1 == '-2'  ]]; then
     alias tmux='tmux -2'
 fi

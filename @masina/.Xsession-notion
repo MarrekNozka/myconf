@@ -1,5 +1,4 @@
 #!/bin/zsh -l
-
 ##/bin/sh -f
 
 #export PATH=/home/marek/bin/bin:$PATH
@@ -7,6 +6,7 @@
 #export PAGER="less"
 #export TEXDOCVIEW_pdf="kpdf %s"
 export TEXDOCVIEW_pdf="xpdf %s"
+#eval $(ssh-agent -s)
 
 # tuto proměnnou využívá skript xplanet-vymena.sh
 #export XPLANET_PID_FILE=$(mktemp);  
@@ -16,27 +16,34 @@ export TEXDOCVIEW_pdf="xpdf %s"
 #ck-launch-session gnome-session &
 #gnome-settings-daemon & 
 
+#setxkbmap -model pc105 -layout cz,us -variant qwerty, -option grp:switch,grp_led:caps,grp:shifts_toggle,caps:escape
 #setxkbmap -model pc105 -layout cz,us -variant qwerty, -option grp:shifts_toggle,grp:switch
 setxkbmap -model pc105 -layout us,cz -variant ,qwerty -option grp:shifts_toggle,grp:switch -print | xkbcomp - $DISPLAY 2>/dev/null                   
 xmodmap ~/.Xmodmap
 
-time=5
+#if ! echo $DISPLAY | egrep '\.[0-9]+\.[0-9]+\.[0-9]+|:[0-9]+:[0-9]+' ; then 
+##    xfce4-panel&
+#    kupfer --no-splash &
 
+#else
+#    xrdb .Xdefaults-1
+#fi
 #xscreensaver -no-splash &
-xfce4-panel &
-( sleep $time; xfce4-power-manager; )&
+#gnome-power-manager&
+#xfce4-power-manager&
 #blueman-applet&
-(sleep $time; parcellite)&
-#tilda&
-( sleep $time; kteatime; )&
-( sleep $time; stardict -h; )&
 
-# IPython
+docker &
+parcellite&
+volumeicon&
+kteatime&
+#autokey-gtk&
+stardict -h &
+
+#IPython
 ~/bin/bin/py.kernel &
-# vypnutí klávesnice při psaní
-syndaemon -K -i 0.9 -d &
 
-awsetbg ~/Documents/Catolic/obrazy/MariaJasef/josef_maria-1680x1050.png
+awsetbg ~/Documents/Catolic/obrazy/MariaJasef/josef_maria-1280x1024.png
 #awesome
 notion
 
@@ -44,5 +51,5 @@ notion
 #rm $XPLANET_PID_FILE
 killall gnome-keyring-daemon
 
-. ~/.zlogout
+#eval $(ssh-agent -k)
 # vim:nospell:

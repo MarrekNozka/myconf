@@ -36,6 +36,8 @@ defbindings("WScreen", {
     bdoc("Switch to next/previous object within current screen."),
     kpress(META.."comma", "WScreen.switch_prev(_)"),
     kpress(META.."period", "WScreen.switch_next(_)"),
+    kpress(META.."Shift+Left", "WScreen.switch_prev(_)"),
+    kpress(META.."Shift+Right", "WScreen.switch_next(_)"),
 
     submap(META.."K", {
         bdoc("Go to first region demanding attention or previously active one."),
@@ -53,7 +55,12 @@ defbindings("WScreen", {
         bdoc("Clear all tags."),
         kpress("T", "ioncore.tagged_clear()"),
     }),
+
+    bdoc("Go to first region demanding attention or previously active one."),
+    kpress(META.."Tab", "mod_menu.grabmenu(_, _sub, 'focuslist')"),
     kpress(META.."Escape", "ioncore.goto_previous()"),
+--    kpress(META.."U", "ioncore.goto_activity() or ioncore.goto_previous()"),
+    kpress(META.."U", "ioncore.goto_activity()"),
 
     bdoc("Go to n:th screen on multihead setup."),
     kpress(META.."Shift+1", "ioncore.goto_nth_screen(0)"),
@@ -80,17 +87,25 @@ defbindings("WScreen", {
     -- the managing group of that window. The right/left directions are
     -- used instead of next/prev, because they work better in conjunction
     -- with tilings.
-    kpress(META.."Tab", "ioncore.goto_next(_chld, 'right')", 
-           "_chld:non-nil"),
+--    kpress(META.."Tab", "ioncore.goto_next(_chld, 'right')", 
+--           "_chld:non-nil"),
     submap(META.."K", { 
         bdoc("Backward-circulate focus."),
-        kpress("AnyModifier+Tab", "ioncore.goto_next(_chld, 'left')", 
+        kpress("AnyModifier+Tab", "ioncore.goto_next(_chld, 'right')", 
                "_chld:non-nil"),
         
         bdoc("Raise focused object, if possible."),
         kpress("AnyModifier+R", "WRegion.rqorder(_chld, 'front')",
                "_chld:non-nil"),
     }),
+    kpress(META.."Control+Right", "ioncore.goto_next(_chld, 'right')", 
+           "_chld:non-nil"),
+    kpress(META.."Control+Left", "ioncore.goto_next(_chld, 'left')", 
+           "_chld:non-nil"),
+    kpress(META.."Control+Up", "ioncore.goto_next(_chld, 'up')", 
+           "_chld:non-nil"),
+    kpress(META.."Control+Down", "ioncore.goto_next(_chld, 'down')", 
+           "_chld:non-nil"),
 
 })
 
@@ -145,9 +160,10 @@ defbindings("WMPlex.toplevel", {
     kpress(META.."F1", "ioncore.exec_on(_, ':man notion')"),
 
     bdoc("Run a terminal emulator."),
-    kpress(META.."F3", "notioncore.exec_on(_, XTERM or 'x-terminal-emulator')"),
     kpress(META.."W", "notioncore.exec_on(_, 'apwal')"),
     kpress(META.."E", "notioncore.exec_on(_, 'kupfer')"),
+    kpress(META.."F7", "notioncore.exec_on(_, XTERM or 'x-terminal-emulator')"),
+    kpress(META.."F8", "notioncore.exec_on(_, 'urxvt  -fn -*-terminus-medium-r-*--16-*-*-*-*-*-iso10646-1')"),
     
     bdoc("Query for command line to execute."),
     kpress(META.."F2", "mod_query.query_exec(_)"),
@@ -156,7 +172,8 @@ defbindings("WMPlex.toplevel", {
     kpress(META.."Shift+F3", "mod_query.query_lua(_)"),
 
     bdoc("Query for host to connect to with SSH."),
-    kpress(META.."F4", "mod_query.query_ssh(_, ':ssh')"),
+    kpress(META.."F3", "mod_query.query_ssh(_, ':ssh')"),
+    kpress(META.."F4", "mod_query.query_ssh(_, ':ssh -XA')"),
 
     bdoc("Query for file to edit."),
     kpress(META.."F5", 

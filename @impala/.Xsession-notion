@@ -20,7 +20,7 @@ export TEXDOCVIEW_pdf="xpdf %s"
 setxkbmap -model pc105 -layout us,cz -variant ,qwerty -option grp:shifts_toggle,grp:switch -print | xkbcomp - $DISPLAY 2>/dev/null                   
 xmodmap ~/.Xmodmap
 
-time=5
+time=3
 
 #xscreensaver -no-splash &
 xfce4-panel &

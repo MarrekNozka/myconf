@@ -44,6 +44,10 @@ de.defstyle("frame", {
         highlight_colour = "#ffffff",
         background_colour = "#dedbd6",
         foreground_colour = "#ffffff",
+        shadow_colour = HL_colour,
+        highlight_colour = HL_colour,
+        background_colour = HL_colour,
+        foreground_colour = HL_colour,
     }),
 })
 

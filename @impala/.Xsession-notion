@@ -29,6 +29,7 @@ xfce4-panel &
 (sleep $time; parcellite)&
 #tilda&
 ( sleep $time; kteatime; )&
+( sleep $time; volti; )&
 ( sleep $time; stardict -h; )&
 
 # IPython

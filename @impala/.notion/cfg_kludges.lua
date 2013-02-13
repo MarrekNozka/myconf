@@ -3,6 +3,7 @@
 --
 
 defwinprop{ class = "Kupfer.py", float = true }
+defwinprop{ class = "Foo", float = true }
 defwinprop{ class = "Stardict", float = true }
 defwinprop{ class = "Xfce4-notifyd", float = true, jumpto = false, 
                                                     switchto = false }

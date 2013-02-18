@@ -87,7 +87,7 @@ syn match  htmlH2       /^.\+\n-\+$/ contains=@Spell
 
 "MatlaG regions
 syn region matlaInclude start="\[\[\!"  end="]]" nextgroup=mkdURL
-syn match matlaShort /\v(if-?)?code|(gg|gi|wk)(c[zs])?/ containedin=matlaInclude
+syn match matlaShort /\v([if]-?)?code|(gg|gi|wk)(c[zs])?/ containedin=matlaInclude
 syn match matlaMath  /\v\$\$?[^$]+\$\$?/
 
 

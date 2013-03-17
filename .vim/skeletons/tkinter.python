@@ -13,12 +13,14 @@ import sys
 from sys import stdin, stdout, stderr
 from Tkinter import *
 ####################################################
+## Definice funkcí
 
 def exit(event=None):
     sys.exit(0)
 
 
 ####################################################
+## Definice GUI
 
 mainWin = Tk(className="foo")
 mainWin.title("skeletonVIM_FILE_NAME")
@@ -28,5 +30,7 @@ mainWin.bind("<Escape>",exit)
 lbl = Label(mainWin, text=u"Ahoj světe!")
 lbl.pack()
 
+####################################################
+## Nekonečná smyčka
 mainWin.mainloop()
 

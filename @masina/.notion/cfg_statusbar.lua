@@ -9,7 +9,7 @@ mod_statusbar.create{
     screen=0,
     pos='tl',
     -- Set this to true if you want a full-width statusbar
-    fullsize=true,
+    fullsize=false,
     -- Swallow systray windows
     systray=true,
 
@@ -69,7 +69,7 @@ mod_statusbar.launch_statusd{
 
     -- Load meter
     load={
-        update_interval=3*1000,
+        update_interval=1*1000,
         --important_threshold=1.5,
         --critical_threshold=4.0,
     },

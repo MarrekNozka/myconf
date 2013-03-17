@@ -16,6 +16,8 @@ export TEXDOCVIEW_pdf="xpdf %s"
 #ck-launch-session gnome-session &
 #gnome-settings-daemon & 
 
+xrandr --output DVI-I-1 --auto --primary --left-of VGA-0 --auto
+
 #setxkbmap -model pc105 -layout cz,us -variant qwerty, -option grp:switch,grp_led:caps,grp:shifts_toggle,caps:escape
 #setxkbmap -model pc105 -layout cz,us -variant qwerty, -option grp:shifts_toggle,grp:switch
 setxkbmap -model pc105 -layout us,cz -variant ,qwerty -option grp:shifts_toggle,grp:switch -print | xkbcomp - $DISPLAY 2>/dev/null                   

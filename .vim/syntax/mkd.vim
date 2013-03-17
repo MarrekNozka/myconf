@@ -69,7 +69,8 @@ syn match  mkdListItem  "^\s*[-*+]\s\+"
 syn match  mkdListItem  "^\s*\d\+\.\s\+"
 syn match  mkdCode      /^\s*\n\(\(\s\{4,}[^ ]\|\t\+[^\t]\).*\n\)\+/
 syn match  mkdLineBreak /  \+$/
-syn region mkdCode      start=/\\\@<!`/                   end=/\\\@<!`/
+"syn region mkdCode      start=/\\\@<!`/             end=/\\\@<!`/
+syn region mkdCode      start=/\\\@<!`/             end=/`/
 syn region mkdCode      start=/\s*``[^`]*/          end=/[^`]*``\s*/
 syn region mkdBlockquote start=/^\s*>/              end=/$/                 contains=mkdLineBreak,mkdLineContinue,@Spell
 syn region mkdCode      start="<pre[^>]*>"         end="</pre>"
@@ -89,6 +90,8 @@ syn match  htmlH2       /^.\+\n-\+$/ contains=@Spell
 syn region matlaInclude start="\[\[\!"  end="]]" nextgroup=mkdURL
 syn match matlaShort /\v([if]-?)?code|(gg|gi|wk)(c[zs])?/ containedin=matlaInclude
 syn match matlaMath  /\v\$\$?[^$]+\$\$?/
+syn match matlaFoot  /\v\[\^.*]/
+syn match matlaFoottt  /\v\[\^.*]:/
 
 
 
@@ -115,6 +118,9 @@ setlocal foldmethod=syntax
 HtmlHiLink matlaInclude	    String
 HtmlHiLink matlaShort       Identifier
 HtmlHiLink matlaMath        Identifier
+HtmlHiLink matlaFoot        htmlLink
+HtmlHiLink matlaFoottt      mkdID
+
 
 "highlighting for Markdown groups
 HtmlHiLink mkdString	    String

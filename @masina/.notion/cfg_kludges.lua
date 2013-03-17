@@ -2,22 +2,35 @@
 -- Options to get some programs work more nicely (or at all)
 --
 
-defwinprop{ class = "Kupfer.py", float = true }
+defwinprop{ class = "", float = true }
+
+defwinprop{ class = "Kupfer.py", float = false, jumpto = true, switchto = true }
 defwinprop{ class = "Stardict", float = true }
+defwinprop{ class = "Vlc", float = true }
+defwinprop{ class = "MPlayer", float = true }
 defwinprop{ class = "Qmv", float = true }
 defwinprop{ class = "Foo", float = true }
+defwinprop{ class = "Zenity", float = true }
+defwinprop{ class = "kvm", float = true }
 defwinprop{ class = "Xfce4-notifyd", float = true, jumpto = false, 
                                                     switchto = false }
 --defwinprop{ class = "sxiv", instance="sxiv", float = true }
 --defwinprop{ class = "Claws-mail", acrobatic = true }
 defwinprop{ class = "Claws-mail", role="foldersel", float = true }
 defwinprop{ class = "Claws-mail", acrobatic=true, float = true }
-defwinprop{ class = "Claws-mail", role="mainwindow", float = false }
+defwinprop{ class = "Claws-mail", role="mainwindow", float = false, fullscreen=false}
 defwinprop{ class = "Claws-mail", role="compose", float = false }
 defwinprop{ class = "Claws-mail", role="messageview", float = false }
 
 defwinprop{ class = "Iceweasel", float = true }
 defwinprop{ class = "Iceweasel", role="browser", float = false }
+
+
+defwinprop{ class = "Gimp", float = true }
+defwinprop{ class = "Gimp", role="gimp-image-window", instance="gimp", float = false }
+
+
+
 
 defwinprop{ class = "Italc", instance = "italc", float = true }
 

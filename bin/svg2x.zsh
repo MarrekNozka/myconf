@@ -15,6 +15,7 @@ cat <<EOF
     svg2png 800x600 soubor.svg
 
     -T povolí průhlednost
+    -d cílový adresář
 EOF
 
 }
@@ -33,22 +34,6 @@ fi
 
 #######           SKRIPT         ##########
 
-dstGeometry=$1
-WH=("${(s/x/)dstGeometry}")
-dstW=$WH[1]
-dstH=$WH[2]
-srcGeometry=${$(identify $2)[3]}
-WH=("${(s/x/)srcGeometry}")
-srcW=$WH[1]
-srcH=$WH[2]
-
-if [[ $srcW -gt $srcH ]]; then
-    geometry="-w $dstW"
-else
-    geometry="-h $dstH"
-fi
-
-#############################################################
 
 transp=(-y 1)
 dstDir=$(dirname $2)
@@ -75,6 +60,24 @@ while true; do
             ;;
     esac
 done
+
+#############################################################
+
+dstGeometry=$1
+WH=("${(s/x/)dstGeometry}")
+dstW=$WH[1]
+dstH=$WH[2]
+srcGeometry=${$(identify $2)[3]}
+WH=("${(s/x/)srcGeometry}")
+srcW=$WH[1]
+srcH=$WH[2]
+
+if [[ $srcW -gt $srcH ]]; then
+    geometry="-w $dstW"
+else
+    geometry="-h $dstH"
+fi
+
 
 #############################################################
 

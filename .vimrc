@@ -127,7 +127,8 @@ set nofoldenable
 set tags=./tags,./TAGS,tags,TAGS,~/.vim/tags
 
 "Vzhled
-colorscheme murphy
+colorscheme darkblue
+"colorscheme murphy
 "colorscheme torte
 "colorscheme desert
 set guioptions=aAcrLm " Vzhled

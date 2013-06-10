@@ -40,7 +40,7 @@ alias cleanlatex='rm ./*.aux ./*.log'
 mkdircd () { mkdir -p $1 && cd $1; }
 
 # proceses
-psg () { ps ax | grep $* | grep -v grep; }
+psg () { ps ux | grep $* | grep -v grep; }
 
 killg () { kill -9 $(ps ax | grep $* | grep -v grep | cut -d" " -f1,2;) }
 
@@ -171,11 +171,11 @@ chtitle(){
     #alias mamut.web='unison mamut'
     alias unison-squeeze='unison-2.32.52'
     alias unison-lenny='unison-2.27'
-    alias web.farnost='unison-2.32.52 farnostlipnik.cz'
     alias web.tlapicka='unison tlapicka.net'
     alias web.tlapicka.foto='unison foto.tlapicka.net'
-    alias web.hroch='~/bin/web-hroch.sh'
-    alias web.all='web.hroch; web.tlapicka.foto; web.tlapicka; web.farnost'
+#    alias web.hroch='~/bin/web-hroch.sh'
+#    alias web.farnost='unison-2.32.52 farnostlipnik.cz'
+    alias web.all='web.hroch; web.farnost'
 
 # PowerOff
 # poweroff () { synchronizuj.sh && sudo poweroff;}

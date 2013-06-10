@@ -6,12 +6,16 @@ defwinprop{ class = "", float = true }
 
 defwinprop{ class = "Kupfer.py", float = false, jumpto = true, switchto = true }
 defwinprop{ class = "Stardict", float = true }
+defwinprop{ class = "XBoard", float = true }
 defwinprop{ class = "Vlc", float = true }
 defwinprop{ class = "MPlayer", float = true }
 defwinprop{ class = "Qmv", float = true }
 defwinprop{ class = "Foo", float = true }
 defwinprop{ class = "Zenity", float = true }
 defwinprop{ class = "kvm", float = true }
+defwinprop{ class = "Gxmessage", float = true }
+defwinprop{ class = "Xmessage", float = true }
+defwinprop{ class = "Wrapper", instance= "wrapper", float = true }
 defwinprop{ class = "Xfce4-notifyd", float = true, jumpto = false, 
                                                     switchto = false }
 --defwinprop{ class = "sxiv", instance="sxiv", float = true }
@@ -63,7 +67,6 @@ defwinprop{
     class = "Docker",
     statusbar = "docker",
 }
-
 
 -- You might want to enable these if you really must use XMMS. 
 --[[

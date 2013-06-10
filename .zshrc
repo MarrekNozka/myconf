@@ -150,6 +150,13 @@ ZSHz="%B%F{cyan}\`-%b%F{cyan}-%B%F{white}%B%F{forground}%(\!.##.>) %b%f%k"
 ZSHk="%B%F{black}-."
 
 ##########################################
+title () {
+    if [ -z $terminaltitle ] && [ $TERM != "linux" ]; then
+        aplikace=$(ps -a|egrep ${TTY#/dev/}|egrep -v 'ps$|egrep|tail|awk'|awk '{print $4}'|tail -1)
+        echo -ne "\033]0;${USER}@`hostname -s`:`pwd | sed s%$HOME%\~%`[$aplikace]\007"
+    fi
+}
+
 precmd () {
 #konec
 ZSHlen=${#${(%):-.%?.:....%n@%m...%~...}}
@@ -173,9 +180,7 @@ ZSHlen=${#${(%):-.%?.:....%n@%m...%~...}}
     if [ $ISMC ] || [ $MC_SID ]; then
         prompt walters $ZSHcol 
     fi
-    if [ -z $terminaltitle ] && [ $TERM != "linux" ]; then
-        echo -ne "\033]0;${USER}@`hostname -s`:` pwd | sed s%$HOME%\~%`\007"
-    fi
+    title 
 }
 
 ##########################################

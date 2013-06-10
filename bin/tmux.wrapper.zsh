@@ -23,7 +23,7 @@ Skript $0
     create session named $(basename $0)
 
     OPIONS
-     -d  detach original session
+     -d  NOdetach original session
 EOF
 }
 

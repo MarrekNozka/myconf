@@ -35,7 +35,8 @@ xmodmap ~/.Xmodmap
 #xfce4-power-manager&
 #blueman-applet&
 
-docker &
+#docker -color gray&
+xfce4-panel&
 parcellite&
 volumeicon&
 kteatime&

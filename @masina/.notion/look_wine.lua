@@ -173,7 +173,7 @@ de.defstyle("stdisp", {
 --    shadow_pixels = 0,
 --    highlight_pixels = 0,
 --    text_align = "left",
-    font = "-*-terminus-medium-r-*--20-*-*-*-*-*-iso10646-1",
+    font = "-*-terminus-medium-r-*--28-*-*-*-*-*-iso10646-1",
     background_colour = "#444444",
 --    foreground_colour = "gray",
     foreground_colour = "yellow",

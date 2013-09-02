@@ -39,11 +39,19 @@ setopt nohup
 HISTFILE=~/.histfile
 HISTSIZE=9999
 SAVEHIST=9999
-setopt appendhistory HIST_BEEP INC_APPEND_HISTORY
-#setopt SHARE_HISTORY  
+setopt appendhistory 
+setopt histbeep
+setopt incappendhistory
+#setopt sharehistory  
 #setopt EXTENDED_HISTORY		# puts timestamps in the history
-setopt HISTIGNORESPACE        # pokud začnu příkaz mezerou neuloží se do historie
-setopt HISTIGNOREALLDUPS      # příkaz je v historii jen jednou
+setopt histignorespace        # pokud začnu příkaz mezerou neuloží se do historie
+#setopt HISTIGNOREALLDUPS      # příkaz je v historii jen jednou
+setopt histignoredups         #  vymaže duplicitní příkazy, které jdou zasebou
+setopt histexpiredupsfirst    # vymaže všechny duplicity pokud je historie plná
+setopt histfindnodups         # duplicity v historii hledá jen jednou
+setopt histreduceblanks       # vymaže nic neznamenající mezery v příkazu
+setopt histallowclobber       # v historii přepíše > na >| 
+
 
 
 #############################################################
@@ -57,6 +65,11 @@ bindkey -e
 bindkey '^[' vi-cmd-mode
 bindkey ' ' magic-space    #mezerník rozbaluje odkazy na historii || also do history expansion on space
 bindkey '^Z' complete-word # complete on tab, leave expansion to _expand
+
+#bindkey '^p' history-search-backward  # hledání řádku se stejným prvním slovem
+#bindkey '^n' history-search-forward
+bindkey '^p' history-beginning-search-backward  # hledání řádku, který se shoduje od začátku do pozice kurzoru
+bindkey '^n' history-beginning-search-forward
 #
 # Vi style:
 autoload -U edit-command-line  

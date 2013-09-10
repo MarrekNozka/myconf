@@ -34,6 +34,7 @@ xfce4-panel &
 ( sleep $time; volti; )&
 ( sleep $time; stardict -h; )&
 ( sleep $time; xclock -update 1 ; )&
+( sleep $time; xclock -update 1 ; )&
 
 # IPython
 ~/bin/bin/py.kernel &

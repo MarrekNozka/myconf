@@ -1,5 +1,7 @@
 #!/bin/zsh -l
 
+xrandr --output LVDS1 --auto --output VGA1 --auto
+xrandr --output LVDS1 --auto --primary  --left-of VGA1 
 ##/bin/sh -f
 
 #export PATH=/home/marek/bin/bin:$PATH
@@ -31,6 +33,8 @@ xfce4-panel &
 ( sleep $time; kteatime; )&
 ( sleep $time; volti; )&
 ( sleep $time; stardict -h; )&
+( sleep $time; xclock -update 1 ; )&
+( sleep $time; xclock -update 1 ; )&
 
 # IPython
 ~/bin/bin/py.kernel &

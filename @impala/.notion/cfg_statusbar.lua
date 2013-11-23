@@ -68,7 +68,7 @@ mod_statusbar.launch_statusd{
 
     -- Load meter
     load={
-        update_interval=3*1000,
+        update_interval=2*1000,
         --important_threshold=1.5,
         --critical_threshold=4.0,
     },

@@ -7,6 +7,8 @@ export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;33'
 export LESS='-r'
 
+export PERL5LIB="$HOME/weby/~nozka"
+
 loginsh=1
 # the default umask is set in /etc/login.defs
 umask 022

@@ -62,6 +62,10 @@ VIMPATH=$(which vim)
     alias vi="$VIMPATH -p"
     alias vi.NONE="$VIMPATH -u NONE"
 
+# util
+hist() {
+    egrep -i "$*" ~/.histfile 
+}
 
 #######################################
 ###### Dangerous and unimportent #######
@@ -75,10 +79,6 @@ if [ $USER != root ]; then
 
     alias kontroluj.Claws-Mail='md5sum .claws-mail/**/* 2>/dev/null| md5sum; md5sum Mail/**/* 2>/dev/null | md5sum;'
 
-# util
-hist() {
-    egrep -i "$*" ~/.histfile 
-}
 
 # mocp
 alias m.play="mocp --play"
@@ -113,7 +113,7 @@ chtitle(){
 }
 
 # Wine
-    alias sas.exe='export LC_MESSAGES="cs_CZ.UTF-8"; wine "C:\SAS6\Programy\sas.exe"'
+#    alias sas.exe='export LC_MESSAGES="cs_CZ.UTF-8"; wine "C:\SAS6\Programy\sas.exe"'
     alias xnview.exe='env WINEPREFIX="/home/marek/.wine" wine "Z:\opt\XnView\xnview.exe"'
 # Lazarus, Delphi
     alias delphi='wine C:\\Program\ Files\\Borland\\Delphi7\\Bin\\delphi32.exe'

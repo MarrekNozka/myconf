@@ -19,6 +19,11 @@
 #gcf(), gca(), getfigs()
 #
 
+#TRAPINT() {
+#    print 'ahoj'
+#    exit 22
+#}
+
 for i in $@; do
     if [[ $i == '-h' ]]; then 
         cat <<EOF
@@ -28,7 +33,6 @@ for i in $@; do
     pysh         -- IPython whith PySh
     py.black     -- IPython Qt black console ( X kernel )
     py.white     -- IPython Qt white console ( X kernel )
-    py.inline    -- IPython inline white console ( X kernel )
     py.notebook  -- IPython notebook kernel
     py.kernel    -- new X kernel
 
@@ -40,6 +44,8 @@ for i in $@; do
         kernel-28451.json
                 run comcrete existing kernel
 
+        [ gtk | qt | tk | inline ]  set backend
+
 EOF
         exit;
     fi
@@ -50,27 +56,34 @@ name=$(basename $0)
 font='--ConsoleWidget.font_family="Terminus" --ConsoleWidget.font_size=15'
 
 if [ -z $1 ] ; then
-    kernel=$(egrep '\-\-existing' ~/.config/ipython/pyXkernel | head -n 1 | cut -d ' ' -f 2,3)
+    kernel=$(egrep '\-\-existing' ~/.config/ipython/pyXkernel | head -n 1 | cut -d ' ' -f 2-)
 elif [[ $1 == '-e' ]]; then
-    kernel=""
-elif [ $1 ]; then
+    pylab='--pylab=gtk'
+elif [[ $1 == 'gtk' ]]; then
+    pylab='--pylab=gtk'
+elif [[ $1 == 'tk' ]]; then
+    pylab='--pylab=tk'
+elif [[ $1 == 'qt' ]]; then
+    pylab='--pylab=qt'
+elif [[ $1 == 'inline' ]]; then
+    pylab='--pylab=inline'
+elif [[ $1 =~ '\.json$' ]]; then
     kernel="--existing $1"
 fi
 
+
 if [[ $name == 'py.c' ]]; then
-    eval ipython console --pylab=qt --classic $kernel
+    eval ipython console $pylab --classic $kernel
 elif [[ $name == 'py' ]]; then
-    eval ipython console --pylab=qt $kernel
+    eval ipython console $pylab $kernel
 elif [[ $name == 'pysh' ]]; then
-    ipython --profile=pysh --pylab=qt 
+    ipython --profile=pysh $pylab
 elif [[ $name == 'py.black' ]]; then
-    eval ipython qtconsole --pylab=qt --colors=linux --gui-completion ncurses $font $kernel
+    eval ipython qtconsole $pylab --colors=linux --gui-completion ncurses $font $kernel
 elif [[ $name == 'py.white' ]]; then
-    eval ipython qtconsole --pylab=qt --colors=lightbg --gui-completion ncurses $font $kernel
-elif [[ $name == 'py.inline' ]]; then
-    eval ipython qtconsole --pylab=inline --colors=lightbg --gui-completion ncurses $font $kernel
+    eval ipython qtconsole $pylab --colors=lightbg --gui-completion ncurses $font $kernel
 elif [[ $name == 'py.notebook' ]]; then
-    eval ipython notebook --profile=notebook 
+    eval ipython notebook --profile=notebook --pylab=inline
 elif [[ $name == 'py.kernel' ]]; then
-    eval ipython kernel --pylab=qt 2>~/.config/ipython/pyXkernel &
+    exec ipython kernel ${pylab---pylab=inline} 2>&1  | tee ~/.config/ipython/pyXkernel 
 fi

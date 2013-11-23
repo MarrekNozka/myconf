@@ -1,6 +1,8 @@
 " ~/.vimperatorrc
 
 set wildmode=list:longest,list:full
+set toolbars=noaddons 
+
 map ,,m :set gui=menu<CR>
 map ,,M :set gui=nomenu<CR>
 map ,,b :set gui=bookmarks<CR>

@@ -3,10 +3,17 @@
 "upravil Marek Nožka
 "--------------------------------------------------------------------------
 "entity
-imap ,sp &nbsp;
-imap ,,<space> &nbsp;
-imap ,,< &lt;
-imap ,,> &gt;
+imap <Leader>sp &nbsp;
+imap <Leader><space> &nbsp;
+imap <Leader>< &lt;
+imap <Leader>> &gt;
+imap <Leader>& &amp;
+imap <Leader>( &#40;
+imap <Leader>) &#41;
+imap <Leader>_ &#95;
+imap <Leader>... &hellip;
+imap <Leader>--  &ndash;
+imap <Leader>--- &mdash;
 
 "poznámky
 imap ,,/ <>!--  --<Esc>hhi

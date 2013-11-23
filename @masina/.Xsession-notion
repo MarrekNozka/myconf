@@ -16,7 +16,7 @@ export TEXDOCVIEW_pdf="xpdf %s"
 #ck-launch-session gnome-session &
 #gnome-settings-daemon & 
 
-xrandr --output DVI-I-1 --auto --primary --left-of VGA-0 --auto
+xrandr --output DVI-I-1 --auto --primary --left-of VGA-1 --auto
 
 #setxkbmap -model pc105 -layout cz,us -variant qwerty, -option grp:switch,grp_led:caps,grp:shifts_toggle,caps:escape
 #setxkbmap -model pc105 -layout cz,us -variant qwerty, -option grp:shifts_toggle,grp:switch
@@ -42,6 +42,8 @@ volumeicon&
 kteatime&
 #autokey-gtk&
 stardict -h &
+xclock -update 1 &
+xclock -update 1 &
 
 #IPython
 ~/bin/bin/py.kernel &

@@ -127,8 +127,8 @@ set nofoldenable
 set tags=./tags,./TAGS,tags,TAGS,~/.vim/tags
 
 "Vzhled
-colorscheme darkblue
-"colorscheme murphy
+"colorscheme darkblue
+colorscheme murphy
 "colorscheme torte
 "colorscheme desert
 set guioptions=aAcrLm " Vzhled
@@ -139,6 +139,7 @@ command Menu set guioptions=aArcLmtTh "e
 map <Leader>s :set spell spelllang=cs,en<Return>
 map <Leader>S :set nospell<Return>
 "set spell spelllang=cs,en
+set nospell
 set cpo&vim
 
 

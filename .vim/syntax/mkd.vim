@@ -90,6 +90,7 @@ syn match  htmlH2       /^.\+\n-\+$/ contains=@Spell
 syn region matlaInclude start="\[\[\!"  end="]]" nextgroup=mkdURL
 syn match matlaShort /\v([if]-?)?code|(gg|gi|wk)(c[zs])?/ containedin=matlaInclude
 syn match matlaMath  /\v\$\$?[^$]+\$\$?/
+syn region matlaMath  start="^\$\$\s*$" end="^\$\$\s*$"
 syn match matlaFoot  /\v\[\^.*]/
 syn match matlaFoottt  /\v\[\^.*]:/
 

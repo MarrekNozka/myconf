@@ -9,7 +9,6 @@
 
 use locale;
 use utf8;
-use encoding 'utf8';
 
 use strict;
 use vars qw();

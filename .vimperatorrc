@@ -1,8 +1,7 @@
 " ~/.vimperatorrc
 
 set wildmode=list:longest,list:full
-set toolbars=noaddons 
-
+set toolbars=noaddons
 map ,,m :set gui=menu<CR>
 map ,,M :set gui=nomenu<CR>
 map ,,b :set gui=bookmarks<CR>
@@ -12,5 +11,8 @@ map ,,T :set gui=nonavigation<CR>
 
 map <C-b> :emenu Zobrazení.Postranní lišta.Záložky<Return>
 map <C-d> :emenu Záložky.Přidat stránku do záložek<Return>
+
+map / i<C-F>
+map n i<F3>
 
 " vim:ft=vim:

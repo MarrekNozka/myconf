@@ -44,7 +44,9 @@ psg () { ps ux | grep $* | grep -v grep; }
 
 killg () { kill -9 $(ps ax | grep $* | grep -v grep | cut -d" " -f1,2;) }
 
-alias ps.='ps fux'
+alias ps.='ps -u $USER --forest --format pid,tty,pcpu,args'
+alias ps..='ps -u $USER --forest --format pid,tty,pcpu,"%mem",stat,start,time,args'
+alias ps...='ps -A --forest --format user,pid,pcpu,"%mem",stat,start,time,args'
 alias pss='ps.'
 #
 alias netstat.='netstat -nap --inet --inet6'

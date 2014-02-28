@@ -12,7 +12,7 @@ map ,,T :set gui=nonavigation<CR>
 map <C-b> :emenu Zobrazení.Postranní lišta.Záložky<Return>
 map <C-d> :emenu Záložky.Přidat stránku do záložek<Return>
 
-map / i<C-F>
-map n i<F3>
+"map / i<C-F>
+"map n i<F3>
 
 " vim:ft=vim:

@@ -34,10 +34,12 @@ defbindings("WScreen", {
     kpress(META.."0", "WScreen.switch_nth(_, 9)"),
     
     bdoc("Switch to next/previous object within current screen."),
-    kpress(META.."comma", "WScreen.switch_prev(_)"),
-    kpress(META.."period", "WScreen.switch_next(_)"),
-    kpress(META.."Shift+Left", "WScreen.switch_prev(_)"),
-    kpress(META.."Shift+Right", "WScreen.switch_next(_)"),
+    kpress(META.."Control+comma", "WScreen.switch_prev(_)"),
+    kpress(META.."Control+Left",  "WScreen.switch_prev(_)"),
+    kpress(META.."Down",  "WScreen.switch_prev(_)"),
+    kpress(META.."Control+period", "WScreen.switch_next(_)"),
+    kpress(META.."Control+Right",  "WScreen.switch_next(_)"),
+    kpress(META.."Up",  "WScreen.switch_next(_)"),
 
     submap(META.."K", {
         bdoc("Go to first region demanding attention or previously active one."),
@@ -58,8 +60,9 @@ defbindings("WScreen", {
 
     bdoc("Go to first region demanding attention or previously active one."),
     kpress(META.."Tab", "mod_menu.grabmenu(_, _sub, 'focuslist')"),
-    kpress(META.."Escape", "ioncore.goto_previous()"),
+--    kpress(META.."Escape", "ioncore.goto_previous()"),
 --    kpress(META.."U", "ioncore.goto_activity() or ioncore.goto_previous()"),
+    kpress(META.."Escape", "ioncore.goto_activity() or ioncore.goto_previous()"),
     kpress(META.."U", "ioncore.goto_activity()"),
 
     bdoc("Go to n:th screen on multihead setup."),
@@ -67,8 +70,9 @@ defbindings("WScreen", {
     kpress(META.."Shift+2", "ioncore.goto_nth_screen(1)"),
     
     bdoc("Go to next/previous screen on multihead setup."),
-    kpress(META.."Shift+comma", "ioncore.goto_prev_screen()"),
-    kpress(META.."Shift+period", "ioncore.goto_next_screen()"),
+--    kpress(META.."Shift+comma", "ioncore.goto_prev_screen()"),
+--    kpress(META.."Shift+period", "ioncore.goto_next_screen()"),
+    kpress(META.."J", "ioncore.goto_next_screen()"),
     
     bdoc("Create a new workspace of chosen default type."),
     kpress(META.."F9", "ioncore.create_ws(_)"),
@@ -81,7 +85,7 @@ defbindings("WScreen", {
     bdoc("Display the window list menu."),
     mpress("Button2", "mod_menu.pmenu(_, _sub, 'windowlist')"),
 
-    bdoc("Forward-circulate focus."),
+--    bdoc("Forward-circulate focus."),
     -- '_chld' used here stands to for an actual child window that may not
     -- be managed by the screen itself, unlike '_sub', that is likely to be
     -- the managing group of that window. The right/left directions are
@@ -89,23 +93,21 @@ defbindings("WScreen", {
     -- with tilings.
 --    kpress(META.."Tab", "ioncore.goto_next(_chld, 'right')", 
 --           "_chld:non-nil"),
-    submap(META.."K", { 
-        bdoc("Backward-circulate focus."),
-        kpress("AnyModifier+Tab", "ioncore.goto_next(_chld, 'right')", 
-               "_chld:non-nil"),
-        
-        bdoc("Raise focused object, if possible."),
-        kpress("AnyModifier+R", "WRegion.rqorder(_chld, 'front')",
-               "_chld:non-nil"),
-    }),
-    kpress(META.."Control+Right", "ioncore.goto_next(_chld, 'right')", 
-           "_chld:non-nil"),
-    kpress(META.."Control+Left", "ioncore.goto_next(_chld, 'left')", 
-           "_chld:non-nil"),
-    kpress(META.."Control+Up", "ioncore.goto_next(_chld, 'up')", 
-           "_chld:non-nil"),
-    kpress(META.."Control+Down", "ioncore.goto_next(_chld, 'down')", 
-           "_chld:non-nil"),
+--    submap(META.."K", { 
+--        bdoc("Backward-circulate focus."),
+--        kpress("AnyModifier+Tab", "ioncore.goto_next(_chld, 'any')", 
+--               "_chld:non-nil"),
+--        
+--        bdoc("Raise focused object, if possible."),
+--        kpress("AnyModifier+R", "WRegion.rqorder(_chld, 'front')",
+--               "_chld:non-nil"),
+--    }),
+    kpress(META.."Shift+Right", "ioncore.goto_next(_chld, 'right')", "_chld:non-nil"),
+    kpress(META.."Shift+period", "ioncore.goto_next(_chld, 'right')", "_chld:non-nil"),
+    kpress(META.."Shift+Left", "ioncore.goto_next(_chld, 'left')", "_chld:non-nil"),
+    kpress(META.."Shift+Up", "ioncore.goto_next(_chld, 'up')", "_chld:non-nil"),
+    kpress(META.."Shift+Down", "ioncore.goto_next(_chld, 'down')", "_chld:non-nil"),
+    kpress(META.."Shift+comma", "ioncore.goto_next(_chld, 'down')", "_chld:non-nil"),
 
 })
 
@@ -161,6 +163,7 @@ defbindings("WMPlex.toplevel", {
 
     bdoc("Run a terminal emulator."),
     kpress(META.."W", "notioncore.exec_on(_, 'apwal')"),
+    kpress(META.."H", "notioncore.exec_on(_, ':less ~/.notion/tahak.mdwn')"),
     kpress(META.."E", "notioncore.exec_on(_, 'kupfer')"),
     kpress(META.."F7", "notioncore.exec_on(_, XTERM or 'x-terminal-emulator')"),
     kpress(META.."F8", "notioncore.exec_on(_, 'urxvt  -fn -*-terminus-medium-r-*--16-*-*-*-*-*-iso10646-1')"),
@@ -280,7 +283,9 @@ defbindings("WFrame.toplevel", {
         kpress("A", "ioncore.tagged_attach(_)"),
     }),
 --    kpress(META.."Escape", "WFrame.switch_next(_)"),
+    kpress(META.."period", "WFrame.switch_next(_)"),
     kpress(META.."Right", "WFrame.switch_next(_)"),
+    kpress(META.."comma", "WFrame.switch_prev(_)"),
     kpress(META.."Left", "WFrame.switch_prev(_)"),
 })
 

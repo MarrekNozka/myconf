@@ -169,7 +169,7 @@ imap <Leader>E <Esc><Leader>E
 map <Leader>w :!iceweasel <C-R><C-A> & <Return> 
 
 " code completion
-imap <C-Space>  
+imap <C-Space> <C-X><C-O>
 
 cmap <C-H> <Left>
 cmap <C-L> <Right>

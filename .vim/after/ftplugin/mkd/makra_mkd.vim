@@ -13,15 +13,18 @@ vmap <Leader>wk <Esc>`>a]]()<Esc>`<i[[!wkcz
 
 
 " odkaz obrázkem
+" [ ![_][huffman] ][huffman]   
 map  <Leader>ll i[ ![_][<C-O>a] ][<C-O>a]<Esc>hhhhha
 imap  <Leader>ll [ ![_][<C-O>a] ][<C-O>a]<Esc>hhhhha
 vmap <Leader>ll y<Esc>`>a]<Esc>`<i[<space>![_][i] ][<Esc>hhhP
-
+" [huffman]: huffman.png
+" vezme celý řádek
 map <Leader>LL I[<Esc>A]: 
 imap <Leader>LL <Esc>I[<Esc>A]: 
-
+" []:
 map <Leader>Ll i:<Esc>i[]
 imap <Leader>Ll :<Esc>i[]
+" [huffman]: huffman.png
 vmap <Leader>Ll <Esc>`>a]: <Esc>`<i[<Esc>A
 
 " obrázek

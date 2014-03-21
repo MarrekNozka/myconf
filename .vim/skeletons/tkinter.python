@@ -8,6 +8,7 @@
 # Úloha: 
 # Popis:   
 ####################################################
+from __future__ import unicode_literals
 
 import sys
 from sys import stdin, stdout, stderr

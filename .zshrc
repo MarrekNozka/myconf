@@ -267,3 +267,4 @@ autoload zmv
 unsetopt ALL_EXPORT
 
 eval $(dircolors -b ~/.dir_colors) 
+

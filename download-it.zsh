@@ -41,7 +41,8 @@ for f in $files; do
 done
 
 [ -d ./.vim ] || mkdir .vim
-cp -a ~/.vim/.*~*.netrwhist ~/.vim/*~*(backup|viminfo|.zip|.tmp|vba) ./.vim/
+cp -a ~/.vim/.*~*.netrwhist ~/.vim/*~*(backup|viminfo|.zip|.tmp|vba|.git) ./.vim/
+rm -Rf .vim/bundle/**/.git       
 if [ -d ./.vim/backup ]; then 
     rm -Rf ./.vim/backup/
 fi

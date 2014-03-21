@@ -1,0 +1,245 @@
+====== dokuwiki.vim syntax highlighting ======
+This is a test file for testing dokuwiki.vim syntax highlighting.
+Either copy this file to your dokuwiki data directory or source dokuwiki.vim to see how it works.
+
+You can use five heading styles.
+====== Heading 1 ======
+===== Heading 2 =====
+==== Heading 3 ====
+=== Heading 4 ===
+== Heading 5 ==
+
+
+====== Ignore ======
+Using <nowiki>%%...%%</nowiki> and %% <nowiki>...</nowiki>%%:
+%% ignore %%
+<nowiki>ignore</nowiki>
+
+====== Highlight ======
+**bold**
+//italic//
+__underlined__
+''monospaced''
+<del>deleted</del>
+<sup>supscript</sup>
+<sub>subscript</sub>
+__mix ''sy<del>ntax</del> **test**''__
+
+====== Lists ======
+-> Valid lists
+  * This is a list
+  * The second item
+    * You may have different levels
+  * <del>No, not another item</del>
+
+  - The same list but ordered
+  - Another item
+    - Just use indention for deeper levels
+  - A **bold** item
+
+-> Invalid lists:
+ * item
+ * item
+
+-> According to http://www.dokuwiki.org/syntax#lists using of spaces after '*'
+or '-' is not required, so these lists are valid, too:
+  -item (first level -- 2 spaces)
+   -item (first level -- 3 spaces)
+    -item (second level -- 4 spaces)
+  *item (first level -- 2 spaces)
+
+====== Smiley ======
+  * 8-) (icon_cool.gif)
+  * 8-O (icon_eek.gif)
+  * 8-o (icon_eek.gif)
+  * :-( (icon_sad.gif)
+  * :-) (icon_smile.gif)
+  * =) (icon_smile2.gif)
+  * :-/ (icon_doubt.gif)
+  * :-\ (icon_doubt2.gif)
+  * :-? (icon_confused.gif)
+  * :-D (icon_biggrin.gif)
+  * :-P (icon_razz.gif)
+  * :-o (icon_surprised.gif)
+  * :-O (icon_surprised.gif)
+  * :-x (icon_silenced.gif)
+  * :-X (icon_silenced.gif)
+  * :-| (icon_neutral.gif)
+  * ;-) (icon_wink.gif)
+  * m( (facepalm.gif)
+  *  ^_^ (icon_fun.gif)
+  * :?: (icon_question.gif)
+  * :!: (icon_exclaim.gif)
+  * LOL (icon_lol.gif)
+  * FIXME (fixme.gif)
+  * DELETEME (delete.gif)
+
+====== Entity ======
+|  <->   |  ↔  |
+|  ->    |  →  |
+|  <-    |  ←  |
+|  <=>   |  ⇔  |
+|  640x480   ||
+|  =>    |  ⇒  |
+|  <=    |  ⇐  |
+|  >>    |  »  |
+|  <<    |  «  |
+|  ---   |  —  |
+|  --    |  –  |
+|  (c)   |  ©  |
+|  (tm)  |  ™  |
+|  (r)   |  ®  |
+|  a...  |  a…  |
+
+====== Linebreaks ======
+text\\ text \\ text \\
+no linebreak \\here
+
+====== Links ======
+===== External Links =====
+http://example.org
+https://example.org
+telnet://example.org
+gopher://example.org
+wais://example.org
+ed2k://example.org
+irc://example.org
+ldap://example.org
+www.example.org
+
+===== Special symbols =====
+All alphanumeric ASCII symbols and several special symbols ("~", "!", "@",
+"#", "%", "&", "_", "+", "=", "/") are fully allowed within a link body as
+well as at the end of it:
+  * http://examples.org~
+Several symbols (".", ",", "?", ":", ";", "-") are partly welcome, that is
+they're allowed if they are placed before other permitted symbol and not at
+the end:
+  * http://examples.org. vs. http://examples.org.=
+Even a whole set of such symbols considered not to be a part of a link if it
+is placed at the end:
+  * http://examples.org?:;.,-
+
+All other special symbols and non-ASCII symbols (quotes, parentheses, curly
+braces,  "|", "`", "$", "^", "*", as well as most UTF-8 symbols, e.g. "²",
+"№", "ó", "ö", "ё", and so on) cannot be a part of a link:
+  * http://examples.org" and http://examples.org"=
+  * http://examples.org) and http://examples.org)=
+  * http://examples.org№ and http://examples.org№=
+  * http://examples.orgö and http://examples.orgö=
+  * http://examples.orgё and http://examples.orgё=
+
+Different dokuwiki versions treat some symbols (for example, the "[" and "]")
+differently. If in doubt, enclose links in square brackets.
+  * http://examples.org] and http://examples.org]=
+  * [[http://examples.org] ]] and [[http://examples.org]=]]
+
+Note that some links like [[http://example.org|this very long link to the
+example.org]] spanning several text lines in the source code are still valid.
+
+===== Internal Links =====
+Just the [[pagename]].\\
+The pagename with an additional [[pagename|link text]].\\
+The pagename with an additional [[pagename#foo|link text]] and section.\\
+Mixed [[http://example.org|link text]].
+
+===== Images and Files =====
+{{wiki:dokuwiki-128.png}}
+{{wiki:dokuwiki-128.png?50}}
+{{wiki:dokuwiki-128.png?200x50}}
+{{http://de3.php.net/images/php.gif?200x50}}
+{{ wiki:dokuwiki-128.png}}
+{{wiki:dokuwiki-128.png }}
+{{ wiki:dokuwiki-128.png }}
+{{ wiki:dokuwiki-128.png |This is the caption}}
+
+===== Image Links =====
+[[ http://www.dokuwiki.org/syntax#image_links |{{ wiki:dokuwiki-128.png |This is the caption}}]]
+
+Spaces before or after curly braces are not allowed.
+The following links will not be displayed as images:
+[[ http://dokuwiki.org | {{ wiki:dokuwiki-128.png |The caption}}]]
+[[ http://dokuwiki.org |{{ wiki:dokuwiki-128.png |The caption}} ]]
+[[ http://dokuwiki.org |{{ wiki:dokuwiki-128.png |The {special} caption}} ]]
+
+The following links are valid:
+[[ http://dokuwiki.org |{{ wiki:dokuwiki-128.png |The [special] caption}}]]
+[[ http://dokuwiki.org |{{ wiki:dokuwiki-128.png |The very
+[special] link}}]]
+[[ http://dokuwiki.org |{{
+wiki:dokuwiki-128.png |The very very
+[special] link}}]]
+
+====== Control Macros ======
+~~NOCACHE~~
+
+====== Code Blocks ======
+
+Plain code block:
+  indented code block
+   still a code block
+
+Using %%<code> ... </code>%%:
+<code>
+<code> block here
+</code>
+
+Using %%<file> ... </file>%%: <file> <file> block here </file>
+
+Syntax highlighting:
+<file java  filename.jar>
+/**
+ * Example of java code syntax highlighting
+ */
+class HelloWorldApp {
+    //TBD
+}
+</file>
+
+====== Quotes ======
+I think we should do it
+
+> No we shouldn't
+
+>> Well, I say we should
+
+> Really?
+
+>> Yes!
+
+>>> Then lets do it!
+
+====== Footnotes ======
+You can add footnotes by using double parentheses((This is a **footnote**)).
+
+====== Tables ======
+^ THead1 ^ THead2 ^ THead3 ^
+| body |  body  | body |
+| ::: body | ::: | body ::: | invisible row tail
+| **bold** | __underlined__ | //italic// |
+| **You can use
+** |  __different formatting
+__ //styles//((inside
+a table)) | including <code> <code>
+blocks </code> |
+| body |  <file c file.c> main()
+{
+} </file>  | body |
+
+Rowspans
+^ : : : ^ : : : ^ : : : ^
+| ::: | ::: | :: : |
+| : :: | ::: | ::: |
+
+====== Embedded html/php ======
+<html>This is some <span style="color:red;font-size:150%;">inline HTML</span></html>
+<php>phpinfo();</php>
+
+====== Horizontal line ======
+----
+
+====== Comment ======
+You need to install comment plugin to use comments.
+/* this is a comment */
+
+/* vim: set ft=dokuwiki */

@@ -3,6 +3,7 @@ version 7.0
 " volba -u soubor načte soubor a ostatní konfirutaci přeskočí
 " vim -u NONE načte čistý vim, bez konfigurace
 set nocompatible "nejí to vi ale vim
+"""autocmd! bufwritepost .vimrc source %  " automaticky načte .vimrc
 syntax on
 set fileencodings=utf-8,iso8859-2,cp1250
 set fileformats=unix,dos
@@ -40,6 +41,9 @@ set linebreak	"zlom jen ve slově
 set autoindent  "jen zachovává odsazení
 set smartindent	"zachovává odsazení ale inteligentně ho umí zvětšit/zmenšit
 filetype plugin indent on "odsazovaní podle filetype
+" Při odsazování mi text zůstane odsazený
+vmap < <gv 
+vmap > >gv 
 
 set ww=b,s,<,>,[,],~ ",h,l "chování na přechodu dvou řádků
 set backspace=indent,eol,start "chování na přechodu dvou řádků
@@ -126,15 +130,19 @@ set nofoldenable
 "Tags
 set tags=./tags,./TAGS,tags,TAGS,~/.vim/tags
 
-"Vzhled
+""""   Vzhled
+" Show whitespace " MUST be inserted BEFORE the colorscheme command
+"autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+"au InsertLeave * match ExtraWhitespace /\s\+$/
+
 "colorscheme darkblue
-colorscheme murphy
+"colorscheme murphy
 "colorscheme torte
 "colorscheme desert
 set guioptions=aAcrLm " Vzhled
 command Nomenu set guioptions=aAcrLm "e
 command Menu set guioptions=aArcLmtTh "e
-	
+
 "Spell
 map <Leader>s :set spell spelllang=cs,en<Return>
 map <Leader>S :set nospell<Return>
@@ -142,6 +150,9 @@ map <Leader>S :set nospell<Return>
 set nospell
 set cpo&vim
 
+
+" seřadí označené řádky podle abecedy
+" vnoremap <leader>s :sort<CR>
 
 "Páry
 imap <> <><Esc>i
@@ -166,44 +177,77 @@ vmap <Leader>e y:!<C-R>"& <Return>
 map <Leader>E ^v$h<Leader>e
 imap <Leader>E <Esc><Leader>E
 " řetězec pod kurzorem vloží jak URL do prohlížeče
-map <Leader>w :!iceweasel <C-R><C-A> & <Return> 
+map <Leader>w :!iceweasel <C-R><C-A> & <Return>
 
 " code completion
 imap <C-Space> <C-X><C-O>
 
+" Pohyb v příkazovém režumu
 cmap <C-H> <Left>
 cmap <C-L> <Right>
 cmap <C-J> <Down>
 cmap <C-K> <Up>
+" Pohyb ve vkládacím režumu
+imap <C-H> <Left>
+imap <C-L> <Right>
+imap <C-J> <Down>
+imap <C-K> <Up>
+" ukládání
+map <C-U> :update<Return>
+imap <C-U> <C-O>:update<Return>
+map <Leader>u :update<Return>
+imap <Leader>u <C-O>:update<Return>
 
 "Formátování
 map <Leader><Return> gwap
 imap <Leader><Return> <Esc>gwapa
 map <Leader>g<Return> gogqG
+set fo-=t " don't automatically wrap text when typing
+set colorcolumn=80
+highlight ColorColumn ctermbg=Yellow guibg=#ff9999
+
+"""""""""""""""""""Omni popopu"""""""""""""""""""""""
+"" Aby při plovoucím doplňovacím okýnku se ško pohybovat
+"" pomocí J a K.
+
+function! OmniPopup(action)
+    if pumvisible()
+        if a:action == 'j'
+            return "\<C-N>"
+        elseif a:action == 'k'
+            return "\<C-P>"
+        endif
+    endif
+    return a:action
+endfunction
+
+inoremap <silent>j <C-R>=OmniPopup('j')<CR>
+inoremap <silent>k <C-R>=OmniPopup('k')<CR>
+
+""""""""""""""""""""""""""PluIns"""""""""""""""""""""""""
+execute pathogen#infect()
+
+"" Syntastic plugin
+"  aptitude intall python-flake8
+let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_always_populate_loc_list = 1
+
 
 """""""""""""""""""""""" TagList plugin
 nnoremap <silent> <F8> :TlistToggle<CR>
 "autocmd! BufWritePost *.c TlistUpdate
 "autocmd! BufWritePost *.h TlistUpdate
-"autocmd! BufWritePost *.cpp TlistUpdate
+"autocmd! BufWritePost *.cpp TlistUpdae
 "autocmd! BufWritePost *.pl TlistUpdate
 "autocmd! BufWritePost *.py TlistUpdate
 
 """""""""""""""""""""" Enhanced commentify plugin
- let g:EnhCommentifyTraditionalMode = 'no'
- let g:EnhCommentifyUserMode = 'yes'
- let g:EnhCommentifyAlignRight = 'yes'
- "let g:EnhCommentifyMultiPartBlocks = 'yes'
- let g:EnhCommentifyUseSyntax = 'yes'
- 
-"""""  PotWiki
-" let potwiki_home = "~/Documents/potWiki/HomePage"
-" highlight PotwikiWord          guifg=darkcyan
-" highlight PotwikiWordNotFound  guibg=Red guifg=Yellow
-" au Filetype potwiki set sts=4
-" let potwiki_upper = "A-ZĚŠČŘŽÝÁÍÉÚŮÓĎŤŘŇ:"
-" let potwiki_lower = "a-zěščřžýáíéúůóďťřň"
-" let potwiki_other ='0-9_'
+let g:EnhCommentifyTraditionalMode = 'no'
+let g:EnhCommentifyUserMode = 'yes'
+let g:EnhCommentifyAlignRight = 'yes'
+"let g:EnhCommentifyMultiPartBlocks = 'yes'
+let g:EnhCommentifyUseSyntax = 'yes'
+
  
 """""" Viki
  let g:vikiUpperCharacters = "A-ZĚŠČŘŽÝÁÍÉÚŮÓĎŤŘŇ"

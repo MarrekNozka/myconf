@@ -5,9 +5,9 @@
 # Datum:   skeletonVIM_CREATION_CZDATETIME
 # Autor:   Marek Nožka, nozka <@t> spseol <d.t> cz
 # Autor:   Marek Nožka, marek <@t> tlapicka <d.t> net
-# Licence: GNU/GPL 
-# Úloha: 
-# Popis:   
+# Licence: GNU/GPL
+# Úloha:
+# Popis:
 ############################################################################
 from __future__ import unicode_literals
 
@@ -17,7 +17,7 @@ from math import pi
 ############################################################################
 while True:
     try:
-        line = raw_input('app>> ')    
+        line = raw_input('app>> ')
     except EOFError:
         exit(0)
     except KeyboardInterrupt:

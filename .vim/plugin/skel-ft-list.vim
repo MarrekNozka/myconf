@@ -92,6 +92,7 @@ function! SKEL_replace()
   " Několik prima regulárních výrazů...
   exe "%s/skeletonVIM_CREATION_DATETIME/" . strftime("%Y\\/%m\\/%d %H:%M") . "/ge"
   exe "%s/skeletonVIM_CREATION_CZDATETIME/" . strftime("%d.%m.%Y %H:%M") . "/ge"
+  exe "%s/skeletonPelicanDATETIME/" . strftime("%Y-%m-%d %H:%M") . "/ge"
   exe "%s/skeletonVIM_CREATION_DATE/" . strftime("%Y\\/%m\\/%d") . "/ge"
   exe "%s/skeletonVIM_CREATION_CZDATE/" . strftime("%d.%m.%Y") . "/ge"
   exe "%s/skeletonVIM_CREATION_TIME/" . strftime("%H:%M") . "/ge"

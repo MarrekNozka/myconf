@@ -135,6 +135,7 @@ set tags=./tags,./TAGS,tags,TAGS,~/.vim/tags
 "autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 "au InsertLeave * match ExtraWhitespace /\s\+$/
 
+colorscheme slate
 "colorscheme darkblue
 "colorscheme murphy
 "colorscheme torte
@@ -204,7 +205,8 @@ imap <Leader><Return> <Esc>gwapa
 map <Leader>g<Return> gogqG
 set fo-=t " don't automatically wrap text when typing
 set colorcolumn=80
-highlight ColorColumn ctermbg=Yellow guibg=#ff9999
+"highlight ColorColumn ctermbg=Yellow guibg=#ff9999
+highlight ColorColumn ctermbg=Gray guibg=Gray
 
 """""""""""""""""""Omni popopu"""""""""""""""""""""""
 "" Aby při plovoucím doplňovacím okýnku se ško pohybovat
@@ -248,7 +250,12 @@ let g:EnhCommentifyAlignRight = 'yes'
 "let g:EnhCommentifyMultiPartBlocks = 'yes'
 let g:EnhCommentifyUseSyntax = 'yes'
 
- 
+
+""""""""""" CtrlP 
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlPMixed'
+
+
 """""" Viki
  let g:vikiUpperCharacters = "A-ZĚŠČŘŽÝÁÍÉÚŮÓĎŤŘŇ"
  let g:vikiLowerCharacters = "a-zěščřžýáíéúůóďťřň"

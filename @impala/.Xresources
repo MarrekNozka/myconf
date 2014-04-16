@@ -7,6 +7,7 @@ URxvt.transparent:	on
 URxvt.tintColor:	gray
 URxvt.shading:	    15 
 URxvt.font: -*-terminus-medium-r-*--20-*-*-*-*-*-iso10646-1
+URxvt.termName: rxvt-unicode
 
 ! Alt+Ctrl+<cislo> přepne velikost písma
 URxvt.keysym.M-C-2: command:\033]50;-*-terminus-medium-r-*--32-*-*-*-*-*-iso10646-1\007

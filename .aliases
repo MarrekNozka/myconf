@@ -36,6 +36,8 @@ alias cprv='cp -Rv'
 alias cpvr='cp -Rv'
 
 alias cleanlatex='rm ./*.aux ./*.log'
+alias aptcachesearch='apt-cache search'
+alias apti='sudo aptitude -u; sudo aptitude clean'
 
 mkdircd () { mkdir -p $1 && cd $1; }
 

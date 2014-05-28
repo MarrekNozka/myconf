@@ -37,7 +37,9 @@ alias cpvr='cp -Rv'
 
 alias cleanlatex='rm ./*.aux ./*.log'
 alias aptcachesearch='apt-cache search'
-alias apti='sudo aptitude -u; sudo aptitude clean'
+alias apti='sudo aptitude -u; sudo aptitude clean; sudo aptitude forget-new'
+
+alias oo=loffice
 
 mkdircd () { mkdir -p $1 && cd $1; }
 

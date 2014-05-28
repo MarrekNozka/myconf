@@ -91,6 +91,7 @@ syn region matlaInclude start="\[\[\!"  end="]]" nextgroup=mkdURL
 syn match matlaShort /\v([if]-?)?code|(gg|gi|wk)(c[zs])?/ containedin=matlaInclude
 syn match matlaMath  /\v\$\$?[^$]+\$\$?/
 syn region matlaMath  start="^\$\$\s*$" end="^\$\$\s*$"
+syn region matlaMath  start="\\begin{eqnarray}" end="\\end{eqnarray}"
 syn match matlaFoot  /\v\[\^.*]/
 syn match matlaFoottt  /\v\[\^.*]:/
 

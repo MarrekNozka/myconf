@@ -9,6 +9,7 @@ defwinprop{ class = "Stardict", float = true }
 --defwinprop{ class = "Hotot", float = true }
 defwinprop{ class = "Doublecmd", float = true }
 defwinprop{ class = "Gorilla", float = true }
+defwinprop{ class = "Simplescreenrecorder", float = true }
 defwinprop{ class = "Gorilla.tcl", float = true }
 defwinprop{ class = "Gtklp", float = true }
 defwinprop{ class = "XBoard", float = true }
@@ -99,7 +100,7 @@ ioncore.defshortening(".+@.+ - Claws Mail", "Claws Mail", true)
 -- Iceweasel
 ioncore.defshortening("(.*) - Vimperator", 
                       "Iceweasel: $1$|Iceweasel$<..$1$|$1$<..", true )
-ioncore.defshortening("^\ *Vimperatar\ *$", "Iceweasel", true)
+ioncore.defshortening("^ *Vimperatar *$", "Iceweasel", true)
 -- terminal
 ioncore.defshortening("(.+)@(.+):(.+)", "$1@$2:$3$|$1@$2:$<..$3$|..$>$3")
 

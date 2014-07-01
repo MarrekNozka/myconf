@@ -1,0 +1,215 @@
+\usepackage{picinpar}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+
+%%% Nastavení odstavcové zarážky a odsazení odstavců
+%\setlength{\parskip}{8pt}\parindent=0pt  % no paragraph indentation
+
+%%% Řádkování  
+%\def\baselinestretch{1.25}\normalsize % Řádkování
+
+%\frenchspacing      % Příkaz řídící  mezerování po tečce na konci vět.
+
+%%%% Redefinice příkazů 
+\renewcommand{\refname}{Literatura} 
+%\newcommand{\odstavec}[1]{{\bf #1} \\}
+
+%Záhlaví
+\usepackage{fancyhdr}
+\chead{}\lhead{} 
+%\rhead{\scshape \MakeUppercase{\chaptername\ \thechapter\ \ch@ptertext}}
+
+
+
+%%%%%%%%%%%%%%%% OKRAJE %%%%%%%%%%%%%%%%%%%%%%%%ř
+% A4 = 12in x 8.5in
+\voffset=-8mm		% Levý okraj  0 mm = 1 palec
+\hoffset=0mm		% Horní okraj 0 mm = 1 palec
+
+%\topmargin=-5mm		% mezi Okrajem a Hlavičkou
+%\headheight=0mm		% velikost Hlavičky
+%\headsep=0mm		% mezi Hlavičkou a Textem
+
+\oddsidemargin=0mm	%vzdálenost Oraje a Textu
+\textwidth=6.5in	%Šířka textu
+\textheight=8in	%Výška Textu
+
+%\marginparwidth=0in	%Šířka Okrajové poznámky
+%\marginparsep=1in		%vzdálenost Textu a Okrajové poznámky
+
+\footskip=0.9in		%vzdálenost Spodku Paty a Spodku Textu
+%%%%%%%%%%%%%%%% OKRAJE %%%%%%%%%%%%%%%%%%%%%%%%ř
+	
+%%%%%%%%%%%%%%%%%%%% HLAVIČKA   %%%%%%%%%%%%%%%%%%%%
+% \usepackage{fancyhdr}
+%\pagestyle{fancy}			%styl stránkování 
+%\lhead{} \chead{} %\rhead{\sectionmark} 
+%\lfoot{} \rfoot{}
+%\title{} \date{} \author{} \thanks{}
+
+%%%%%%%%%%%%%%%%%%%% HLAVIČKA   %%%%%%%%%%%%%%%%%%%%
+%\pagestyle{plain}   % čísla stránek ('empty'  nic)
+
+% Chapter
+\def\@makechapterhead#1{%
+  \vspace*{50\p@}%
+  {\parindent \z@ \raggedright \normalfont
+%    \ifnum \c@secnumdepth >\m@ne
+%        \huge\bfseries \@chapapp\space \thechapter
+%        \par\nobreak
+%        \vskip 20\p@
+%    \fi
+    \interlinepenalty\@M
+    \Huge \bfseries %
+	%\rule{3pt}{2ex}\hspace{1em}
+	 \thechapter \hspace{2.3ex \@plus.2ex} #1%
+    %\hfill\rule{3pt}{2ex}%
+	\par\nobreak
+    \vskip 40\p@
+	\gdef\ch@ptertext{#1}
+  }}
+
+
+%Druhý obsah
+    \newcommand*\obsahobsah{
+        \chapter*{Obsah}\@starttoc{sah}
+    }
+
+% Aby * mohla být \item
+	{\catcode`\*=13
+	\expandafter}\expandafter\def\noexpand*{\item}
+
+% Výukové cíle
+	\newenvironment{cile}%
+	{\par\noindent\textbf{Pokud dobře zvládnete tuko kapitolu, měli byste být schopni:}
+	  \nobreak\begin{list}{$\diamond$}{\itemsep 0pt}
+	  \catcode`\*=13 \let\i\item%
+	}%
+	{\nobreak\par%
+	\hspace*{0.36\textwidth}\hspace*{-\leftmargin}\hrulefill\hspace*{0.36\textwidth}~%
+	\end{list}\bigskip
+	}
+
+% Otázky a úkoly pro opakování
+	\newenvironment{otazky}%
+	{ \removelastskip\bigskip
+	  \noindent\textbf{$\bigtriangledown$ Otázky a úkoly pro opakování:}
+	  \nobreak\begin{list}{$\triangleright$}{\itemsep 0pt}
+	  \catcode`\*=13 \let\i\item%
+	}%
+	{\nobreak\par%
+	\hspace*{-\leftmargin}$\bigtriangleup$
+	\end{list}
+	}
+
+% Příklad
+	\newenvironment{priklad}%
+	{ \removelastskip\bigskip
+	  \noindent\textbf{$\rule[0.5ex]{1ex}{1ex}$~~Příklad:}\nobreak\smallskip\nobreak\par\nobreak%
+	}%
+	{\nobreak\smallskip\nobreak\par\noindent$\rule[0.5ex]{1ex}{1ex}$%
+	\bigskip
+	}
+
+% Úkol
+	\newenvironment{ukol}%
+	{ \removelastskip\bigskip
+	  \noindent\textbf{$\Box$~~Úkol:} \nobreak\par%
+	}%
+	{\nobreak\par\noindent$\Box$%
+	\bigskip
+	}
+
+
+%%Dulezite
+	\newlength{\vyskaduleziteho}%
+	\newcommand{\dulezite}[1]{%
+		\settoheight{\vyskaduleziteho}{\parbox{0.8\textwidth}{#1}}%
+		\removelastskip\bigskip\noindent%
+		\parbox{0.1\textwidth}{\centering\rule{0.7mm}{2\vyskaduleziteho}}
+		\parbox{0.8\textwidth}{#1}
+		\parbox{0.1\textwidth}{\centering\rule{0.7mm}{2\vyskaduleziteho}}
+		\bigskip%
+	}
+
+% Shrnutí
+	\newenvironment{shrnuti}%
+	{\section*{$\triangle$\hspace{0.6em}Shrnutí}
+	  \begin{quote}%
+	}%
+	{%
+	  \end{quote}%
+	}
+
+
+
+%Obrázek
+% #1 -- umístění obrázky
+% #2 -- cesta k obrázku bez přípony
+% #3 -- popisek
+	\newcommand{\obrazek}[3][htp]{%
+	\begin{figure}[#1]\begin{center}
+	\includegraphics{#2}
+	\caption{#3}
+	\label{obr:#2}
+	\end{center}\end{figure}
+	}
+
+%Obrázek s nastavitelnou šířkou
+% #1 -- umístění obrázku: htp
+% #2 -- cesta k obrázku bez přípony
+% #3 -- šířka obrázku
+% #4 -- popisek
+	\newcommand{\obrazeksirka}[4][htp]{%
+	\begin{figure}[#1]\begin{center}
+	\includegraphics[width=#3\textwidth]{#2}
+	\caption{#4}
+	\label{obr:#2}
+	\end{center}\end{figure}
+	}
+
+% Obrázek v odstavci
+% #1 -- počet řádků, umístění (l,r,c)
+% #2 -- cestak obrazku
+% #3 -- popisek
+% #4 -- šířka obrazku
+% #5 -- šířka vkládané grafiky
+	\newenvironment{obrazekodstavec}[5][0,r]%
+	{ % na začátku prostředí
+		\begin{figwindow}[#1,%
+		\makebox[#4\textwidth]{\includegraphics[width=#5\textwidth]{#2}},%
+		#3 \label{obr:#2}]
+	}%
+	{ % na konci prostředí
+		\end{figwindow}
+	}
+
+
+
+%tečky
+% #1 přibližný počet slov, který se má vytečkovat 
+	\newcounter{pocet}
+	\newcounter{citac}
+	\def\tecky#1{\setcounter{pocet}{#1}\setcounter{citac}{0}
+	  \loop.~.~.~.~.~.~.\stepcounter{citac}
+	  \ifnum\value{citac}<\value{pocet}\repeat
+	}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%      Matematika   %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\let\F\overline
+
+% Fázor
+	\newcommand{\F}[1]{
+		\bar{\mathrm{#1}}
+	}
+
+% Antikvové písmo
+	\let\U\mathrm
+
+% Tučné vzpřímené
+	\let\B\mathbf
+
+

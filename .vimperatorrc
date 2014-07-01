@@ -2,12 +2,21 @@
 
 set wildmode=list:longest,list:full
 set toolbars=noaddons
-map ,,m :set gui=menu<CR>
-map ,,M :set gui=nomenu<CR>
-map ,,b :set gui=bookmarks<CR>
-map ,,B :set gui=nobookmarks<CR>
-map ,,t :set gui=navigation<CR>
-map ,,T :set gui=nonavigation<CR>
+
+map ,,b :set gui+=bookmarks<CR>
+map ,,B :set gui+=nobookmarks<CR>
+
+map ,,m :set gui+=menu<CR>
+map ,,M :set gui+=nomenu<CR>
+map ,,l :set gui+=navigation<CR>
+map ,,L :set gui+=nonavigation<CR>
+map ,,t :set gui+=tabs<CR>
+map ,,T :set gui+=notabs<CR>
+
+map ,,n ,,m,,l
+map ,,N ,,M,,L
+
+map ,,d :tabduplicate<CR>
 
 map <C-b> :emenu Zobrazení.Postranní lišta.Záložky<Return>
 map <C-d> :emenu Záložky.Přidat stránku do záložek<Return>

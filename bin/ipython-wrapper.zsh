@@ -4,6 +4,8 @@
 # Autor:   Marek Nožka, marek <@T> tlapicka <dot> net
 # Licence: GNU/GPL 
 ############################################################
+ipython=ipython3
+locate=$($ipython locate)
 #
 # %config InlineBackend.figure_format = 'svg'
 # %loadpy http://matplotlib.sourceforge.net/plot_directive/mpl_examples/mplot3d/contour3d_demo.py
@@ -56,7 +58,7 @@ name=$(basename $0)
 font='--ConsoleWidget.font_family="Terminus" --ConsoleWidget.font_size=15'
 
 if [ -z $1 ] ; then
-    kernel=$(egrep '\-\-existing' ~/.config/ipython/pyXkernel | head -n 1 | cut -d ' ' -f 2-)
+    kernel=$(egrep '\-\-existing' $locate/pyXkernel | head -n 1 | cut -d ' ' -f 2-)
 elif [[ $1 == '-e' ]]; then
     pylab='--pylab=gtk'
 elif [[ $1 == 'gtk' ]]; then
@@ -73,17 +75,17 @@ fi
 
 
 if [[ $name == 'py.c' ]]; then
-    eval ipython console $pylab --classic $kernel
+    eval $ipython console $pylab --classic $kernel
 elif [[ $name == 'py' ]]; then
-    eval ipython console $pylab $kernel
+    eval $ipython console $pylab $kernel
 elif [[ $name == 'pysh' ]]; then
-    ipython --profile=pysh $pylab
+    $ipython --profile=pysh $pylab
 elif [[ $name == 'py.black' ]]; then
-    eval ipython qtconsole $pylab --colors=linux --gui-completion ncurses $font $kernel
+    eval $ipython qtconsole $pylab --colors=linux --gui-completion ncurses $font $kernel
 elif [[ $name == 'py.white' ]]; then
-    eval ipython qtconsole $pylab --colors=lightbg --gui-completion ncurses $font $kernel
+    eval $ipython qtconsole $pylab --colors=lightbg --gui-completion ncurses $font $kernel
 elif [[ $name == 'py.notebook' ]]; then
-    eval ipython notebook --profile=notebook --pylab=inline
+    eval $ipython notebook --profile=notebook --pylab=inline
 elif [[ $name == 'py.kernel' ]]; then
-    exec ipython kernel ${pylab---pylab=inline} 2>&1  | tee ~/.config/ipython/pyXkernel 
+    exec $ipython kernel ${pylab---pylab=inline} 2>&1  | tee $locate/pyXkernel 
 fi

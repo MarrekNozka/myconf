@@ -48,7 +48,8 @@ xclock -update 1 &
 #IPython
 ~/bin/bin/py.kernel &
 
-awsetbg ~/Documents/Catolic/obrazy/MariaJasef/josef_maria-1280x1024.png
+#awsetbg ~/Documents/Catolic/obrazy/MariaJasef/josef_maria-1280x1024.png
+fbsetbg -c '/home/marek/Documents/Catolic/DonBosco/DB_obrazek1.jpg'
 #awesome
 notion
 

@@ -119,10 +119,10 @@ au BufRead *.lpr set ft=pascal
 
 
 "folds -- sklady
-set foldcolumn=4
+set foldcolumn=1
 set foldmethod=indent
 "set foldmethod=marker
-set foldmarker=##,::
+"set foldmarker=##,::
 set nofoldenable
 "set foldopen=all
 "set foldclose=all
@@ -183,12 +183,12 @@ map <Leader>w :!iceweasel <C-R><C-A> & <Return>
 " code completion
 imap <C-Space> <C-X><C-O>
 
-" Pohyb v příkazovém režumu
+"""" Pohyb v příkazovém režumu
 cmap <C-H> <Left>
 cmap <C-L> <Right>
 cmap <C-J> <Down>
 cmap <C-K> <Up>
-" Pohyb ve vkládacím režumu
+"""" Pohyb ve vkládacím režumu
 imap <C-H> <Left>
 imap <C-L> <Right>
 imap <C-J> <Down>
@@ -233,6 +233,7 @@ execute pathogen#infect()
 "  aptitude intall python-flake8
 let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_python_flake8_args = "--ignore=E202,E201"
 
 
 """""""""""""""""""""""" TagList plugin

@@ -172,8 +172,7 @@ title () {
 }
 
 precmd () {
-#konec
-ZSHlen=${#${(%):-.%?.:....%n@%m...%~...}}
+    ZSHlen=${#${(%):-.%?.:....%n@%m...%~...}}
     if (( $ZSHlen < $COLUMNS )); then
         ZSHesc='%~'
     else 
@@ -187,12 +186,13 @@ ZSHlen=${#${(%):-.%?.:....%n@%m...%~...}}
         local ZSHline="-$ZSHline"
     done
     ZSHline="%b%F{cyan}$ZSHline"
-####pracovní adresář
+#   #pracovní adresář
     ZSHw="%b%F{cyan}-%B%F{black}(%B%F{yellow}$ZSHesc%B%F{black})"
     PROMPT=$(print $ZSHo$ZSHh$ZSHw$ZSHline$k\\n$ZSHz)
-#### MC
+#   #MC
     if [ $ISMC ] || [ $MC_SID ]; then
-        prompt walters $ZSHcol 
+#        prompt walters $ZSHcol 
+        unset RPROMPT
     fi
     title 
 }

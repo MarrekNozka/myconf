@@ -85,6 +85,9 @@ if [ $USER != root ]; then
 
     alias kontroluj.Claws-Mail='md5sum .claws-mail/**/* 2>/dev/null| md5sum; md5sum Mail/**/* 2>/dev/null | md5sum;'
 
+# mplayer
+alias mp='mplayer2'
+alias smp='smplayer2'
 
 # mocp
 alias m.play="mocp --play"

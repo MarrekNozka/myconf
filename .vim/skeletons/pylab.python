@@ -1,13 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
-# Soubor:  skeletonVIM_FILE_NAME
-# Datum:   skeletonVIM_CREATION_CZDATETIME
+# Soubor:  myLMS.py
+# Datum:   22.07.2014 15:41
 # Autor:   Marek Nožka, nozka <@t> spseol <d.t> cz
-# Licence: GNU/GPL 
-# Úloha: 
-# Popis:   
-###################################################3 
+# Licence: GNU/GPL
+# Úloha:   adaptivní filter (LMS)
+##############################################################################
 from __future__ import unicode_literals
+from __future__ import division
+from __future__ import print_function
+from __future__ import generators
 
 import matplotlib as mpl
 mpl.use('GTKAgg')
@@ -16,15 +18,15 @@ mpl.use('Qt4Agg')
 ## for Palatino and other serif fonts use:
 #mpl.rc('font',**{'family':'serif','serif':['Palatino']})
 #mpl.rc('lines', linewidth=2, color='r')
-mpl.rc('font', family = 'serif', serif = 'cmr10') 
-mpl.rcParams['text.usetex']=True
-mpl.rcParams['text.latex.unicode']=True
+mpl.rc('font', family='serif', serif='cmr10')
+mpl.rcParams['text.usetex'] = True
+mpl.rcParams['text.latex.unicode'] = True
 
 import numpy as num
 import scipy as sci
 import pylab as lab
 from pylab import pi
-#interactive mode 
-lab.ion()
-lab.ioff()
+###### interactive mode
+#lab.ion()
+#lab.ioff()
 

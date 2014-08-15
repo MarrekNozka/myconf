@@ -5,7 +5,7 @@ export EDITOR="vim"
 export PAGER="vimpager"
 export MANPAGER="vimpager"
 
-export GREP_OPTIONS='--color=auto'
+export GREP_OPTIONS='-P --color=auto'
 export GREP_COLOR='1;33'
 export LESS='-r'
 

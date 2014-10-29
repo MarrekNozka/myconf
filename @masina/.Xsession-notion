@@ -16,7 +16,7 @@ export TEXDOCVIEW_pdf="xpdf %s"
 #ck-launch-session gnome-session &
 #gnome-settings-daemon & 
 
-xrandr --output DVI-I-1 --auto --primary --left-of VGA-1 --auto
+# xrandr --output DVI-I-1 --auto --primary --left-of VGA-1 --auto
 
 #setxkbmap -model pc105 -layout cz,us -variant qwerty, -option grp:switch,grp_led:caps,grp:shifts_toggle,caps:escape
 #setxkbmap -model pc105 -layout cz,us -variant qwerty, -option grp:shifts_toggle,grp:switch
@@ -37,7 +37,7 @@ xmodmap ~/.Xmodmap
 
 #docker -color gray&
 xfce4-panel&
-parcellite&
+clipit&
 volumeicon&
 kteatime&
 #autokey-gtk&

@@ -236,9 +236,13 @@ fi
 #     Starrt terminálu, ToDo, Remind
 #############################################################
 if [ -z $loginsh ] && [ $USER != root ] && [ -z $NOTODO ]; then
-    cat ~/.vim/linuxlogo  
+#    cat ~/.vim/linuxlogo  
     if [ -x /usr/games/fortune ]; then
-        fortune
+       fortune -c debian \
+           linux \
+           cimrman \
+           40% pocitace \
+           40% /usr/share/games/fortunes/debian-hints 
     fi
     echo 
     uptime

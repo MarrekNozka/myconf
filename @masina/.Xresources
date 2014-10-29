@@ -41,6 +41,7 @@ URxvt.colorUL: #FFAA00
 !URxvt.tabbed.tab-bg:    0
 
 *.font:	    -*-terminus-medium-r-*--20-*-*-*-*-*-iso10646-1
+! *font: xft:Terminus:pixelsize=12
 
 *.visualBell: true
 *.scrollBar: true

@@ -30,33 +30,17 @@
 	%\newcommand{\odstavec}[1]{{\bf #1} \\}
 
 	%%%%%%%%%%%%%%%% OKRAJE %%%%%%%%%%%%%%%%%%%%%%%%
+
 %%  http://tug.ctan.org/tex-archive/macros/latex/contrib/geometry/
-%%
-%   \usepackage[a5paper, total={17cm,25cm}, top=3cm, left=2cm, includefoot]{geometry}
-%%  Parametr total znamená rozměry potisknuté oblasti (implicitně kromě záhlaví
-%%  a zápatí), top a left natavují vzdálenost od hrany papíru a includefoot
-%%  říká, že oblast zápatí bude zahrnuta do textové oblasti. 
-%%
-%   \usepackage[twoside, hscale=0.88, vscale=0.88, bindingoffset=1cm]{geometry}
-%%  oboustranny tisk
-
-	% A4 = 12in x 8.5in
-	\voffset=0mm		% Levý okraj  0 mm = 1 palec
-	\hoffset=0mm		% Horní okraj 0 mm = 1 palec
-
-	\topmargin=0mm		% mezi Okrajem a Hlavičkou
-	%\headheight=0mm		% velikost Hlavičky
-	\headsep=0mm		% mezi Hlavičkou a Textem
-
-	\oddsidemargin=0mm	%vzdálenost Oraje a Textu
-	\textwidth=6.5in	%Šířka textu
-	\textheight=8.5in	%Výška Textu
-
-	%\marginparwidth=	%Šířka Okrajové poznámky
-	%\marginparsep=		%vzdálenost Textu a Okrajové poznámky
-
-	\footskip=0.7in		%vzdálenost Spodku Paty a Spodku Textu
-	%%%%%%%%%%%%%%%% OKRAJE %%%%%%%%%%%%%%%%%%%%%%%%
+    \usepackage[a4paper, hoffset=0mm, voffset=0mm, nomarginpar, 
+        twoside=false, landscape=false, 
+        %marginparwidth=1in, marginparsep=1in,
+        %width=6.5in, height=8.5in, 
+        %includehead, includefoot, headheight=1in, headsep=4mm, footskip=0.7in 
+        top=4cm, bottom=25mm, 
+        left=25mm,  right=25mm,  
+        %twocolumn, columnsep=40mm,
+        ]{geometry}
 
 	%%%%%%%%%%%%%%%%%%%% HLAVIČKA   %%%%%%%%%%%%%%%%%%%%
 	% \usepackage{fancyhdr}
@@ -65,7 +49,8 @@
 	%\lfoot{} \rfoot{}
 	%\title{} \date{} \author{} \thanks{}
 
-	%%%%%%%%%%%%%%%%%%%% HLAVIČKA   %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 	\pagestyle{plain}   % čísla stránek ('empty'  nic)
 
     \setcounter{secnumdepth}{2}
@@ -73,8 +58,14 @@
 
 \title{}
 \author{Marek Nožka, marek@tlapicka.net}
+
 \begin{document}
-	\date{\today}
+%\tolerance 1000
+%\hbadness \tolerance
+%%\advance\hbadness -1
+%%\righthyphenmin=2
+
+\date{\today}
 \maketitle
 %\clearpage
 
@@ -82,6 +73,6 @@
 
 \end{document}
 
-	======================================
-	vim:foldcolumn=4:foldmethod=indent:foldenable
-	vim:ft=tex
+======================================
+vim:foldcolumn=4:foldmethod=indent:foldenable
+vim:ft=tex

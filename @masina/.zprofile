@@ -1,9 +1,9 @@
 # ~/.zprofile: executed by zsh for login shells.
 
 export EDITOR="vim"
-#export PAGER="less"
-export PAGER="vimpager"
-export MANPAGER="vimpager"
+export PAGER="less"
+#export PAGER="vimpager"
+#export MANPAGER="vimpager"
 
 export GREP_OPTIONS='-P --color=auto'
 export GREP_COLOR='1;33'

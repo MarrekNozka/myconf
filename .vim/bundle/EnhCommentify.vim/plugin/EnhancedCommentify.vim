@@ -807,7 +807,7 @@ function s:GetFileTypeSettings(ft)
 	let b:ECcommentClose = ''
     elseif fileType =~ '^\(tex\|abc\|erlang\|ist\|lprolog\|matlab\|mf\|'.
 		\ 'postscr\|ppd\|prolog\|simula\|slang\|slrnrc\|slrnsc\|'.
-		\ 'texmf\|viki\|virata\)$'
+		\ 'tex\|texmf\|viki\|virata\)$'
 	let b:ECcommentOpen = '%'
 	let b:ECcommentClose = ''
     elseif fileType =~ '^\(caos\|cterm\|form\|foxpro\|sicad\|snobol4\)$'

@@ -7,14 +7,18 @@ defwinprop{ class = "", float = true }
 defwinprop{ class = "Kupfer.py", float = false, jumpto = true, switchto = true }
 defwinprop{ class = "Stardict", float = true }
 --defwinprop{ class = "Hotot", float = true }
+defwinprop{ class = "XEyes", float = true }
 defwinprop{ class = "Doublecmd", float = true }
-defwinprop{ class = "Gorilla", float = true }
 defwinprop{ class = "Simplescreenrecorder", float = true }
+defwinprop{ class = "Gorilla", float = true }
 defwinprop{ class = "Gorilla.tcl", float = true }
 defwinprop{ class = "Gtklp", float = true }
 defwinprop{ class = "XBoard", float = true }
 defwinprop{ class = "Vlc", float = true }
 defwinprop{ class = "MPlayer", float = true }
+defwinprop{ class = "mplayer2", float = true }
+defwinprop{ class = "Smplayer", float = true }
+defwinprop{ class = "Smplayer2", float = true }
 defwinprop{ class = "Qmv", float = true }
 defwinprop{ class = "Foo", float = true }
 defwinprop{ class = "Zenity", float = true }

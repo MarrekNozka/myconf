@@ -86,7 +86,9 @@ dopath("mod_xrandr")
 dopath("mod_xinerama")
 dopath("mod_dock")
 dopath("look_wine")
-dopath("statusbar_workspace")
+--dopath("statusbar_workspace")
+dopath("statusbar_wsname")
+
 
 --
 -- Common customisations

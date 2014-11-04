@@ -37,7 +37,8 @@ mod_statusbar.create{
     -- windows and icons.
     --
     --
-    template=" %workspace_num_name_pager [%load_1min:%load_5min:%load_15min] %date %systray %systray_docker",
+--    template=" %workspace_num_name_pager [%load_1min:%load_5min:%load_15min] %date %systray %systray_docker",
+    template=" %wsname_fullall [%load_1min:%load_5min:%load_15min] %date %systray %systray_docker",
 --    template="[ %date || load: %load ] %systray %systray_dock",
 --    template="[ %date || load: %load ] [%systray_dock] %filler%systray",
     --template="[ %date || load:% %>load || mail:% %>mail_new/%>mail_total ] %filler%systray",

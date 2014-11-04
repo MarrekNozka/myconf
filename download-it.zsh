@@ -24,6 +24,7 @@ for f in $files; do
     cp -a ~/$f ./@$host
 done
 rm -R ./@$host/.notion/default-session-*
+rm -Rf ./@$host/.notion/scripts/.git/
 cd @$host
 ## awesome
 [ -d ./.config ] || mkdir ./.config

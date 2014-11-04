@@ -1,7 +1,10 @@
 # ~/.zprofile: executed by zsh for login shells.
 
 export EDITOR="vim"
+#export PAGER="vimpager"
+#export MANPAGER="vimpager"
 export PAGER="less"
+export MANPAGER="less"
 
 export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;33'
@@ -17,6 +20,11 @@ umask 022
 if [ -d ~/bin/bin ] ; then
     PATH=~/bin/bin:"${PATH}"
     export PATH
+fi
+
+if [ -d ~/bin/lib/python/ ]; then
+    PYTHONPATH="${PYTHONPATH}:$HOME/bin/lib/python/"
+    export PYTHONPATH
 fi
 
 # do the same with MANPATH

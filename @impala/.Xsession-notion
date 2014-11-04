@@ -28,21 +28,23 @@ time=3
 xfce4-panel &
 ( sleep $time; xfce4-power-manager; )&
 #blueman-applet&
-(sleep $time; parcellite)&
+#(sleep $time; parcellite)&
+(sleep $time; clipit)&
 #tilda&
 ( sleep $time; kteatime; )&
 #( sleep $time; volti; )&
 ( sleep $time; volumeicon; )&
 ( sleep $time; stardict -h; )&
 ( sleep $time; xclock -update 1 ; )&
-( sleep $time; xclock -update 1 ; )&
+( sleep $time; systemd-inhibit --what=handle-lid-switch sleep 25920000 )&
 
 # IPython
 ~/bin/bin/py.kernel &
 # vypnutí klávesnice při psaní
 syndaemon -K -i 0.9 -d &
 
-awsetbg  -c ~/Documents/Catolic/obrazy/MariaJasef/josef_maria-1680x1050.png
+#awsetbg  -c ~/Documents/Catolic/obrazy/MariaJasef/josef_maria-1680x1050.png
+fbsetbg -c '/home/marek/Documents/Catolic/DonBosco/DB_kresba.jpg' 
 #awesome
 notion
 

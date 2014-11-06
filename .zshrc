@@ -245,7 +245,7 @@ if [ -z $loginsh ] && [ $USER != root ] && [ -z $NOTODO ]; then
            40% /usr/share/games/fortunes/debian-hints 
     fi
     echo 
-    uptime
+    uptime -p
     echo
 #	if [ -x /usr/bin/remind ]; then
 #		rem

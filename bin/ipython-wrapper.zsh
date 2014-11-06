@@ -11,7 +11,7 @@ if [[ $0 =~ 2 ]]; then
 elif [[ $0 =~ 3 ]]; then
     ipython=ipython3
 else
-    ipython=ipython3
+    ipython=ipython
 fi
 
 locate=$($ipython locate)

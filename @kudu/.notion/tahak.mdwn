@@ -1,0 +1,50 @@
+Okna 
+=======
+
+okno N       Ctrl+K N
+okno vlevo   Meta+,    Meta+Left
+okno vpravo  Meta+.    Meta+Right
+zavřít okno  Meta+C
+
+minulé nebo urgentní okno   Meta+Esc
+urgentní okno          Meta+U
+seznam oken            Meta+Tab
+
+Přesune okno doleva    Meta+K+,
+Přesune okno doprava   Meta+K+.
+
+připojí okno           Meta+A
+o(d)značí okno         Meta+T
+připojí označené okno  Meta+K A
+přejít na okno         Meta+G
+odpojí/připojí okno    Meta+Q    Meta+k D
+kontextové menu        Meta+M
+
+
+Dlaždice
+=============
+
+dlaždice vlevo                       Meta+Shift+Left
+dlaždice vpravo        Meta+Shift+,  Meta+Shift+Right
+dlaždice nahoře                      Meta+Shift+Up
+dlaždice dole          Meta+Shift+.  Meta+Shift+Down
+zrušit dlaždici        Meta+K X
+
+Přepínání ploch
+================
+
+plocha 1       Meta+1
+plocha 2       Meta+2
+plocha vlevo   Memta+Crtl+,   Meta+Crtl+Left   Meta+Down
+plocha vpravo  Memta+Crtl+.   Meta+Crtl+Right  Meta+Up
+
+Přepínání obrazovky
+======================
+
+Další obrazovka   Meta+J
+obrazovka 1       Meta+Shift+1
+obrazovka 2       Meta+Shift+2
+
+
+
+

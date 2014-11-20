@@ -112,6 +112,7 @@ alias m.previous="mocp --previous"
 alias supl='w3m http://www.spseol.cz/data/rozvrhy/suplobec.htm -dump | egrep No'
 alias supl.='w3m http://www.spseol.cz/data/rozvrhy/suplobec.htm -dump | regexcolor No "bold yellow"'
 
+alias howdoi='howdoi -c -a'
 
 #set_term_title
 chtitle(){

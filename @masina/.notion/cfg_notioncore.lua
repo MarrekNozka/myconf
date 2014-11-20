@@ -175,7 +175,7 @@ defbindings("WMPlex.toplevel", {
     kpress(META.."Shift+F3", "mod_query.query_lua(_)"),
 
     bdoc("Query for host to connect to with SSH."),
-    kpress(META.."F3", "mod_query.query_ssh(_, ':ssh')"),
+    kpress(META.."F3", "mod_query.query_ssh(_, ':ssh -xa')"),
     kpress(META.."F4", "mod_query.query_ssh(_, ':ssh -XA')"),
 
     bdoc("Query for file to edit."),

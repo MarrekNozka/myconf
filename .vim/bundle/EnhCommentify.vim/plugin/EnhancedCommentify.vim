@@ -731,6 +731,9 @@ function s:GetFileTypeSettings(ft)
     elseif fileType =~ '^\(html\|xhtml\|xml\|xslt\|xsd\|dtd\|sgmllnx\|mkd\)$'
 	let b:ECcommentOpen = '<!--'
 	let b:ECcommentClose = '-->'
+    elseif fileType =~ '^\(jinja\)$'
+	let b:ECcommentOpen = '{#'
+	let b:ECcommentClose = '#}'
     elseif fileType =~ '^\(sgml\|smil\)$'
 	let b:ECcommentOpen = '<!'
 	let b:ECcommentClose = '>'
@@ -783,7 +786,7 @@ function s:GetFileTypeSettings(ft)
 		\ 'wvdial\|autohotkey\|z8a\)$'
 	let b:ECcommentOpen = ';'
 	let b:ECcommentClose = ''
-    elseif fileType =~ '^\(python\|perl\|[^w]*sh$\|tcl\|jproperties\|make\|'.
+    elseif fileType =~ '^\(perl\|[^w]*sh$\|tcl\|jproperties\|make\|'.
 		\ 'robots\|apache\|apachestyle\|awk\|bc\|cfg\|cl\|conf\|'.
 		\ 'crontab\|diff\|ecd\|elmfilt\|eterm\|expect\|exports\|'.
 		\ 'fgl\|fvwm\|gdb\|gnuplot\|gtkrc\|hb\|hog\|ia64\|icon\|'.
@@ -795,6 +798,9 @@ function s:GetFileTypeSettings(ft)
 		\ 'wget\|wml\|xf86conf\|xmath\|gitconfig\|txt\|snippet\|yaml\|'.
                 \ 'readline\)$'
 	let b:ECcommentOpen = '#'
+	let b:ECcommentClose = ''
+    elseif fileType == 'python'
+	let b:ECcommentOpen = '# '
 	let b:ECcommentClose = ''
     elseif fileType == 'webmacro'
 	let b:ECcommentOpen = '##'
@@ -1302,7 +1308,8 @@ endfunction
 " Returns the escaped string.
 "
 function s:EscapeString(string)
-    return escape(a:string, "*{}[]$^-")
+"    return escape(a:string, "*{}[]$^-")
+    return escape(a:string, "*[]$^-")
 endfunction
 
 "

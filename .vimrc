@@ -11,6 +11,7 @@ command Widle set ff=dos | set fenc=cp1250
 command Unix set ff=unix | set fenc=utf-8
 command UlozISO set ff=unix | set fenc=iso8859-2
 command W write
+command Q quit
 command Nazeleno !chmod +x %
 set printencoding=iso8859-2 
 "set printexpr=system('kprinter'\ .\ '\ '\ .\ v:fname_in)\ .\ delete(v:fname_in)\ +\ v:shell_error

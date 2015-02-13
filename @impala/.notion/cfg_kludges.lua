@@ -4,7 +4,7 @@
 
 defwinprop{ class = "", float = true }
 
-defwinprop{ class = "Kupfer.py", float = false, jumpto = true, switchto = true }
+defwinprop{ class = "Kupfer.py", float = true, jumpto = true, switchto = true }
 defwinprop{ class = "Stardict", float = true }
 --defwinprop{ class = "Hotot", float = true }
 defwinprop{ class = "XEyes", float = true }
@@ -67,13 +67,13 @@ defwinprop{
 defwinprop{
     is_dockapp = true,
     statusbar = "systray",
-    max_size = { w = 64, h = 64},
+    max_size = { w = 64, h = 32},
     min_size = { w = 64, h = 64},
 }
 
 -- Make an exception for Docker, which sets correct size hints.
 defwinprop{
---    is_dockapp = true,
+    is_dockapp = true,
     class = "Docker",
     statusbar = "docker",
 }

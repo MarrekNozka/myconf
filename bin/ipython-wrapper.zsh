@@ -72,7 +72,7 @@ font='--ConsoleWidget.font_family="Terminus" --ConsoleWidget.font_size=15'
 if [ -z $1 ] ; then
     kernel=$(egrep '\-\-existing' $locate/pyXkernel | head -n 1 | cut -d ' ' -f 2-)
 elif [[ $1 == '-e' ]]; then
-    pylab='--pylab=tk'
+    pylab='--pylab=tk --quiet'
 elif [[ $1 == 'gtk' ]]; then
     pylab='--pylab=gtk'
 elif [[ $1 == 'tk' ]]; then
@@ -87,17 +87,17 @@ fi
 
 #podle jména se spustí rozhranní
 #
-if [[ $name =~ 'py2?\.c$' ]]; then
+if [[ $name =~ 'py[23]?\.c$' ]]; then
     eval $ipython console $pylab --classic $kernel
-elif [[ $name =~ 'py2?$' ]]; then
+elif [[ $name =~ 'py[23]?$' ]]; then
     eval $ipython console $pylab $kernel
-elif [[ $name =~ 'py2?sh$' ]]; then
+elif [[ $name =~ 'py[23]?sh$' ]]; then
     $ipython --profile=pysh $pylab
-elif [[ $name =~ 'py2?.black$' ]]; then
+elif [[ $name =~ 'py[23]?.black$' ]]; then
     eval $ipython qtconsole $pylab --colors=linux --gui-completion ncurses $font $kernel
-elif [[ $name =~ 'py2?.white$' ]]; then
+elif [[ $name =~ 'py[23]?.white$' ]]; then
     eval $ipython qtconsole $pylab --colors=lightbg --gui-completion ncurses $font $kernel
-elif [[ $name =~ 'py2?.notebook$' ]]; then
+elif [[ $name =~ 'py[23]?.notebook$' ]]; then
     eval $ipython notebook --profile=notebook --pylab=inline
 elif [[ $name =~ 'py.kernel' ]]; then
     exec $ipython kernel ${pylab---pylab=inline} 2>&1  | tee $locate/pyXkernel 

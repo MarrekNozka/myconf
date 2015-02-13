@@ -200,6 +200,28 @@ imap <C-U> <C-O>:update<Return>
 map <Leader>u :update<Return>
 imap <Leader>u <C-O>:update<Return>
 
+""""""""""""""""""""""""""""
+" Ctrl+Alt+J  Ctrl+Alt+K přesouvá řádek nahoru dolů
+nnoremap  :m .+1<CR>==
+nnoremap  :m .-2<CR>==
+
+inoremap  <Esc>:m .+1<CR>==gi
+inoremap  <Esc>:m .-2<CR>==gi
+
+vnoremap  :m '>+1<CR>gv=gv
+vnoremap  :m '<-2<CR>gv=gv
+
+"""""""""""""""""""""""""""""
+map ê gj
+map ë gk
+map ° g0
+map Þ g^
+map <M-Home> g<Home>
+map ¤ g$
+map <M-End> g<End>
+
+
+
 "Formátování
 map <Leader><Return> gwap
 imap <Leader><Return> <Esc>gwapa
@@ -234,12 +256,15 @@ execute pathogen#infect()
 "  aptitude intall python-flake8
 let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_python_flake8_args = "--ignore=E202,E201"
+"let g:syntastic_python_flake8_args = "--ignore=E202,E201"
 let g:syntastic_scss_scss_args = "--compass"
 
 
 """""""""""""""""""""""" TagList plugin
-nnoremap <silent> <F8> :TlistToggle<CR>
+nnoremap <silent> <F8> :TlistToggle<CR><C-W><Left>
+let Tlist_Auto_Highlight_Tag = 1
+let Tlist_Auto_Update = 1
+let Tlist_Close_On_Select = 1
 "autocmd! BufWritePost *.c TlistUpdate
 "autocmd! BufWritePost *.h TlistUpdate
 "autocmd! BufWritePost *.cpp TlistUpdae
@@ -258,6 +283,12 @@ let g:EnhCommentifyUseSyntax = 'yes'
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlPMixed'
 
+
+""""""""""""""""""""""""
+let g:jedi#popup_on_dot = 0
+let g:jedi#show_call_signatures = 0
+command DolnovaniAno let g:jedi#show_call_signatures = 1
+command DolnovaniNe  let g:jedi#show_call_signatures = 0
 
 """""" Viki
  let g:vikiUpperCharacters = "A-ZĚŠČŘŽÝÁÍÉÚŮÓĎŤŘŇ"

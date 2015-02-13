@@ -26,7 +26,7 @@ if [ -d ~/man ]; then
 fi
 
 if [ -d ~/bin/lib/python/ ]; then
-    PYTHONPATH="${PYTHONPATH}:$HOME/bin/lib/python/"
+    PYTHONPATH="$HOME/bin/lib/python/"
     export PYTHONPATH
 fi
 

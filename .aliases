@@ -58,6 +58,12 @@ alias pss='ps.'
 alias netstat.='netstat -nap --inet --inet6'
 alias netstatt='netstat.'
 #
+alias createdb.='createdb -e -E UTF8 -l cs_CZ.UTF-8 -T template0'
+#
+alias DB='fbsetbg -c /home/marek/Documents/Catolic/DonBosco/DB_kresba.jpg'
+alias Maria='convert -resize x800 ~/Documents/Catolic/obrazy/spse/maria.png /tmp/m.png && fbsetbg -c /tmp/m.png'
+#
+#
 #alias 'forge=screen  -d -R -S forge'
 #
 #alias cal.='ncal -3M | sed "/^So/i---------------------------------------------------------" | regexcolor "^(Po|St|Pá).*$" bold "\b$(date +%-d)\b" reverse'

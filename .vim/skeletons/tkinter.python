@@ -4,34 +4,35 @@
 # Soubor:  skeletonVIM_FILE_NAME
 # Datum:   skeletonVIM_CREATION_CZDATETIME
 # Autor:   Marek Nožka, nozka <@t> spseol <d.t> cz
-# Licence: GNU/GPL 
+# Licence: GNU/GPL
 # Úloha: 
 # Popis:   
 ####################################################
-from __future__ import unicode_literals
+from __future__ import division, print_function, unicode_literals
 
 import sys
 from sys import stdin, stdout, stderr
 from Tkinter import *
-####################################################
-## Definice funkcí
 
+
+####################################################
+# Definice funkcí
 def exit(event=None):
     sys.exit(0)
 
 
 ####################################################
-## Definice GUI
+# Definice GUI
 
 mainWin = Tk(className="foo")
 mainWin.title("skeletonVIM_FILE_NAME")
 mainWin.option_add('*Font', 'Terminus 14')
-mainWin.bind("<Escape>",exit)
+mainWin.bind("<Escape>", exit)
 
 lbl = Label(mainWin, text=u"Ahoj světe!")
 lbl.pack()
 
 ####################################################
-## Nekonečná smyčka
+# Nekonečná smyčka
 mainWin.mainloop()
 

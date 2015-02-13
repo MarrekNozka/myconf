@@ -188,6 +188,13 @@ precmd () {
     ZSHline="%b%F{cyan}$ZSHline"
 #   #pracovní adresář
     ZSHw="%b%F{cyan}-%B%F{black}(%B%F{yellow}$ZSHesc%B%F{black})"
+#  Python VIRTUAL_ENV
+    if [ $VIRTUAL_ENV ]; then
+        ZSH_VENV=\($(basename $VIRTUAL_ENV)\)
+        ZSHz="%B%F{cyan}\`-${ZSH_VENV}%b%F{cyan}-%B%F{white}%B%F{forground}%(\!.##.>) %b%f%k"
+    else
+        ZSHz="%B%F{cyan}\`-%b%F{cyan}-%B%F{white}%B%F{forground}%(\!.##.>) %b%f%k"
+    fi
     PROMPT=$(print $ZSHo$ZSHh$ZSHw$ZSHline$k\\n$ZSHz)
 #   #MC
     if [ $ISMC ] || [ $MC_SID ]; then

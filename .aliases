@@ -24,6 +24,7 @@ alias llt='ll -t'
 
 alias ip6='ip -6'
 alias less='less --ignore-case'
+alias locate='locate --ignore-case'
 
 # disk
 alias df='df -h'
@@ -118,7 +119,11 @@ alias m.previous="mocp --previous"
 alias supl='w3m http://www.spseol.cz/data/rozvrhy/suplobec.htm -dump | egrep No'
 alias supl.='w3m http://www.spseol.cz/data/rozvrhy/suplobec.htm -dump | regexcolor No "bold yellow"'
 
+##############################################################################
 alias howdoi='howdoi -c -a'
+alias docal='while true; do ; date; ncal -A 1; sleep 60; done'
+alias docal.='while true; do ; date; cal.; sleep 60; done'
+
 
 #set_term_title
 chtitle(){

@@ -25,7 +25,7 @@ if g:jedi#auto_initialization
         execute "nnoremap <silent> <buffer>".g:jedi#documentation_command." :call jedi#show_documentation()<CR>"
     endif
 
-    if g:jedi#show_call_signatures == 1 && has('conceal')
+    if g:jedi#show_call_signatures > 0 && has('conceal')
         call jedi#configure_call_signatures()
     endif
 
@@ -36,12 +36,12 @@ if g:jedi#auto_initialization
     if g:jedi#auto_close_doc
         " close preview if its still open after insert
         autocmd InsertLeave <buffer> if pumvisible() == 0|pclose|endif
-    end
-end
+    endif
+endif
 
 if g:jedi#auto_vim_configuration
     setlocal completeopt=menuone,longest,preview
     if len(mapcheck('<C-c>', 'i')) == 0
         inoremap <C-c> <ESC>
-    end
-end
+    endif
+endif

@@ -147,7 +147,7 @@ else
 fi
 
 #datum a čas
-ZSHd="%b%F{yellow}%D{%a %y-%m-%d-%T}"
+ZSHd="%b%F{yellow}%D{%a %e.%b %Y %T}"
 #tty
 ZSHt="%b%F{green}%l"
 RPROMPT="%B<%F{black}%!%F{default}|$ZSHd%F{default}|$ZSHt"

@@ -8,9 +8,34 @@ import re
 import os
 import sys
 from shlex import split as shsplit
+try:
+    from itertools import zip_longest
+except ImportError:
+    from itertools import izip_longest as zip_longest  # Python 2
+
+
+def no_jedi_warning():
+    vim.command('echoerr "Please install Jedi if you want to use jedi_vim."')
+
+
+def echo_highlight(msg):
+    vim_command('echohl WarningMsg | echom "%s" | echohl None' % msg)
+
 
 import vim
-import jedi
+try:
+    import jedi
+except ImportError:
+    no_jedi_warning()
+    jedi = None
+else:
+    version = jedi.__version__
+    if isinstance(version, str):
+        # the normal use case, now.
+        from jedi import utils
+        version = utils.version_info()
+    if version < (0, 7):
+        echo_highlight('Please update your Jedi version, it is to old.')
 
 is_py3 = sys.version_info[0] >= 3
 if is_py3:
@@ -25,6 +50,19 @@ def catch_and_print_exceptions(func):
             print(traceback.format_exc())
             return None
     return wrapper
+
+
+def _check_jedi_availability(show_error=False):
+    def func_receiver(func):
+        def wrapper(*args, **kwargs):
+            if jedi is None:
+                if show_error:
+                    no_jedi_warning()
+                return
+            else:
+                return func(*args, **kwargs)
+        return wrapper
+    return func_receiver
 
 
 class VimError(Exception):
@@ -55,10 +93,6 @@ def vim_eval(string):
 
 def vim_command(string):
     _catch_exception(string, 0)
-
-
-def echo_highlight(msg):
-    vim_command('echohl WarningMsg | echom "%s" | echohl None' % msg)
 
 
 class PythonToVimStr(unicode):
@@ -97,10 +131,14 @@ def get_script(source=None, column=None):
     return jedi.Script(source, row, column, buf_path, encoding)
 
 
+@_check_jedi_availability(show_error=False)
 @catch_and_print_exceptions
 def completions():
     row, column = vim.current.window.cursor
-    clear_call_signatures()
+    # Clear call signatures in the buffer so they aren't seen by the completer.
+    # Call signatures in the command line can stay.
+    if vim_eval("g:jedi#show_call_signatures") == '1':
+        clear_call_signatures()
     if vim.eval('a:findstart') == '1':
         count = 0
         for char in reversed(vim.current.line[:column]):
@@ -149,6 +187,7 @@ def completions():
         vim.command('return ' + strout)
 
 
+@_check_jedi_availability(show_error=True)
 @catch_and_print_exceptions
 def goto(is_definition=False, is_related_name=False, no_output=False):
     definitions = []
@@ -186,7 +225,6 @@ def goto(is_definition=False, is_related_name=False, no_output=False):
                     if not result:
                         return
                 vim.current.window.cursor = d.line, d.column
-                vim_command('normal! zt')  # cursor at top of screen
         else:
             # multiple solutions
             lst = []
@@ -198,10 +236,11 @@ def goto(is_definition=False, is_related_name=False, no_output=False):
                                     lnum=d.line, col=d.column + 1,
                                     text=PythonToVimStr(d.description)))
             vim_eval('setqflist(%s)' % repr(lst))
-            vim_eval('jedi#add_goto_window()')
+            vim_eval('jedi#add_goto_window(' + str(len(lst)) + ')')
     return definitions
 
 
+@_check_jedi_availability(show_error=True)
 @catch_and_print_exceptions
 def show_documentation():
     script = get_script()
@@ -224,25 +263,35 @@ def show_documentation():
         text = ('\n' + '-' * 79 + '\n').join(docs)
         vim.command('let l:doc = %s' % repr(PythonToVimStr(text)))
         vim.command('let l:doc_lines = %s' % len(text.split('\n')))
+    return True
 
 
 @catch_and_print_exceptions
 def clear_call_signatures():
+    # Check if using command line call signatures
+    if vim_eval("g:jedi#show_call_signatures") == '2':
+        vim_command('echo ""')
+        return
     cursor = vim.current.window.cursor
     e = vim_eval('g:jedi#call_signature_escape')
-    regex = r'%sjedi=([0-9]+), ([^%s]*)%s.*%sjedi%s'.replace('%s', e)
+    # We need two turns here to search and replace certain lines:
+    # 1. Search for a line with a call signature and save the appended
+    #    characters
+    # 2. Actually replace the line and redo the status quo.
+    py_regex = r'%sjedi=([0-9]+), (.*?)%s.*?%sjedi%s'.replace('%s', e)
     for i, line in enumerate(vim.current.buffer):
-        match = re.search(r'%s' % regex, line)
+        match = re.search(py_regex, line)
         if match is not None:
-            vim_regex = r'\v' + regex.replace('=', r'\=') + '.{%s}' \
-                % int(match.group(1))
-            vim_command(r'try | %s,%ss/%s/\2/g | catch | endtry'
-                        % (i + 1, i + 1, vim_regex))
-            vim_eval('histdel("search", -1)')
-            vim_command('let @/ = histget("search", -1)')
+            # Some signs were added to minimize syntax changes due to call
+            # signatures. We have to remove them again. The number of them is
+            # specified in `match.group(1)`.
+            after = line[match.end() + int(match.group(1)):]
+            line = line[:match.start()] + match.group(2) + after
+            vim.current.buffer[i] = line
     vim.current.window.cursor = cursor
 
 
+@_check_jedi_availability(show_error=False)
 @catch_and_print_exceptions
 def show_call_signatures(signatures=()):
     if vim_eval("has('conceal') && g:jedi#show_call_signatures") == '0':
@@ -254,6 +303,9 @@ def show_call_signatures(signatures=()):
 
     if not signatures:
         return
+
+    if vim_eval("g:jedi#show_call_signatures") == '2':
+        return cmdline_call_signatures(signatures)
 
     for i, signature in enumerate(signatures):
         line, column = signature.bracket_start
@@ -270,7 +322,8 @@ def show_call_signatures(signatures=()):
 
         params = [p.description.replace('\n', '') for p in signature.params]
         try:
-            params[signature.index] = '*%s*' % params[signature.index]
+            # *_*PLACEHOLDER*_* makes something fat. See after/syntax file.
+            params[signature.index] = '*_*%s*_*' % params[signature.index]
         except (IndexError, TypeError):
             pass
 
@@ -310,6 +363,55 @@ def show_call_signatures(signatures=()):
         vim_eval('setline(%s, %s)' % (line_to_replace, repr(PythonToVimStr(repl))))
 
 
+@catch_and_print_exceptions
+def cmdline_call_signatures(signatures):
+    def get_params(s):
+        return [p.description.replace('\n', '') for p in s.params]
+
+    if len(signatures) > 1:
+        params = zip_longest(*map(get_params, signatures), fillvalue='_')
+        params = ['(' + ', '.join(p) + ')' for p in params]
+    else:
+        params = get_params(signatures[0])
+    text = ', '.join(params).replace('"', '\\"')
+
+    # Allow 12 characters for ruler/showcmd - setting noruler/noshowcmd
+    # here causes incorrect undo history
+    max_msg_len = int(vim_eval('&columns')) - 12
+    max_num_spaces = (max_msg_len - len(signatures[0].call_name)
+                      - len(text) - 2)  # 2 accounts for parentheses
+    if max_num_spaces < 0:
+        return  # No room for the message
+    _, column = signatures[0].bracket_start
+    num_spaces = min(int(vim_eval('g:jedi#first_col +'
+                     'wincol() - col(".")')) +
+                     column - len(signatures[0].call_name),
+                     max_num_spaces)
+    spaces = ' ' * num_spaces
+
+    try:
+        index = [s.index for s in signatures if isinstance(s.index, int)][0]
+        left = text.index(params[index])
+        right = left + len(params[index])
+        vim_command('                      echon "%s" | '
+                    'echohl Function     | echon "%s" | '
+                    'echohl None         | echon "("  | '
+                    'echohl jediFunction | echon "%s" | '
+                    'echohl jediFat      | echon "%s" | '
+                    'echohl jediFunction | echon "%s" | '
+                    'echohl None         | echon ")"'
+                    % (spaces, signatures[0].call_name, text[:left],
+                       text[left:right], text[right:]))
+    except (TypeError, IndexError):
+        vim_command('                      echon "%s" | '
+                    'echohl Function     | echon "%s" | '
+                    'echohl None         | echon "("  | '
+                    'echohl jediFunction | echon "%s" | '
+                    'echohl None         | echon ")"'
+                    % (spaces, signatures[0].call_name, text))
+
+
+@_check_jedi_availability(show_error=True)
 @catch_and_print_exceptions
 def rename():
     if not int(vim.eval('a:0')):
@@ -362,6 +464,7 @@ def rename():
             echo_highlight('Jedi did %s renames!' % len(temp_rename))
 
 
+@_check_jedi_availability(show_error=True)
 @catch_and_print_exceptions
 def py_import():
     # args are the same as for the :edit command
@@ -407,8 +510,11 @@ def new_buffer(path, options=''):
             'top': 'topleft split',
             'left': 'topleft vsplit',
             'right': 'botright vsplit',
-            'bottom': 'botright split'
+            'bottom': 'botright split',
+            'winwidth': 'vs'
         }
+        if user_split_option == 'winwidth' and vim.current.window.width <= 2 * int(vim_eval("&textwidth ? &textwidth : 80")):
+            split_options['winwidth'] = 'sp'
         if user_split_option not in split_options:
             print('g:jedi#use_splits_not_buffers value is not correct, valid options are: %s' % ','.join(split_options.keys()))
         else:
@@ -469,12 +575,3 @@ def escape_file_path(path):
 
 def print_to_stdout(level, str_out):
     print(str_out)
-
-
-version = jedi.__version__
-if isinstance(version, str):
-    # the normal use case, now.
-    from jedi import utils
-    version = utils.version_info()
-if version < (0, 7):
-    echo_highlight('Please update your Jedi version, it is to old.')

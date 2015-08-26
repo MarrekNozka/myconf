@@ -17,6 +17,6 @@ command! Highlight highlight xTab1 ctermbg=DarkRed guibg=#330000 | highlight xTa
 
 command! Nohighlight highlight clear xTab1  | highlight clear xTab3 | highlight clear xTab5 | highlight clear xTab7   
 
-map <Leader>h :Highlight<Return>
-map <Leader>H :Nohighlight<Return>
-Highlight
+"map <Leader>h :Highlight<Return>
+"map <Leader>H :Nohighlight<Return>
+"Highlight

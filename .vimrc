@@ -79,8 +79,13 @@ set expandtab "při stisku tabulátoru vkládá mezery
 
 set viminfo='50,r/mnt,n~/.vim/viminfo "pamatuje značky z~posledních 50 souborů, neukládá si je pro soubory pocházející z~/mnt a soubor s~informacemi je ~/.vim/viminfo
 set history=200
+" aby se vytvářely záložní soubory
 set backup 
 set backupdir=~/.vim/backup
+" aby se zachovala histirie změn i když otevřu a zavřu editor
+set undofile
+set undodir=~/.vim/backup
+nnoremap <F11> :UndotreeToggle<cr>
 "set directory=~/tmp,.,/tmp   "adresář s dočasnými soubory
 
 "set exrc " načítej soubor $PWD/.vimrc
@@ -169,6 +174,12 @@ imap ** **<Esc>i
 "set keywordprg=man
 "vmap C <Esc>:set keywordprg=zsh\ -c<Return>`>`<v`>K<Esc>:set keywordprg=urxvt\ -e\ man<Return>
 "vmap C <Esc>:set keywordprg=zsh\ -c<Return>`>`<v`>K<Esc>:set keywordprg=man<Return>
+
+" chyby ve zdrojových kódech
+imap <leader>[ <C-O>:lnext<Return>
+imap <leader>] <C-O>:lprevious<Return>
+map <leader>[ :lnext<Return>
+map <leader>] :lprevious<Return>
 
 "==== spustí shell z označeným příkazem =====
 "příkaz shell pod kurzorem
@@ -271,24 +282,31 @@ let Tlist_Close_On_Select = 1
 "autocmd! BufWritePost *.pl TlistUpdate
 "autocmd! BufWritePost *.py TlistUpdate
 
-"""""""""""""""""""""" Enhanced commentify plugin
-let g:EnhCommentifyTraditionalMode = 'no'
-let g:EnhCommentifyUserMode = 'yes'
-let g:EnhCommentifyAlignRight = 'yes'
+""""""""""""""""""""""" Enhanced commentify plugin
+""let g:EnhCommentifyTraditionalMode = 'no'
+""let g:EnhCommentifyUserMode = 'yes'
+""let g:EnhCommentifyAlignRight = 'yes'
 "let g:EnhCommentifyMultiPartBlocks = 'yes'
-let g:EnhCommentifyUseSyntax = 'yes'
+""let g:EnhCommentifyUseSyntax = 'yes'
+
+"""       NERDCommenter
+map ,,x <plug>NERDCommenterToggle
+vmap ,,x <plug>NERDCommenterToggle
 
 
 """"""""""" CtrlP 
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlPMixed'
 
+""""""""""" NERD tree
+map <F7> :NERDTreeCWD<Return>
+
 
 """"""""""""""""""""""""
 let g:jedi#popup_on_dot = 0
 let g:jedi#show_call_signatures = 0
-command DolnovaniAno let g:jedi#show_call_signatures = 1
-command DolnovaniNe  let g:jedi#show_call_signatures = 0
+command JediAno let g:jedi#show_call_signatures = 1
+command JediNe  let g:jedi#show_call_signatures = 0
 
 """""" Viki
  let g:vikiUpperCharacters = "A-ZĚŠČŘŽÝÁÍÉÚŮÓĎŤŘŇ"

@@ -63,6 +63,7 @@ alias createdb.='createdb -e -E UTF8 -l cs_CZ.UTF-8 -T template0'
 #
 alias DB='fbsetbg -c /home/marek/Documents/Catolic/DonBosco/DB_kresba.jpg'
 alias Maria='convert -resize x800 ~/Documents/Catolic/obrazy/spse/maria.png /tmp/m.png && fbsetbg -c /tmp/m.png'
+alias 'Ježíš'='convert -resize x900 ~/Documents/Catolic/obrazy/Jesus-by-Akiane_.jpg /tmp/m.png && fbsetbg -c /tmp/m.png'
 #
 #
 #alias 'forge=screen  -d -R -S forge'
@@ -167,9 +168,10 @@ chtitle(){
     alias nazeleno='chmod +x'
 
 # vim, gvim
-    alias vim='gvim -p'
+    alias gvim='gvim -p'
+    alias vim="~/bin/vim-remote.zsh"
     alias vis='gvim -S' #:mksession
-    alias vit="gvim --servername GVIM --remote-send '<C-\><C-N>:tabnew<CR>' --remote "
+#    alias vit="gvim --servername GVIM --remote-send '<C-\><C-N>:tabnew<CR>' --remote "
     vicd () { gvim "+cd $(dirname $1)" $1; }
     viS () {
         if [ -f ./vim.vim ]; then

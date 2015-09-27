@@ -51,7 +51,8 @@ xclock -update 1 &
 ###### Pozadí
 #awsetbg ~/Documents/Catolic/obrazy/MariaJasef/josef_maria-1280x1024.png
 #fbsetbg -c '/home/marek/Documents/Catolic/DonBosco/DB_obrazek1.jpg'
-convert -resize x700 ~/Documents/Catolic/obrazy/spse/maria.png /tmp/maria.png && fbsetbg -c /tmp/maria.png
+#convert -resize x700 ~/Documents/Catolic/obrazy/spse/maria.png /tmp/maria.png && fbsetbg -c /tmp/maria.png
+convert -resize x900 ~/Documents/Catolic/obrazy/Jesus-by-Akiane_.jpg /tmp/m.png && fbsetbg -c /tmp/m.png
 
 #awesome
 notion

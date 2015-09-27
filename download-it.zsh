@@ -59,6 +59,7 @@ binarky+=(xplanet.sh without.pl avi-x264-lame.sh video-z-fotaku.zsh)
 binarky+=(chwall.sh prumer.pl without.pl spark rename4date.zsh)
 binarky+=(ipython-wrapper.zsh svg2x.zsh)
 binarky+=(screen.wrapper.zsh script-wrapper.zsh tmux.wrapper.zsh Tilda.zsh)
+binarky+=(vim-remote.zsh)
 
 odkazy=()
 odkazy+=(regexcolor regexcount)

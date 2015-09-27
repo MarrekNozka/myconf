@@ -166,7 +166,10 @@ defbindings("WMPlex.toplevel", {
     kpress(META.."H", "notioncore.exec_on(_, ':less ~/.notion/tahak.mdwn')"),
     kpress(META.."E", "notioncore.exec_on(_, 'kupfer')"),
     kpress(META.."F7", "notioncore.exec_on(_, XTERM or 'x-terminal-emulator')"),
+    kpress(META.."Shift+F7", "notioncore.exec_on(_, 'urxvt -bg white -fg black -sh 196')"),
+    kpress(META.."Shift+F8", "notioncore.exec_on(_, 'urxvt -bg white -fg black -sh 200')"),
     kpress(META.."F8", "notioncore.exec_on(_, 'urxvt  -fn -*-terminus-medium-r-*--16-*-*-*-*-*-iso10646-1')"),
+    kpress(META.."F10", "notioncore.exec_on(_, 'sudo ~/bin/sudo/jas.zsh')"),
     
     bdoc("Query for command line to execute."),
     kpress(META.."F2", "mod_query.query_exec(_)"),
@@ -188,6 +191,7 @@ defbindings("WMPlex.toplevel", {
 
     bdoc("Query for workspace to go to or create a new one."),
     kpress(META.."F9", "mod_query.query_workspace(_)"),
+
     
     bdoc("Query for a client window to go to."),
     kpress(META.."G", "mod_query.query_gotoclient(_)"),

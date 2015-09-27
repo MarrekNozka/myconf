@@ -6,6 +6,7 @@ defwinprop{ class = "", float = true }
 
 defwinprop{ class = "Kupfer.py", float = true, jumpto = true, switchto = true }
 defwinprop{ class = "Stardict", float = true }
+defwinprop{ class = "Gcolor2", float = true }
 --defwinprop{ class = "Hotot", float = true }
 defwinprop{ class = "XEyes", float = true }
 defwinprop{ class = "Doublecmd", float = true }

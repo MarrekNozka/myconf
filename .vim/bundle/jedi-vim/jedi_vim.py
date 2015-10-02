@@ -14,32 +14,97 @@ except ImportError:
     from itertools import izip_longest as zip_longest  # Python 2
 
 
-def no_jedi_warning():
-    vim.command('echoerr "Please install Jedi if you want to use jedi_vim."')
+is_py3 = sys.version_info[0] >= 3
+if is_py3:
+    unicode = str
+
+
+class PythonToVimStr(unicode):
+    """ Vim has a different string implementation of single quotes """
+    __slots__ = []
+
+    def __new__(cls, obj, encoding='UTF-8'):
+        if is_py3 or isinstance(obj, unicode):
+            return unicode.__new__(cls, obj)
+        else:
+            return unicode.__new__(cls, obj, encoding)
+
+    def __repr__(self):
+        # this is totally stupid and makes no sense but vim/python unicode
+        # support is pretty bad. don't ask how I came up with this... It just
+        # works...
+        # It seems to be related to that bug: http://bugs.python.org/issue5876
+        if unicode is str:
+            s = self
+        else:
+            s = self.encode('UTF-8')
+        return '"%s"' % s.replace('\\', '\\\\').replace('"', r'\"')
+
+
+class VimError(Exception):
+    def __init__(self, message, throwpoint, executing):
+        super(type(self), self).__init__(message)
+        self.message = message
+        self.throwpoint = throwpoint
+        self.executing = executing
+
+    def __str__(self):
+        return self.message + '; created by: ' + repr(self.executing)
+
+
+def _catch_exception(string, is_eval):
+    """
+    Interface between vim and python calls back to it.
+    Necessary, because the exact error message is not given by `vim.error`.
+    """
+    e = 'jedi#_vim_exceptions(%s, %s)'
+    result = vim.eval(e % (repr(PythonToVimStr(string, 'UTF-8')), is_eval))
+    if 'exception' in result:
+        raise VimError(result['exception'], result['throwpoint'], string)
+    return result['result']
+
+
+def vim_command(string):
+    _catch_exception(string, 0)
+
+
+def vim_eval(string):
+    return _catch_exception(string, 1)
+
+
+def no_jedi_warning(error=None):
+    msg = "Please install Jedi if you want to use jedi-vim."
+    if error:
+        msg = '{} The error was: {}'.format(msg, error)
+    vim.command('echohl WarningMsg'
+                '| echom "Please install Jedi if you want to use jedi-vim."'
+                '| echohl None')
 
 
 def echo_highlight(msg):
-    vim_command('echohl WarningMsg | echom "%s" | echohl None' % msg)
+    vim_command('echohl WarningMsg | echom "{}" | echohl None'.format(
+        msg.replace('"', '\\"')))
 
 
 import vim
 try:
     import jedi
-except ImportError:
-    no_jedi_warning()
+except ImportError as e:
+    no_jedi_warning(str(e))
     jedi = None
 else:
-    version = jedi.__version__
-    if isinstance(version, str):
-        # the normal use case, now.
-        from jedi import utils
-        version = utils.version_info()
-    if version < (0, 7):
-        echo_highlight('Please update your Jedi version, it is to old.')
-
-is_py3 = sys.version_info[0] >= 3
-if is_py3:
-    unicode = str
+    try:
+        version = jedi.__version__
+    except Exception as e:  # e.g. AttributeError
+        echo_highlight("Could not load jedi python module: {}".format(e))
+        jedi = None
+    else:
+        if isinstance(version, str):
+            # the normal use case, now.
+            from jedi import utils
+            version = utils.version_info()
+        if version < (0, 7):
+            echo_highlight('Please update your Jedi version, it is too old.')
 
 
 def catch_and_print_exceptions(func):
@@ -63,58 +128,6 @@ def _check_jedi_availability(show_error=False):
                 return func(*args, **kwargs)
         return wrapper
     return func_receiver
-
-
-class VimError(Exception):
-    def __init__(self, message, throwpoint, executing):
-        super(type(self), self).__init__(message)
-        self.throwpoint = throwpoint
-        self.executing = executing
-
-    def __str__(self):
-        return self.message + '; created by: ' + repr(self.executing)
-
-
-def _catch_exception(string, is_eval):
-    """
-    Interface between vim and python calls back to it.
-    Necessary, because the exact error message is not given by `vim.error`.
-    """
-    e = 'jedi#_vim_exceptions(%s, %s)'
-    result = vim.eval(e % (repr(PythonToVimStr(string, 'UTF-8')), is_eval))
-    if 'exception' in result:
-        raise VimError(result['exception'], result['throwpoint'], string)
-    return result['result']
-
-
-def vim_eval(string):
-    return _catch_exception(string, 1)
-
-
-def vim_command(string):
-    _catch_exception(string, 0)
-
-
-class PythonToVimStr(unicode):
-    """ Vim has a different string implementation of single quotes """
-    __slots__ = []
-
-    def __new__(cls, obj, encoding='UTF-8'):
-        if is_py3 or isinstance(obj, unicode):
-            return unicode.__new__(cls, obj)
-        else:
-            return unicode.__new__(cls, obj, encoding)
-
-    def __repr__(self):
-        # this is totally stupid and makes no sense but vim/python unicode
-        # support is pretty bad. don't ask how I came up with this... It just
-        # works...
-        # It seems to be related to that bug: http://bugs.python.org/issue5876
-        if unicode is str:
-            s = self
-        else:
-            s = self.encode('UTF-8')
-        return '"%s"' % s.replace('\\', '\\\\').replace('"', r'\"')
 
 
 @catch_and_print_exceptions
@@ -189,24 +202,34 @@ def completions():
 
 @_check_jedi_availability(show_error=True)
 @catch_and_print_exceptions
-def goto(is_definition=False, is_related_name=False, no_output=False):
-    definitions = []
+def goto(mode="goto", no_output=False):
+    """
+    :param str mode: "related_name", "definition", "assignment", "auto"
+    :return: list of definitions/assignments
+    :rtype: list
+    """
     script = get_script()
     try:
-        if is_related_name:
+        if mode == "goto":
+            definitions = [x for x in script.goto_definitions()
+                           if not x.in_builtin_module()]
+            if not definitions:
+                definitions = script.goto_assignments()
+        elif mode == "related_name":
             definitions = script.usages()
-        elif is_definition:
+        elif mode == "definition":
             definitions = script.goto_definitions()
-        else:
+        elif mode == "assignment":
             definitions = script.goto_assignments()
     except jedi.NotFoundError:
         echo_highlight("Cannot follow nothing. Put your cursor on a valid name.")
+        definitions = []
     else:
         if no_output:
             return definitions
         if not definitions:
             echo_highlight("Couldn't find any definitions for this.")
-        elif len(definitions) == 1 and not is_related_name:
+        elif len(definitions) == 1 and mode != "related_name":
             # just add some mark to add the current position to the jumplist.
             # this is ugly, because it overrides the mark for '`', so if anyone
             # has a better idea, let me know.
@@ -218,12 +241,12 @@ def goto(is_definition=False, is_related_name=False, no_output=False):
                     echo_highlight("Cannot get the definition of Python keywords.")
                 else:
                     echo_highlight("Builtin modules cannot be displayed (%s)."
-                                   % d.module_path)
+                                   % d.desc_with_module)
             else:
                 if d.module_path != vim.current.buffer.name:
                     result = new_buffer(d.module_path)
                     if not result:
-                        return
+                        return []
                 vim.current.window.cursor = d.line, d.column
         else:
             # multiple solutions
@@ -373,7 +396,7 @@ def cmdline_call_signatures(signatures):
         params = ['(' + ', '.join(p) + ')' for p in params]
     else:
         params = get_params(signatures[0])
-    text = ', '.join(params).replace('"', '\\"')
+    text = ', '.join(params).replace('"', '\\"').replace(r'\n', r'\\n')
 
     # Allow 12 characters for ruler/showcmd - setting noruler/noshowcmd
     # here causes incorrect undo history
@@ -391,8 +414,9 @@ def cmdline_call_signatures(signatures):
 
     try:
         index = [s.index for s in signatures if isinstance(s.index, int)][0]
-        left = text.index(params[index])
-        right = left + len(params[index])
+        escaped_param = params[index].replace(r'\n', r'\\n')
+        left = text.index(escaped_param)
+        right = left + len(escaped_param)
         vim_command('                      echon "%s" | '
                     'echohl Function     | echon "%s" | '
                     'echohl None         | echon "("  | '
@@ -415,53 +439,96 @@ def cmdline_call_signatures(signatures):
 @catch_and_print_exceptions
 def rename():
     if not int(vim.eval('a:0')):
-        _rename_cursor = vim.current.window.cursor
-
-        vim_command('normal A ')  # otherwise startinsert doesn't work well
-        vim.current.window.cursor = _rename_cursor
-
         vim_command('augroup jedi_rename')
         vim_command('autocmd InsertLeave <buffer> call jedi#rename(1)')
         vim_command('augroup END')
 
+        vim_command("let s:jedi_replace_orig = expand('<cword>')")
         vim_command('normal! diw')
-        vim_command(':startinsert')
+        vim_command("let s:jedi_changedtick = b:changedtick")
+        vim_command('startinsert')
+
     else:
-        window_path = vim.current.buffer.name
-        # reset autocommand
+        # Remove autocommand.
         vim_command('autocmd! jedi_rename InsertLeave')
 
-        replace = vim_eval("expand('<cword>')")
-        vim_command('normal! u')  # undo new word
+        # Get replacement, if there is something on the cursor.
+        # This won't be the case when the user ends insert mode right away,
+        # and `<cword>` would pick up the nearest word instead.
+        if vim_eval('getline(".")[getpos(".")[2]-1]') != ' ':
+            replace = vim_eval("expand('<cword>')")
+        else:
+            replace = None
+
         cursor = vim.current.window.cursor
-        vim_command('normal! u')  # undo the space at the end
+
+        # Undo new word, but only if something was changed, which is not the
+        # case when ending insert mode right away.
+        if vim_eval('b:changedtick != s:jedi_changedtick') == '1':
+            vim_command('normal! u')  # Undo new word.
+        vim_command('normal! u')  # Undo diw.
+
         vim.current.window.cursor = cursor
 
-        if replace is None:
-            echo_highlight('No rename possible, if no name is given.')
-        else:
-            temp_rename = goto(is_related_name=True, no_output=True)
-            # sort the whole thing reverse (positions at the end of the line
-            # must be first, because they move the stuff before the position).
-            temp_rename = sorted(temp_rename, reverse=True,
-                                 key=lambda x: (x.module_path, x.start_pos))
-            for r in temp_rename:
-                if r.in_builtin_module():
-                    continue
+        if replace:
+            return do_rename(replace)
 
-                if vim.current.buffer.name != r.module_path:
-                    result = new_buffer(r.module_path)
-                    if not result:
-                        return
 
-                vim.current.window.cursor = r.start_pos
-                vim_command('normal! cw%s' % replace)
+def rename_visual():
+    replace = vim.eval('input("Rename to: ")')
+    orig = vim.eval('getline(".")[(getpos("\'<")[2]-1):getpos("\'>")[2]]')
+    do_rename(replace, orig)
 
-            result = new_buffer(window_path)
+
+def do_rename(replace, orig=None):
+    if not len(replace):
+        echo_highlight('No rename possible without name.')
+        return
+
+    if orig is None:
+        orig = vim_eval('s:jedi_replace_orig')
+
+    # Save original window / tab.
+    saved_tab = int(vim_eval('tabpagenr()'))
+    saved_win = int(vim_eval('winnr()'))
+
+    temp_rename = goto(mode="related_name", no_output=True)
+    # Sort the whole thing reverse (positions at the end of the line
+    # must be first, because they move the stuff before the position).
+    temp_rename = sorted(temp_rename, reverse=True,
+                         key=lambda x: (x.module_path, x.start_pos))
+    buffers = set()
+    for r in temp_rename:
+        if r.in_builtin_module():
+            continue
+
+        if os.path.abspath(vim.current.buffer.name) != r.module_path:
+            result = new_buffer(r.module_path)
             if not result:
-                return
-            vim.current.window.cursor = cursor
-            echo_highlight('Jedi did %s renames!' % len(temp_rename))
+                echo_highlight("Jedi-vim: failed to create buffer window for {}!".format(r.module_path))
+                continue
+
+        buffers.add(vim.current.buffer.name)
+
+        # Save view.
+        saved_view = vim_eval('string(winsaveview())')
+
+        # Replace original word.
+        vim.current.window.cursor = r.start_pos
+        vim_command('normal! c{:d}l{}'.format(len(orig), replace))
+
+        # Restore view.
+        vim_command('call winrestview(%s)' % saved_view)
+
+    # Restore previous tab and window.
+    vim_command('tabnext {:d}'.format(saved_tab))
+    vim_command('{:d}wincmd w'.format(saved_win))
+
+    if len(buffers) > 1:
+        echo_highlight('Jedi did {:d} renames in {:d} buffers!'.format(
+            len(temp_rename), len(buffers)))
+    else:
+        echo_highlight('Jedi did {:d} renames!'.format(len(temp_rename)))
 
 
 @_check_jedi_availability(show_error=True)
@@ -560,6 +627,8 @@ def _tabnew(path, options=''):
                 if buf_path == path:
                     # tab exists, just switch to that tab
                     vim_command('tabfirst | tabnext %i' % (tab_nr + 1))
+                    # Goto the buffer's window.
+                    vim_command('exec bufwinnr(%i) . " wincmd w"' % (buf_nr + 1))
                     break
         else:
             continue

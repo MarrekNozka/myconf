@@ -22,12 +22,13 @@ Contents				*jedi-vim-contents*
 4. Usage				|jedi-vim-usage|
 5. Mappings				|jedi-vim-keybindings|
     5.1. Start completion		|g:jedi#completions_command|
-    5.2. Go to assignment		|g:jedi#goto_assignments_command|
-    5.3. Get original definition	|g:jedi#goto_definitions_command|
-    5.4. Show documentation		|g:jedi#documentation_command|
-    5.5. Rename variables		|g:jedi#rename_command|
-    5.6. Show name usages		|g:jedi#usages_command|
-    5.7. Open module by name 		|:Pyimport|
+    5.2. Go to definition		|g:jedi#goto_command|
+    5.3. Go to assignment		|g:jedi#goto_assignments_command|
+    5.4  Go to definition (deprecated)	|g:jedi#goto_definitions_command|
+    5.5. Show documentation		|g:jedi#documentation_command|
+    5.6. Rename variables		|g:jedi#rename_command|
+    5.7. Show name usages		|g:jedi#usages_command|
+    5.8. Open module by name 		|:Pyimport|
 6. Configuration			|jedi-vim-configuration|
     6.1. auto_initialization		|g:jedi#auto_initialization|
     6.2. auto_vim_configuration		|g:jedi#auto_vim_configuration|
@@ -40,6 +41,7 @@ Contents				*jedi-vim-contents*
     6.9. completions_enabled		|g:jedi#completions_enabled|
     6.10. use_splits_not_buffers	|g:jedi#use_splits_not_buffers|
     6.11. force_py_version              |g:jedi#force_py_version|
+    6.12. smart_auto_mappings           |g:jedi#smart_auto_mappings|
 7. Testing				|jedi-vim-testing|
 8. Contributing				|jedi-vim-contributing|
 9. License				|jedi-vim-license|
@@ -233,17 +235,15 @@ Note: If you want to use <Tab> for completion, please install Supertab:
 https://github.com/ervandew/supertab.
 
 ------------------------------------------------------------------------------
-5.2. `g:jedi#goto_assignments_command`	*g:jedi#goto_assignments_command*
-Function: `jedi#goto_assignments()`
-Default: <leader>g			Go to definition
+5.2. `g:jedi#goto_command`		*g:jedi#goto_command*
+Function: `jedi#goto()`
+Default: <leader>d			Go to definition (or assignment)
 
-This function finds the first definition of the function/class under the
-cursor. It produces an error if the definition is not in a Python file.
-
-------------------------------------------------------------------------------
-5.3. `g:jedi#goto_definitions_command`	*g:jedi#goto_definitions_command*
-Function: `jedi#goto_definitions()`
-Default: <leader>d			Go to original definition
+This function first tries |jedi#goto_definitions|, and falls back to
+|jedi#goto_assignments| for builtin modules.  It produces an error if nothing
+could be found.
+NOTE: this implementation is subject to change.
+Ref: https://github.com/davidhalter/jedi/issues/570
 
 This command tries to find the original definition of the function/class under
 the cursor. Just like the `jedi#goto_assignments()` function, it does not work
@@ -275,15 +275,32 @@ you all the way to the >
 line in file3.py.
 
 ------------------------------------------------------------------------------
-5.4. `g:jedi#documentation_command`	*g:jedi#documentation_command*
+5.3. `g:jedi#goto_assignments_command`	*g:jedi#goto_assignments_command*
+Function: `jedi#goto_assignments()`
+Default: <leader>g			Go to assignment
+
+This function finds the first definition of the function/class under the
+cursor. It produces an error if the definition is not in a Python file.
+
+------------------------------------------------------------------------------
+5.4. `g:jedi#goto_definitions_command`	*g:jedi#goto_definitions_command*
+Function: `jedi#goto_definitions()`
+Default: - 				Go to original definition
+
+NOTE: Deprecated. Use |g:jedi#goto_command| / |jedi#goto()| instead, which
+currently uses this internally.
+
+------------------------------------------------------------------------------
+5.5. `g:jedi#documentation_command`	*g:jedi#documentation_command*
 Function: `jedi#show_documentation()`
 Default: <K>				Show pydoc documentation
 
 This shows the pydoc documentation for the item currently under the cursor.
-The documentation is opened in a horizontally split buffer.
+The documentation is opened in a horizontally split buffer. The height of this
+buffer is controlled by `g:jedi#max_doc_height` (set by default to 30).
 
 ------------------------------------------------------------------------------
-5.5. `g:jedi#rename_command`		*g:jedi#rename_command*
+5.6. `g:jedi#rename_command`		*g:jedi#rename_command*
 Function: `jedi#rename()`
 Default: <leader>r			Rename variables
 
@@ -294,7 +311,7 @@ with the new one. The number of performed renames is displayed in the command
 line.
 
 ------------------------------------------------------------------------------
-5.6. `g:jedi#usages_command`		*g:jedi#usages_command*
+5.7. `g:jedi#usages_command`		*g:jedi#usages_command*
 Function: `jedi#usages()`
 Default: <leader>n			Show usages of a name.
 
@@ -302,7 +319,7 @@ The quickfix window is populated with a list of all names which point to the
 definition of the name under the cursor.
 
 ------------------------------------------------------------------------------
-5.7. Open module by name		*:Pyimport*
+5.8. Open module by name		*:Pyimport*
 Function: `jedi#py_import(args)`
 Default: :Pyimport			e.g. `:Pyimport os` shows os.py in VIM.
 
@@ -336,9 +353,11 @@ Default: 1 (Perform automatic initialization)
 ------------------------------------------------------------------------------
 6.2. `g:jedi#auto_vim_configuration`	*g:jedi#auto_vim_configuration*
 
-Jedi-vim sets 'completeopt' to `menuone,longest,preview` by default. It also
-remaps <Ctrl-C> to <Esc> in insert mode. If you want to keep your own
-configuration, disable this setting.
+Jedi-vim sets 'completeopt' to `menuone,longest,preview` by default, if
+'completeopt' is not changed from Vim's default.
+It also remaps <Ctrl-C> to <Esc> in insert mode.
+
+If you want to keep your own configuration, disable this setting.
 
 Options: 0 or 1
 Default: 1 (Set 'completeopt' and mapping as described above)
@@ -405,12 +424,12 @@ manually by calling a function in your configuration file: >
 ------------------------------------------------------------------------------
 6.7. `g:jedi#use_tabs_not_buffers`	*g:jedi#use_tabs_not_buffers*
 
-By default, jedi-vim opens a new tab if you use the "go to", "show
-definition", or "related names" commands. When you set this option to 0, they
-open in the current buffer instead.
+You can make jedi-vim open a new tab if you use the "go to", "show
+definition", or "related names" commands. When you leave this at the default
+(0), they open in the current buffer instead.
 
 Options: 0 or 1
-Default: 1 (Command output is put in a new tab)
+Default: 0 (Command output is put in a new tab)
 
 ------------------------------------------------------------------------------
 6.8. `g:jedi#squelch_py_warning`	*g:jedi#squelch_py_warning*
@@ -462,7 +481,19 @@ or set directly using this function, which has the same name as the variable:
 Function: `jedi#force_py_version(py_version)`
 
 Options: 2 or 3
-Default: 2
+Default: "auto" (will use sys.version_info from "python" in your $PATH)
+------------------------------------------------------------------------------
+6.12. `g:jedi#smart_auto_mappings`	            *g:jedi#smart_auto_mappings*
+
+When you start typing `from module.name<space>` jedi-vim automatically
+adds the "import" statement and displays the autocomplete popup.
+
+This option can be disabled in the .vimrc:
+
+`let g:jedi#smart_auto_mappings = 0`
+
+Options: 0 or 1
+Default: 1 (enabled by default)
 
 ==============================================================================
 7. Testing				*jedi-vim-testing*

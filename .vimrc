@@ -292,6 +292,10 @@ let Tlist_Close_On_Select = 1
 """       NERDCommenter
 map ,,x <plug>NERDCommenterToggle
 vmap ,,x <plug>NERDCommenterToggle
+"let NERDDefaultNesting=0 
+let NERDDefaultAlign='left'  "Values: 'none', 'left', 'start', 'both'
+let NERDDefaultDelims={ 'left': '#', 'leftAlt': '# ' }
+
 
 
 """"""""""" CtrlP 

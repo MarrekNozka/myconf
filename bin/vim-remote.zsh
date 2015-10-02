@@ -13,7 +13,7 @@
 # funkce vytiskne help
 printHelp() {
 cat <<EOF
-$0: Wrapper pro \"vim --remote\"
+vim-remote.zsh: Wrapper pro \"vim --remote\"
 Popis:   Jméno vim-serveru se určí z jména pracovní plochy
          Pokud zadám parametr (např. -1 nebo -5) vezme se plocha
          podle totoho parametru.
@@ -31,10 +31,10 @@ EOF
 ##.................................................................###
 #        zpracování přepínačů příkazového řádku
 
-if [ -z $1 ]; then
-    printHelp
-    exit 0;
-fi
+#if [ -z $1 ]; then
+#    printHelp
+#    exit 0;
+#fi
 # pokud je zadán parametr -h nebo --help vytiskne help s končí
 for param in $@; do
     if [[ $param == "-h" ]] || [[ $param == "--help" ]]; then
@@ -76,7 +76,7 @@ done
 #      Zpracování ne-přepínačových parametrů
 ##.................................................................###
 
-# funguje v notion jak je to jinde nevím
+# funguje v notion; jak je to jinde nevím
 
 if [ -z $DESKTOP ]; then
     DESKTOP=`xprop -root | \
@@ -87,5 +87,9 @@ if [ -z $DESKTOP ]; then
     DESKTOP=${DESKTOP%'"'}
 fi
 
-gvim --servername $DESKTOP$DISPLAY --remote-tab-silent $@
+if [ $@ ]; then
+    gvim --servername $DESKTOP$DISPLAY --remote-tab-silent $@
+else
+    gvim --servername $DESKTOP$DISPLAY
+fi
 

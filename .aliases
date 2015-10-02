@@ -18,7 +18,7 @@ alias lla='ls -AFlh'
 alias lld='ls -ld'
 lsd () { ls -ld $* && ls -l $*; }
 alias lsX='ls -X'
-alias lsS='ls -S'
+alias lss='ls -sh'
 alias lst='ls -t'
 alias llt='ll -t'
 
@@ -168,10 +168,10 @@ chtitle(){
     alias nazeleno='chmod +x'
 
 # vim, gvim
-    alias gvim='gvim -p'
-    alias vim="~/bin/vim-remote.zsh"
+    alias vim='gvim -p'
+    alias vimm="~/bin/vim-remote.zsh"
     alias vis='gvim -S' #:mksession
-#    alias vit="gvim --servername GVIM --remote-send '<C-\><C-N>:tabnew<CR>' --remote "
+   #alias vit="gvim --servername GVIM --remote-send '<C-\><C-N>:tabnew<CR>' --remote "
     vicd () { gvim "+cd $(dirname $1)" $1; }
     viS () {
         if [ -f ./vim.vim ]; then

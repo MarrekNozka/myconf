@@ -87,9 +87,9 @@ if [ -z $DESKTOP ]; then
     DESKTOP=${DESKTOP%'"'}
 fi
 
-if [ $@ ]; then
-    gvim --servername $DESKTOP$DISPLAY --remote-tab-silent $@
-else
-    gvim --servername $DESKTOP$DISPLAY
-fi
+gvim --servername $DESKTOP$DISPLAY
+while [ $1 ]; do
+    gvim --servername $DESKTOP$DISPLAY --remote-tab-silent $1
+    shift
+done
 

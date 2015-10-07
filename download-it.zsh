@@ -60,6 +60,7 @@ binarky+=(chwall.sh prumer.pl without.pl spark rename4date.zsh)
 binarky+=(ipython-wrapper.zsh svg2x.zsh)
 binarky+=(screen.wrapper.zsh script-wrapper.zsh tmux.wrapper.zsh Tilda.zsh)
 binarky+=(vim-remote.zsh)
+binarky+=(auto-F5.zsh)
 
 odkazy=()
 odkazy+=(regexcolor regexcount)
@@ -68,6 +69,7 @@ odkazy+=(chwall prumer.pl without.pl spark rename4date)
 odkazy+=(py py.black py.c py.inline py.kernel py.notebook pysh py.white)
 odkazy+=(svg2png svg2pdf)
 odkazy+=(bagr meloun forge Tilda programming script-wrapper) 
+odkazy+=(auto-F5)
 
 echo "######## binaries #########"
 [ -d ./bin ] || mkdir bin

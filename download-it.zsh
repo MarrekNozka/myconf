@@ -35,7 +35,7 @@ cd -
 ### Shell, Vim,  TeX, colors
 files=(.gmrunrc)
 files+=(.aliases .zshrc .dir_colors .terminfo)
-files+=(.vimrc .vimperatorrc)
+files+=(.vimrc .vimperatorrc .vimpagerrc .vimcatrc)
 files+=(texmf/ .tmux.conf)
 for f in $files; do
     cp -a ~/$f ./
@@ -61,6 +61,7 @@ binarky+=(ipython-wrapper.zsh svg2x.zsh)
 binarky+=(screen.wrapper.zsh script-wrapper.zsh tmux.wrapper.zsh Tilda.zsh)
 binarky+=(vim-remote.zsh)
 binarky+=(auto-F5.zsh)
+binarky+=(vimcat vimpager)
 
 odkazy=()
 odkazy+=(regexcolor regexcount)
@@ -70,6 +71,7 @@ odkazy+=(py py.black py.c py.inline py.kernel py.notebook pysh py.white)
 odkazy+=(svg2png svg2pdf)
 odkazy+=(bagr meloun forge Tilda programming script-wrapper) 
 odkazy+=(auto-F5)
+odkazy+=(vimcat vimpager)
 
 echo "######## binaries #########"
 [ -d ./bin ] || mkdir bin

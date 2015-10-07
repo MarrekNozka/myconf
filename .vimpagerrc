@@ -1,0 +1,8 @@
+" ~/.vimpagerrc a  ~/.vimcatrc
+"
+set noloadplugins
+
+colorscheme slate
+
+"------------------------------------------------------------------------------"
+" vim:ft=vim

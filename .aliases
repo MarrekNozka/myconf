@@ -9,6 +9,10 @@ if [ "$TERM" != "dumb" ]; then
     alias ls='ls --color=auto -F'
 fi
 
+
+alias vp='vimpager'
+alias vc='vimcat'
+
 alias uspat='sync && sudo s2disk'
 # some more ls aliases
 alias l='ls -CFm'

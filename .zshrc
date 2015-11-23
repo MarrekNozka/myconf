@@ -106,7 +106,7 @@ setopt autonamedirs alwaystoend nomenucomplete
 setopt COMPLETE_ALIASES AUTO_NAME_DIRS AUTO_PARAM_SLASH AUTO_REMOVE_SLASH 
 setopt automenu autolist
 setopt autoparamkeys listambiguous listbeep listpacked listtypes
-
+setopt magic_equal_subst    # aby se dopnňovalo i za =
 
 #############################################################
 #           Doplňování příkazu kill                         #

@@ -28,6 +28,8 @@ set statusline=%1*%n:%*\ %<%f\ %y%m%2*%r%*\ %=[%b,0x%B]\ \ %l/%L,%c%V\ \ %P\ "st
 highlight User1 guibg=white guifg=blue 
 highlight User2 guibg=white guifg=red
 
+set iskeyword+=-
+
 " pwd
 "set autochdir
 command Cd cd %:h
@@ -260,6 +262,21 @@ endfunction
 inoremap <silent>j <C-R>=OmniPopup('j')<CR>
 inoremap <silent>k <C-R>=OmniPopup('k')<CR>
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Uncomment the following to have Vim jump to the last position when
+" reopening a file
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+" Uncomment the following to have Vim load indentation rules and plugins
+" according to the detected filetype.
+if has("autocmd")
+  filetype plugin indent on
+endif
+
+
 """"""""""""""""""""""""""PluIns"""""""""""""""""""""""""
 execute pathogen#infect()
 
@@ -296,7 +313,8 @@ vmap ,,x <plug>NERDCommenterToggle
 let NERDDefaultAlign='left'  "Values: 'none', 'left', 'start', 'both'
 let NERDDefaultDelims={ 'left': '#', 'leftAlt': '# ' }
 
-
+"" Markdown
+let g:vim_markdown_math=1
 
 """"""""""" CtrlP 
 let g:ctrlp_map = '<c-p>'

@@ -84,7 +84,7 @@ VIMPATH=$(which vim)
 
 # util
 hist() {
-    egrep -i "$*" ~/.histfile 
+    egrep -i $@ ~/.histfile 
 }
 
 #######################################

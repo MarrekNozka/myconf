@@ -2,6 +2,9 @@
 "
 set noloadplugins
 
+"let g:vimpager_less_mode = 0    " pohyb jako v klasickém vimu
+let g:vimpager_passthrough = 0  " u krátkých souborů neproběhne vimcat 
+
 colorscheme slate
 
 "------------------------------------------------------------------------------"

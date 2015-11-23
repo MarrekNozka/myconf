@@ -117,7 +117,7 @@ while true; do
     radek=$[ $radek + 1 ]
     printf "#####:--> %03d: " ${radek}; 
     date
-    inotifywait -r -e modify --excludei '\.[^/]+\.swp$' $@
+    inotifywait -r -e modify --excludei '\.[^/]+\.swp$|\.scss' $@
     if [ $COMMAND ]; then
         printf "########: command --> %03d:\n" ${radek}; 
         printf "$ %s ;;;;\n" $COMMAND

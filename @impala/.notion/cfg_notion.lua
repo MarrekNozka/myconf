@@ -22,7 +22,7 @@ dopath("cfg_debian")
 --ALTMETA=""
 
 -- Terminal emulator
-XTERM="urxvt"
+XTERM="urxvtcd"
 
 -- Some basic settings
 ioncore.set{

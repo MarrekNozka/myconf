@@ -5,6 +5,8 @@ version 7.0
 set nocompatible "nejí to vi ale vim
 """autocmd! bufwritepost .vimrc source %  " automaticky načte .vimrc
 syntax on
+set concealcursor=nv   "skrývání jen v normálním a vizuálním módu
+set conceallevel=1     "skrývání....
 set fileencodings=utf-8,iso8859-2,cp1250
 set fileformats=unix,dos
 command Widle set ff=dos | set fenc=cp1250
@@ -315,6 +317,8 @@ let NERDDefaultDelims={ 'left': '#', 'leftAlt': '# ' }
 
 "" Markdown
 let g:vim_markdown_math=1
+set concealcursor=n   
+set conceallevel=1  
 
 """"""""""" CtrlP 
 let g:ctrlp_map = '<c-p>'

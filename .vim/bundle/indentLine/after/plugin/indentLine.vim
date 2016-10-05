@@ -68,10 +68,8 @@ endfunction
 function! s:SetConcealOption()
     if ! exists("b:indentLine_ConcealOptionSet")
         let b:indentLine_ConcealOptionSet = 1
-        if ! exists("g:indentLine_noConcealCursor")
-            setlocal concealcursor=inc
-        endif
-        setlocal conceallevel=2
+        let &l:concealcursor = exists("g:indentLine_concealcursor") ? g:indentLine_concealcursor : "inc"
+        let &l:conceallevel = exists("g:indentLine_conceallevel") ? g:indentLine_conceallevel : "2"
     endif
 endfunction
 
@@ -139,7 +137,7 @@ function! s:Setup()
 
     if len(g:indentLine_fileType) isnot 0 && index(g:indentLine_fileType, &filetype) is -1
         return
-    end
+    endif
 
     for name in g:indentLine_bufNameExclude
         if matchstr(bufname(''), name) is bufname('')
@@ -202,7 +200,9 @@ augroup indentLine
     autocmd!
     autocmd BufWinEnter * call <SID>Setup()
     autocmd BufRead,BufNewFile,ColorScheme,Syntax * call <SID>InitColor()
-    autocmd BufUnload * unlet! b:indentLine_enabled
+    autocmd BufUnload * unlet! b:indentLine_enabled | unlet! b:indentLine_leadingSpaceEnabled
+    autocmd SourcePre $VIMRUNTIME/syntax/nosyntax.vim unlet! b:indentLine_enabled
+    autocmd SourcePre $VIMRUNTIME/syntax/nosyntax.vim unlet! b:indentLine_leadingSpaceEnabled
 augroup END
 
 "{{{1 commands

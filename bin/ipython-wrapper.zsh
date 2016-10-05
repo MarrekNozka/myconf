@@ -11,7 +11,7 @@ if [[ $0 =~ 2 ]]; then
 elif [[ $0 =~ 3 ]]; then
     ipython=ipython3
 else
-    ipython=ipython
+    ipython=ipython3
 fi
 
 locate=$($ipython locate)
@@ -49,13 +49,13 @@ for i in $@; do
 
     OPTIONS
 
-        -e      
+        new      
                 run new independent kernel
 
         kernel-28451.json
                 run comcrete existing kernel
 
-        [ gtk | qt | tk | inline ]  set backend
+        [ gtk | qt | tk | inline ]  new kernel; set backend
 
 EOF
         exit;
@@ -64,15 +64,15 @@ EOF
 done
 
 name=$(basename $0)
-font='--ConsoleWidget.font_family="Terminus" --ConsoleWidget.font_size=15'
+font='--ConsoleWidget.font_family="Terminus" --ConsoleWidget.font_size=18'
 
 # pokud není zadán parametr hledá se existující kernel
 # pokud je zadán nastaví se podlen něj backend
 #
 if [ -z $1 ] ; then
     kernel=$(egrep '\-\-existing' $locate/pyXkernel | head -n 1 | cut -d ' ' -f 2-)
-elif [[ $1 == '-e' ]]; then
-    pylab='--pylab=tk --quiet'
+elif [[ $1 == 'new' ]]; then
+    pylab='--pylab=qt --quiet'
 elif [[ $1 == 'gtk' ]]; then
     pylab='--pylab=gtk'
 elif [[ $1 == 'tk' ]]; then
@@ -100,7 +100,7 @@ elif [[ $name =~ 'py[23]?.white$' ]]; then
 elif [[ $name =~ 'py[23]?.notebook$' ]]; then
     eval $ipython notebook --profile=notebook --pylab=inline
 elif [[ $name =~ 'py.kernel' ]]; then
-    exec $ipython kernel ${pylab---pylab=inline} 2>&1  | tee $locate/pyXkernel 
+    exec $ipython kernel ${pylab---pylab=qt} 2>&1  | tee $locate/pyXkernel 
 else
     echo ladění: __${0}__
 fi

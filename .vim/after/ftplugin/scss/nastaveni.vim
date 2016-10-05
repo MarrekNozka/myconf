@@ -1,3 +1,4 @@
+
 function! MakeCSS()
     write
     if exists("g:file") 
@@ -14,4 +15,3 @@ endfunction
 "command! MakeCSS write | !sass % %.css
 map <Leader>go :call MakeCSS()<Return>
 imap <Leader>go <Esc>:call MakeCSS()<Return>
-

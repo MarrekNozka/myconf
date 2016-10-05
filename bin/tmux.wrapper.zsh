@@ -88,10 +88,10 @@ fi
 if  tmux has-session -t $name ; then 
     tmux attach $detach -t $name 
 else
-    tmux new-session -d -s $name -n Shell
-#    tmux new-window -t Tilda -n Shell zsh
-#    tmux new-window -t Tilda -n IPython "py ; zsh"
+    tmux new-session -d -s $name -n MC "mc ; zsh"
+    tmux new-window -t $name
+#    tmux new-window -t $name -n IPython "py ; zsh"
 #    tmux new-window -t Tilda -n MC  "mc ; zsh"
-#    tmux select-window -t Tilda:0 
+    tmux select-window -t $name:1 
     tmux attach-session -t $name
 fi

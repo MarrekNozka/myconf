@@ -5,8 +5,23 @@ setlocal indentexpr=GetMarkdownIndent()
 setlocal nolisp
 setlocal autoindent
 
+" Automatically insert bullets
+setlocal formatoptions+=r
+" Do not automatically insert bullets when auto-wrapping with text-width
+setlocal formatoptions-=c
+" Accept various markers as bullets
+setlocal comments=b:*,b:+,b:-
+
+" Automatically continue blockquote on line break
+setlocal comments+=b:>
+
 " Only define the function once
 if exists("*GetMarkdownIndent") | finish | endif
+
+function! s:is_mkdCode(lnum)
+    let name = synIDattr(synID(a:lnum, 1, 0), 'name')
+    return (name =~ '^mkd\%(Code$\|Snippet\)' || name != '' && name !~ '^\%(mkd\|html\)')
+endfunction
 
 function! s:is_li_start(line)
     return a:line !~ '^ *\([*-]\)\%( *\1\)\{2}\%( \|\1\)*$' &&
@@ -38,8 +53,12 @@ function GetMarkdownIndent()
         " Current line is the first line of a list item, do not change indent
         return indent(v:lnum)
     elseif s:is_li_start(line)
-        " Last line is the first line of a list item, increase indent
-        return ind + list_ind
+        if s:is_mkdCode(lnum)
+            return ind
+        else
+            " Last line is the first line of a list item, increase indent
+            return ind + list_ind
+        end
     else
         return ind
     endif

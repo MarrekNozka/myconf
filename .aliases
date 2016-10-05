@@ -34,6 +34,7 @@ alias locate='locate --ignore-case'
 alias df='df -h'
 alias du='du -h'
 alias duu='du -hs'
+alias tree='tree --dirsfirst --du -h'
 
 alias cpv='cp -v'
 alias cpr='cp -R'
@@ -44,7 +45,8 @@ alias cleanlatex='rm ./*.aux ./*.log'
 alias aptcachesearch='apt-cache search'
 alias apti='sudo aptitude -u; sudo aptitude clean; sudo aptitude forget-new'
 
-alias oo=loffice
+oo () { libreoffice $@ & }
+
 # ssh
 alias poweroff-lp6='mussh -t 1 -h root@lp6{01,02,03,04,05,06,07,08,09,10,11,22,23,24,25}.lab.spseol.cz -c poweroff'
 
@@ -60,13 +62,47 @@ alias ps..='ps -u $USER --forest --format pid,tty,pcpu,"%mem",stat,start,time,ar
 alias ps...='ps -A --forest --format user,pid,pcpu,"%mem",stat,start,time,args'
 alias pss='ps.'
 #
+mc.() {mc $1 $1} 
+#
 alias netstat.='netstat -nap --inet --inet6'
 alias netstatt='netstat.'
+#
+activate() {
+    work=$PWD
+    if [ $1 ] && [ -d $1 ]; then
+        cd $1
+        change=change
+    elif [ $1 ] && ! [ -d $1 ]; then
+        print "activate: $1 není adresář" >/dev/stderr
+        return 1
+    fi
+    one=$(ls ./venv-*/bin/activate | wc -l)
+    if [[ $one != 0 ]]; then
+        src=$(ls ./venv-*/bin/activate)
+    fi
+    if [[ $one == 1 ]] && [ -f $src ]; then
+        source $src
+    else
+        if [ $change ]; then
+            cd $work 
+        fi
+        print "activate: nepodařilo se mi najít virtuální prostředí" \
+               >/dev/stderr
+        return 1
+    fi
+    unset work
+    unset change
+    unset one
+    unset src
+}
 #
 alias createdb.='createdb -e -E UTF8 -l cs_CZ.UTF-8 -T template0'
 #
 alias DB='fbsetbg -c /home/marek/Documents/Catolic/DonBosco/DB_kresba.jpg'
 alias Maria='convert -resize x800 ~/Documents/Catolic/obrazy/spse/maria.png /tmp/m.png && fbsetbg -c /tmp/m.png'
+alias MariaJosef.='fbsetbg -c ~/Documents/Catolic/obrazy/MariaJasef/josef_maria-1680x1050.png'
+alias MariaJosef='fbsetbg -c ~/Documents/Catolic/obrazy/MariaJasef/josef-maria-vyrez-1333.png'
+alias Hostýn='fbsetbg -c ~/Documents/Catolic/obrazy/hostyn_jubileum.jpg'
 alias 'Ježíš'='convert -resize x900 ~/Documents/Catolic/obrazy/Jesus-by-Akiane_.jpg /tmp/m.png && fbsetbg -c /tmp/m.png'
 #
 #
@@ -100,8 +136,20 @@ if [ $USER != root ]; then
     alias kontroluj.Claws-Mail='md5sum .claws-mail/**/* 2>/dev/null| md5sum; md5sum Mail/**/* 2>/dev/null | md5sum;'
 
 # mplayer
-alias mp='mplayer2'
-alias smp='smplayer2'
+mp() { 
+    if which mplayer2 &>/dev/null; then
+        mplayer2 $@
+    else
+        mplayer $@
+    fi
+}
+smp() { 
+    if which smplayer2 &>/dev/null; then
+        smplayer2 $@ &
+    else
+        smplayer $@ &
+    fi
+}
 
 # mocp
 alias m.play="mocp --play"

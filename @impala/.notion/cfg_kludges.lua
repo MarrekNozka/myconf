@@ -16,12 +16,13 @@ defwinprop{ class = "Gorilla.tcl", float = true }
 defwinprop{ class = "Gtklp", float = true }
 defwinprop{ class = "XBoard", float = true }
 defwinprop{ class = "Vlc", float = true }
-defwinprop{ class = "MPlayer", float = true }
-defwinprop{ class = "mplayer2", float = true }
-defwinprop{ class = "Smplayer", float = true }
-defwinprop{ class = "Smplayer2", float = true }
+--defwinprop{ class = "MPlayer", float = true }
+--defwinprop{ class = "mplayer2", float = true }
+--defwinprop{ class = "Smplayer", float = true }
+--defwinprop{ class = "Smplayer2", float = true }
 defwinprop{ class = "Qmv", float = true }
 defwinprop{ class = "Foo", float = true }
+defwinprop{ class = "Pinentry", float = true }
 defwinprop{ class = "Zenity", float = true }
 defwinprop{ class = "kvm", float = true }
 defwinprop{ class = "Gxmessage", float = true }

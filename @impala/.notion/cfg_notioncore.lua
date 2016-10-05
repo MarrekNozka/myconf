@@ -166,9 +166,9 @@ defbindings("WMPlex.toplevel", {
     kpress(META.."H", "notioncore.exec_on(_, ':less ~/.notion/tahak.mdwn')"),
     kpress(META.."E", "notioncore.exec_on(_, 'kupfer')"),
     kpress(META.."F7", "notioncore.exec_on(_, XTERM or 'x-terminal-emulator')"),
-    kpress(META.."Shift+F7", "notioncore.exec_on(_, 'urxvt -bg white -fg black -sh 196')"),
-    kpress(META.."Shift+F8", "notioncore.exec_on(_, 'urxvt -bg white -fg black -sh 200')"),
-    kpress(META.."F8", "notioncore.exec_on(_, 'urxvt  -fn -*-terminus-medium-r-*--16-*-*-*-*-*-iso10646-1')"),
+    kpress(META.."Shift+F7", "notioncore.exec_on(_, 'urxvtcd -bg white -fg black -sh 196')"),
+    kpress(META.."Shift+F8", "notioncore.exec_on(_, 'urxvtcd -bg white -fg black -sh 200')"),
+    kpress(META.."F8", "notioncore.exec_on(_, 'urxvtcd  -fn -*-terminus-medium-r-*--16-*-*-*-*-*-iso10646-1')"),
     kpress(META.."F10", "notioncore.exec_on(_, 'sudo ~/bin/sudo/jas.zsh')"),
     
     bdoc("Query for command line to execute."),

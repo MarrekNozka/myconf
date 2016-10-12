@@ -76,9 +76,9 @@ activate() {
         print "activate: $1 není adresář" >/dev/stderr
         return 1
     fi
-    one=$(ls ./venv-*/bin/activate | wc -l)
+    one=$(ls ./venv[_-]*/bin/activate | wc -l)
     if [[ $one != 0 ]]; then
-        src=$(ls ./venv-*/bin/activate)
+        src=$(ls ./venv[_-]*/bin/activate)
     fi
     if [[ $one == 1 ]] && [ -f $src ]; then
         source $src
@@ -173,9 +173,13 @@ alias supl='w3m http://www.spseol.cz/data/rozvrhy/suplobec.htm -dump | egrep No'
 alias supl.='w3m http://www.spseol.cz/data/rozvrhy/suplobec.htm -dump | regexcolor No "bold yellow"'
 
 ##############################################################################
-alias howdoi='howdoi -c -a'
-alias docal='while true; do ; date; ncal -A 1; sleep 60; done'
-alias docal.='while true; do ; date; cal.; sleep 60; done'
+alias howdoi='howdoi --color'
+alias howdoi.='howdoi --all'
+
+alias   docal='while true; do ; date; ncal -A 1; sleep 60; done'
+alias docal-1='while true; do ; date; ncal -A 1; sleep  1; done'
+alias   docal.='while true; do ; date; cal.; sleep 60; done'
+alias docal-1.='while true; do ; date; cal.; sleep  1; done'
 
 
 #set_term_title

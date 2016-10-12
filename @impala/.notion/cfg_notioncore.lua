@@ -174,12 +174,14 @@ defbindings("WMPlex.toplevel", {
     bdoc("Query for command line to execute."),
     kpress(META.."F2", "mod_query.query_exec(_)"),
 
-    bdoc("Query for Lua code to execute."),
-    kpress(META.."Shift+F3", "mod_query.query_lua(_)"),
+    --bdoc("Query for Lua code to execute."),
+    --kpress(META.."Shift+F3", "mod_query.query_lua(_)"),
 
     bdoc("Query for host to connect to with SSH."),
-    kpress(META.."F3", "mod_query.query_ssh(_, ':ssh -xa')"),
-    kpress(META.."F4", "mod_query.query_ssh(_, ':ssh -XA')"),
+    kpress(META.."F3",       "mod_query.query_ssh(_, ':ssh -x -a')"),
+    kpress(META.."Shift+F3", "mod_query.query_ssh(_, ':ssh -x -A')"),
+    kpress(META.."F4",       "mod_query.query_ssh(_, ':ssh -X -a')"),
+    kpress(META.."Shift+F4", "mod_query.query_ssh(_, ':ssh -X -A')"),
 
     bdoc("Query for file to edit."),
     kpress(META.."F5", 

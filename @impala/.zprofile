@@ -34,10 +34,12 @@ if [ -d ~/man ]; then
 fi
 
 # Agents
-#if [ -z $SSH_AGENT_PID ]; then
-    echo "ssh-agent run!"
-    eval $(ssh-agent) 
-#fi
+if [ $SSH_AUTH_SOCK ]; then
+    echo "SSH-agetn is FORWARD!"
+else
+    echo "SSH-agetn RUN!"
+    eval $(ssh-agent -s) 
+fi
 
 #if [ -z $GPG_AGENT_INFO ]; then
     echo "gpg-agent run!"

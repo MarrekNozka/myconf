@@ -1,0 +1,52 @@
+Xcursor.theme: ComixCursors-Opaque-Red-Regular
+
+URxvt.background:	black
+URxvt.foreground:	white
+URxvt.cursorColor:	green
+URxvt.scrollBar:	off
+URxvt.transparent:	on
+URxvt.tintColor:	gray
+URxvt.shading:	    20
+URxvt.urgentOnBell: True
+!URxvt.termName: rxvt-unicode
+
+URxvt.font: -*-terminus-medium-r-*--20-*-*-*-*-*-iso10646-1
+
+! Alt+Ctrl+<cislo> přepne velikost písma
+URxvt.keysym.M-C-2: command:\033]50;-*-terminus-medium-r-*--32-*-*-*-*-*-iso10646-1\007
+URxvt.keysym.M-C-3: command:\033]50;-*-terminus-medium-r-*--28-*-*-*-*-*-iso10646-1\007
+URxvt.keysym.M-C-4: command:\033]50;-*-terminus-medium-r-*--24-*-*-*-*-*-iso10646-1\007
+URxvt.keysym.M-C-5: command:\033]50;-*-terminus-medium-r-*--22-*-*-*-*-*-iso10646-1\007
+URxvt.keysym.M-C-6: command:\033]50;-*-terminus-medium-r-*--20-*-*-*-*-*-iso10646-1\007
+URxvt.keysym.M-C-7: command:\033]50;-*-terminus-medium-r-*--17-*-*-*-*-*-iso10646-1\007
+URxvt.keysym.M-C-8: command:\033]50;-*-terminus-medium-r-*--16-*-*-*-*-*-iso10646-1\007
+URxvt.keysym.M-C-9: command:\033]50;-*-terminus-medium-r-*--14-*-*-*-*-*-iso10646-1\007
+URxvt.keysym.M-C-0: command:\033]50;-*-terminus-medium-r-*--12-*-*-*-*-*-iso10646-1\007
+
+! Clickable URLs
+!URxvt.perl-ext-common:  default,matcher,tabbed
+URxvt.perl-ext-common:  default,matcher
+URxvt.url-launcher:      /usr/bin/iceweasel
+URxvt.matcher.button:   3
+URxvt.keysym.M-u:  perl:matcher:last
+URxvt.keysym.M-U:  perl:matcher:list
+!URxvt.colorUL: #4488FF
+URxvt.colorUL: #FFAA00
+
+! tabs
+! man urxvt COLOURS AND GRAPHICS
+!URxvt.tabbed.tabbar-fg: 8
+!URxvt.tabbed.tabbar-bg: 0
+!URxvt.tabbed.tab-fg:    1
+!URxvt.tabbed.tab-bg:    0
+
+*.font:	    -*-terminus-medium-r-*--20-*-*-*-*-*-iso10646-1
+
+*.visualBell: true
+*.scrollBar: true
+*.scrollBar_right: true
+*.saveLines: 30000
+
+*.scrollTtyOutput: false
+*.scrollTtyKeypress: true
+*.scrollWithBuffer: true

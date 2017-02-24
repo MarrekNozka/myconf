@@ -121,17 +121,17 @@ function! jedi#reinit_python()
 endfunction
 
 
+let s:_init_python = -1
 function! jedi#init_python()
-    if !exists('s:_init_python')
+    if s:_init_python == -1
         try
             let s:_init_python = s:init_python()
         catch
-            if !exists("g:jedi#squelch_py_warning")
-                echohl WarningMsg
-                echom "Error: jedi-vim failed to initialize Python: ".v:exception." (in ".v:throwpoint.")"
-                echohl None
-            endif
             let s:_init_python = 0
+            if !exists("g:jedi#squelch_py_warning")
+                echoerr "Error: jedi-vim failed to initialize Python: "
+                            \ .v:exception." (in ".v:throwpoint.")"
+            endif
         endtry
     endif
     return s:_init_python
@@ -154,16 +154,28 @@ function! jedi#setup_py_version(py_version)
 
     try
         execute cmd_init.' '.s:script_path.'/initialize.py'
-        execute 'command! -nargs=1 PythonJedi '.cmd_exec.' <args>'
-        return 1
     catch
         throw "jedi#setup_py_version: ".v:exception
     endtry
+    execute 'command! -nargs=1 PythonJedi '.cmd_exec.' <args>'
+    return 1
 endfunction
 
 
 function! jedi#debug_info()
-    echom "Using Python version:" s:python_version
+    if s:python_version ==# 'null'
+        call s:init_python()
+    endif
+    echo 'Using Python version:' s:python_version
+    let pyeval = s:python_version == 3 ? 'py3eval' : 'pyeval'
+    PythonJedi print(' - sys.version: {0}'.format(', '.join([x.strip() for x in __import__('sys').version.split("\n")])))
+    PythonJedi print(' - site module: {0}'.format(__import__('site').__file__))
+    PythonJedi print('Jedi path: {0}'.format(jedi_vim.jedi.__file__))
+    PythonJedi print('Jedi version: {}'.format(jedi_vim.jedi.__version__))
+    echo 'jedi-vim git version: '
+    echon substitute(system('git -C '.s:script_path.' describe --tags --always --dirty'), '\v\n$', '', '')
+    echo 'jedi git submodule status: '
+    echon substitute(system('git -C '.s:script_path.' submodule status'), '\v\n$', '', '')
 endfunction
 
 
@@ -202,12 +214,7 @@ function! jedi#_vim_exceptions(str, is_eval)
     return l:result
 endfunction
 
-
-if !jedi#init_python()
-    " Do not define any functions when Python initialization failed.
-    finish
-endif
-
+call jedi#init_python()  " Might throw an error.
 
 " ------------------------------------------------------------------------
 " functions that call python code
@@ -259,6 +266,13 @@ endfun
 function! jedi#py_import_completions(argl, cmdl, pos)
     PythonJedi jedi_vim.py_import_completions()
 endfun
+
+function! jedi#clear_cache(bang)
+    PythonJedi jedi_vim.jedi.cache.clear_time_caches(True)
+    if a:bang
+        PythonJedi jedi_vim.jedi.parser.utils.ParserPickling.clear_cache()
+    endif
+endfunction
 
 
 " ------------------------------------------------------------------------
@@ -360,7 +374,7 @@ function! jedi#do_popup_on_dot_in_highlight()
     for a in highlight_groups
         for b in ['pythonString', 'pythonComment', 'pythonNumber']
             if a == b
-                return 0 
+                return 0
             endif
         endfor
     endfor
@@ -370,6 +384,9 @@ endfunc
 
 let s:show_call_signatures_last = [0, 0, '']
 function! jedi#show_call_signatures()
+    if s:_init_python == 0
+        return 1
+    endif
     let [line, col] = [line('.'), col('.')]
     let curline = getline(line)
     let reload_signatures = 1
@@ -397,6 +414,10 @@ endfunction
 
 
 function! jedi#clear_call_signatures()
+    if s:_init_python == 0
+        return 1
+    endif
+
     let s:show_call_signatures_last = [0, 0, '']
     PythonJedi jedi_vim.clear_call_signatures()
 endfunction
@@ -503,7 +524,7 @@ endfunction
 
 function! jedi#smart_auto_mappings()
     " Auto put import statement after from module.name<space> and complete
-    if search('^\s*from\s\+[A-Za-z0-9._]\{1,50}\%#\s*$', 'bcn', line('.'))
+    if search('\m^\s*from\s\+[A-Za-z0-9._]\{1,50}\%#\s*$', 'bcn', line('.'))
         " Enter character and start completion.
         return "\<space>import \<C-x>\<C-o>\<C-r>=jedi#complete_opened(1)\<CR>"
     endif

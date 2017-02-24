@@ -124,6 +124,8 @@ au BufNewFile *.t2t 0r ~/.vim/sablony/txt2tags.t2t
 au BufNewFile,BufRead *.asm set ft=asm8051
 au BufNewFile,BufRead *.inc set ft=asm8051
 
+au BufNewFile,BufRead *.nxc set filetype=nxc
+
 au BufRead *.PAS set ft=pascal
 au BufRead *.lpr set ft=pascal
 
@@ -327,6 +329,8 @@ let g:ctrlp_cmd = 'CtrlPMixed'
 """"""""""" NERD tree
 map <F7> :NERDTreeCWD<Return>
 
+""""""""" IndentLine
+let g:indentLine_enabled = 0
 
 """"""""""""""""""""""""
 let g:jedi#popup_on_dot = 0

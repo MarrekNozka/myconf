@@ -72,12 +72,14 @@ set [no]foldenable
 
 ### Change fold style
 
-To fold in a style like [python-mode](https://github.com/klen/python-mode), add
-the following to your `.vimrc`:
+To fold in a style like [python-mode](https://github.com/klen/python-mode), add the following to your `.vimrc`:
 
 ```vim
 let g:vim_markdown_folding_style_pythonic = 1
 ```
+
+Level 1 heading which is served as a document title is not folded.
+`g:vim_markdown_folding_level` setting is not active with this fold style.
 
 ### Set header folding level
 
@@ -113,17 +115,48 @@ It never increases its default size (half screen), it only shrinks.
 let g:vim_markdown_toc_autofit = 1
 ```
 
+### Text emphasis restriction to single-lines
+
+By default text emphasis works across multiple lines until a closing token is found. However, it's possible to restrict text emphasis to a single line (ie, for it to be applied a closing token must be found on the same line). To do so:
+
+```vim
+let g:vim_markdown_emphasis_multiline = 0
+```
+
 ### Syntax Concealing
 
 Concealing is set for some syntax.
 
 For example, conceal `[link text](link url)` as just `link text`.
 
-To enable/disable conceal use Vim's standard conceal configuration.
+To enable conceal use Vim's standard conceal configuration.
 
 ```vim
 set conceallevel=2
 ```
+
+To disable conceal regardless of `conceallevel` setting, add the following to your `.vimrc`:
+
+```vim
+let g:vim_markdown_conceal = 0
+```
+
+### Fenced code block languages
+
+You can use filetype name as fenced code block languages for syntax highlighting.
+If you want to use different name from filetype, you can add it in your `.vimrc` like so:
+
+```vim
+let g:vim_markdown_fenced_languages = ['csharp=cs']
+```
+
+This will cause the following to be highlighted using the `cs` filetype syntax.
+
+    ```csharp
+    ...
+    ```
+
+Default is `['c++=cpp', 'viml=vim', 'bash=sh', 'ini=dosini']`.
 
 ### Syntax extensions
 
@@ -137,13 +170,55 @@ Used as `$x^2$`, `$$x^2$$`, escapable as `\$x\$` and `\$\$x\$\$`.
 let g:vim_markdown_math = 1
 ```
 
-#### YAML frontmatter
+#### YAML Front Matter
 
-Highlight YAML frontmatter as used by Jekyll:
+Highlight YAML front matter as used by Jekyll or [Hugo](https://gohugo.io/content/front-matter/).
 
 ```vim
 let g:vim_markdown_frontmatter = 1
 ```
+
+#### TOML Front Matter
+
+Highlight TOML front matter as used by [Hugo](https://gohugo.io/content/front-matter/).
+
+TOML syntax highlight requires [vim-toml](https://github.com/cespare/vim-toml).
+
+```vim
+let g:vim_markdown_toml_frontmatter = 1
+```
+
+#### JSON Front Matter
+
+Highlight JSON front matter as used by [Hugo](https://gohugo.io/content/front-matter/).
+
+JSON syntax highlight requires [vim-json](https://github.com/elzr/vim-json).
+
+```vim
+let g:vim_markdown_json_frontmatter = 1
+```
+
+### Adjust new list item indent
+
+You can adjust a new list indent. For example, you insert a single line like below:
+
+```
+* item1
+```
+
+Then if you type `o` to insert new line in vim and type `* item2`, the result will be:
+
+```
+* item1
+    * item2
+```
+
+vim-markdown automatically insert the indent. By default, the number of spaces of indent is 4. If you'd like to change the number as 2, just write:
+
+```vim
+let g:vim_markdown_new_list_item_indent = 2
+```
+
 
 ## Mappings
 
@@ -164,6 +239,10 @@ The following work on normal and visual modes:
         1  2               3
 
     Known limitation: does not work for links that span multiple lines.
+
+-   `ge`: open the link under the cursor in Vim for editing. Useful for relative markdown links. `<Plug>Markdown_EditUrlUnderCursor`
+
+    The rules for the cursor position are the same as the `gx` command.
 
 -   `]]`: go to next header. `<Plug>Markdown_MoveToNextHeader`
 
@@ -222,7 +301,7 @@ The following requires `:filetype plugin on`.
 
 -   `:Toct`: Same as `:Toc` but in a new tab.
 
--   `:Tocv`: Same as `:Toc` for symmetry with `:Toch` and `Tocv`.
+-   `:Tocv`: Same as `:Toc` for symmetry with `:Toch` and `:Tocv`.
 
 ## Credits
 

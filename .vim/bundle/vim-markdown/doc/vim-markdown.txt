@@ -11,10 +11,16 @@ Contents ~
   3. Set header folding level           |vim-markdown-set-header-folding-level|
   4. Disable Default Key Mappings   |vim-markdown-disable-default-key-mappings|
   5. Enable TOC window auto-fit       |vim-markdown-enable-toc-window-auto-fit|
-  6. Syntax Concealing                         |vim-markdown-syntax-concealing|
-  7. Syntax extensions                         |vim-markdown-syntax-extensions|
+  6. Text emphasis restriction to single-lines
+                       |vim-markdown-text-emphasis-restriction-to-single-lines|
+  7. Syntax Concealing                         |vim-markdown-syntax-concealing|
+  8. Fenced code block languages     |vim-markdown-fenced-code-block-languages|
+  9. Syntax extensions                         |vim-markdown-syntax-extensions|
    1. LaTeX math                                      |vim-markdown-latex-math|
-   2. YAML frontmatter                          |vim-markdown-yaml-frontmatter|
+   2. YAML Front Matter                        |vim-markdown-yaml-front-matter|
+   3. TOML Front Matter                        |vim-markdown-toml-front-matter|
+   4. JSON Front Matter                        |vim-markdown-json-front-matter|
+  10. Adjust new list item indent    |vim-markdown-adjust-new-list-item-indent|
  4. Mappings                                            |vim-markdown-mappings|
  5. Commands                                            |vim-markdown-commands|
  6. Credits                                              |vim-markdown-credits|
@@ -87,6 +93,9 @@ To fold in a style like python-mode [6], add the following to your '.vimrc':
 >
   let g:vim_markdown_folding_style_pythonic = 1
 <
+Level 1 heading which is served as a document title is not folded.
+'g:vim_markdown_folding_level' setting is not active with this fold style.
+
 -------------------------------------------------------------------------------
                                         *vim-markdown-set-header-folding-level*
 Set header folding level ~
@@ -121,6 +130,16 @@ never increases its default size (half screen), it only shrinks.
   let g:vim_markdown_toc_autofit = 1
 <
 -------------------------------------------------------------------------------
+                       *vim-markdown-text-emphasis-restriction-to-single-lines*
+Text emphasis restriction to single-lines ~
+
+By default text emphasis works across multiple lines until a closing token is
+found. However, it's possible to restrict text emphasis to a single line (ie,
+for it to be applied a closing token must be found on the same line). To do so:
+>
+  let g:vim_markdown_emphasis_multiline = 0
+<
+-------------------------------------------------------------------------------
                                                *vim-markdown-syntax-concealing*
 Syntax Concealing ~
 
@@ -128,10 +147,33 @@ Concealing is set for some syntax.
 
 For example, conceal '[link text](link url)' as just 'link text'.
 
-To enable/disable conceal use Vim's standard conceal configuration.
+To enable conceal use Vim's standard conceal configuration.
 >
   set conceallevel=2
 <
+To disable conceal regardless of 'conceallevel' setting, add the following to
+your '.vimrc':
+>
+  let g:vim_markdown_conceal = 0
+<
+-------------------------------------------------------------------------------
+                                     *vim-markdown-fenced-code-block-languages*
+Fenced code block languages ~
+
+You can use filetype name as fenced code block languages for syntax
+highlighting. If you want to use different name from filetype, you can add it
+in your '.vimrc' like so:
+>
+  let g:vim_markdown_fenced_languages = ['csharp=cs']
+<
+This will cause the following to be highlighted using the 'cs' filetype syntax.
+>
+  ```csharp
+  ...
+  ```
+<
+Default is "['c++=cpp', 'viml=vim', 'bash=sh', 'ini=dosini']".
+
 -------------------------------------------------------------------------------
                                                *vim-markdown-syntax-extensions*
 Syntax extensions ~
@@ -148,12 +190,52 @@ Used as '$x^2$', '$$x^2$$', escapable as '\$x\$' and '\$\$x\$\$'.
   let g:vim_markdown_math = 1
 <
 -------------------------------------------------------------------------------
-                                                *vim-markdown-yaml-frontmatter*
-YAML frontmatter ~
+                                               *vim-markdown-yaml-front-matter*
+YAML Front Matter ~
 
-Highlight YAML frontmatter as used by Jekyll:
+Highlight YAML front matter as used by Jekyll or Hugo [7].
 >
   let g:vim_markdown_frontmatter = 1
+<
+-------------------------------------------------------------------------------
+                                               *vim-markdown-toml-front-matter*
+TOML Front Matter ~
+
+Highlight TOML front matter as used by Hugo [7].
+
+TOML syntax highlight requires vim-toml [8].
+>
+  let g:vim_markdown_toml_frontmatter = 1
+<
+-------------------------------------------------------------------------------
+                                               *vim-markdown-json-front-matter*
+JSON Front Matter ~
+
+Highlight JSON front matter as used by Hugo [7].
+
+JSON syntax highlight requires vim-json [9].
+>
+  let g:vim_markdown_json_frontmatter = 1
+<
+-------------------------------------------------------------------------------
+                                     *vim-markdown-adjust-new-list-item-indent*
+Adjust new list item indent ~
+
+You can adjust a new list indent. For example, you insert a single line like
+below:
+>
+  * item1
+<
+Then if you type 'o' to insert new line in vim and type '* item2', the result
+will be:
+>
+  * item1
+      * item2
+<
+vim-markdown automatically insert the indent. By default, the number of spaces
+of indent is 4. If you'd like to change the number as 2, just write:
+>
+  let g:vim_markdown_new_list_item_indent = 2
 <
 ===============================================================================
                                                         *vim-markdown-mappings*
@@ -161,7 +243,7 @@ Mappings ~
 
 The following work on normal and visual modes:
 
-                                                                           *gx*
+                                                              *vim-markdown-gx*
 - 'gx': open the link under the cursor in the same browser as the standard
   'gx' command. '<Plug>Markdown_OpenUrlUnderCursor'
 
@@ -180,25 +262,31 @@ The following work on normal and visual modes:
 <
   Known limitation: does not work for links that span multiple lines.
 
-                                                                           *]]*
+                                                              *vim-markdown-ge*
+- 'ge': open the link under the cursor in Vim for editing. Useful for
+  relative markdown links. '<Plug>Markdown_EditUrlUnderCursor'
+
+  The rules for the cursor position are the same as the 'gx' command.
+
+                                                              *vim-markdown-]]*
 - ']]': go to next header. '<Plug>Markdown_MoveToNextHeader'
 
-                                                                           *[[*
+                                                              *vim-markdown-[[*
 - '[[': go to previous header. Contrast with ']c'.
   '<Plug>Markdown_MoveToPreviousHeader'
 
-                                                                           *][*
+                                                              *vim-markdown-][*
 - '][': go to next sibling header if any.
   '<Plug>Markdown_MoveToNextSiblingHeader'
 
-                                                                           *[]*
+                                                              *vim-markdown-[]*
 - '[]': go to previous sibling header if any.
   '<Plug>Markdown_MoveToPreviousSiblingHeader'
 
-                                                                           *]c*
+                                                              *vim-markdown-]c*
 - ']c': go to Current header. '<Plug>Markdown_MoveToCurHeader'
 
-                                                                           *]u*
+                                                              *vim-markdown-]u*
 - ']u': go to parent header (Up). '<Plug>Markdown_MoveToParentHeader'
 
 This plugin follows the recommended Vim plugin mapping interface, so to change
@@ -240,9 +328,9 @@ The following requires ':filetype plugin on'.
   range.
 
                                                                  *:TableFormat*
-- ':TableFormat': Format the table under the cursor like this [7].
+- ':TableFormat': Format the table under the cursor like this [10].
 
-  Requires Tabular [8].
+  Requires Tabular [11].
 
   The input table _must_ already have a separator line as the second line of
   the table. That line only needs to contain the correct pipes '|', nothing
@@ -262,7 +350,7 @@ The following requires ':filetype plugin on'.
 - ':Toct': Same as ':Toc' but in a new tab.
 
                                                                         *:Tocv*
-- ':Tocv': Same as ':Toc' for symmetry with ':Toch' and 'Tocv'.
+- ':Tocv': Same as ':Toc' for symmetry with ':Toch' and ':Tocv'.
 
 ===============================================================================
                                                          *vim-markdown-credits*
@@ -271,7 +359,7 @@ Credits ~
 The main contributors of vim-markdown are:
 
 - **Ben Williams** (A.K.A. **plasticboy**). The original developer of vim-
-  markdown. Homepage [9].
+  markdown. Homepage [12].
 
 If you feel that your name should be on this list, please make a pull request
 listing your contributions.
@@ -312,8 +400,11 @@ References ~
 [4] http://packages.qa.debian.org/v/vim-addon-manager.html
 [5] https://github.com/plasticboy/vim-markdown/archive/master.tar.gz
 [6] https://github.com/klen/python-mode
-[7] http://www.cirosantilli.com/markdown-style-guide/#tables
-[8] https://github.com/godlygeek/tabular
-[9] http://plasticboy.com/
+[7] https://gohugo.io/content/front-matter/
+[8] https://github.com/cespare/vim-toml
+[9] https://github.com/elzr/vim-json
+[10] http://www.cirosantilli.com/markdown-style-guide/#tables
+[11] https://github.com/godlygeek/tabular
+[12] http://plasticboy.com/
 
 vim: ft=help

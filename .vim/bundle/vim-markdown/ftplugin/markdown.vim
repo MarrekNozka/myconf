@@ -304,6 +304,8 @@ function! s:Toc(...)
 
 
     let l:bufnr = bufnr('%')
+    let l:cursor_line = line('.')
+    let l:cursor_header = 0
     let l:fenced_block = 0
     let l:front_matter = 0
     let l:header_list = []
@@ -340,6 +342,14 @@ function! s:Toc(...)
             " append line to location list
             let l:item = {'lnum': i, 'text': l:line, 'valid': 1, 'bufnr': l:bufnr, 'col': 1}
             let l:header_list = l:header_list + [l:item]
+            " set header number of the cursor position
+            if l:cursor_header == 0
+                if i == l:cursor_line
+                    let l:cursor_header = len(l:header_list)
+                elseif i > l:cursor_line
+                    let l:cursor_header = len(l:header_list) - 1
+                endif
+            endif
             " keep track of the longest header size (heading level + title)
             let l:total_len = stridx(l:line, ' ') + len(l:line)
             if l:total_len > l:header_max_len
@@ -347,11 +357,11 @@ function! s:Toc(...)
             endif
         endif
     endfor
+    call setloclist(0, l:header_list)
     if len(l:header_list) == 0
         echom "Toc: No headers."
         return
     endif
-    call setloclist(0, l:header_list)
 
     if l:window_type ==# 'horizontal'
         lopen
@@ -390,7 +400,7 @@ function! s:Toc(...)
     endfor
     setlocal nomodified
     setlocal nomodifiable
-    normal! gg
+    execute 'normal! ' . l:cursor_header . 'G'
 endfunction
 
 " Convert Setex headers in range `line1 .. line2` to Atx.
@@ -446,11 +456,16 @@ function! s:TableFormat()
     " Search instead of `normal! j` because of the table at beginning of file edge case.
     call search('|')
     normal! j
-    " Remove everything that is not a pipe othewise well formated tables would grow
-    " because of addition of 2 spaces on the separator line by Tabularize /|.
+    " Remove everything that is not a pipe, colon or hyphen next to a colon othewise
+    " well formated tables would grow because of addition of 2 spaces on the separator
+    " line by Tabularize /|.
     let l:flags = (&gdefault ? '' : 'g')
-    execute 's/[^|]//' . l:flags
+    execute 's/\(:\@<!-:\@!\|[^|:-]\)//e' . l:flags
+    execute 's/--/-/e' . l:flags
     Tabularize /|
+    " Move colons for alignment to left or right side of the cell.
+    execute 's/:\( \+\)|/\1:|/e' . l:flags
+    execute 's/|\( \+\):/|:\1/e' . l:flags
     execute 's/ /-/' . l:flags
     call setpos('.', l:pos)
 endfunction
@@ -561,6 +576,19 @@ function! s:OpenUrlUnderCursor()
     endif
 endfunction
 
+" We need a definition guard because we invoke 'edit' which will reload this
+" script while this function is running. We must not replace it.
+if !exists("*s:EditUrlUnderCursor")
+  function s:EditUrlUnderCursor()
+      let l:url = s:Markdown_GetUrlForPosition(line('.'), col('.'))
+      if l:url != ''
+          execute 'edit' l:url
+      else
+          echomsg 'The cursor is not on a link.'
+      endif
+  endfunction
+endif
+
 function! s:VersionAwareNetrwBrowseX(url)
     if has('patch-7.4.567')
         call netrw#BrowseX(a:url, 0)
@@ -583,6 +611,7 @@ call <sid>MapNormVis('<Plug>Markdown_MoveToPreviousSiblingHeader', '<sid>MoveToP
 call <sid>MapNormVis('<Plug>Markdown_MoveToParentHeader', '<sid>MoveToParentHeader')
 call <sid>MapNormVis('<Plug>Markdown_MoveToCurHeader', '<sid>MoveToCurHeader')
 nnoremap <Plug>Markdown_OpenUrlUnderCursor :call <sid>OpenUrlUnderCursor()<cr>
+nnoremap <Plug>Markdown_EditUrlUnderCursor :call <sid>EditUrlUnderCursor()<cr>
 
 if !get(g:, 'vim_markdown_no_default_key_mappings', 0)
     call <sid>MapNotHasmapto(']]', 'Markdown_MoveToNextHeader')
@@ -592,6 +621,7 @@ if !get(g:, 'vim_markdown_no_default_key_mappings', 0)
     call <sid>MapNotHasmapto(']u', 'Markdown_MoveToParentHeader')
     call <sid>MapNotHasmapto(']c', 'Markdown_MoveToCurHeader')
     call <sid>MapNotHasmapto('gx', 'Markdown_OpenUrlUnderCursor')
+    call <sid>MapNotHasmapto('ge', 'Markdown_EditUrlUnderCursor')
 endif
 
 command! -buffer -range=% HeaderDecrease call s:HeaderDecrease(<line1>, <line2>)
@@ -604,21 +634,36 @@ command! -buffer Tocv call s:Toc('vertical')
 command! -buffer Toct call s:Toc('tab')
 
 " Heavily based on vim-notes - http://peterodding.com/code/vim/notes/
-let s:filetype_dict = {
-    \ 'c++': 'cpp',
-    \ 'viml': 'vim'
-\ }
+if exists('g:vim_markdown_fenced_languages')
+    let s:filetype_dict = {}
+    for s:filetype in g:vim_markdown_fenced_languages
+        let key = matchstr(s:filetype, "[^=]*")
+        let val = matchstr(s:filetype, "[^=]*$")
+        let s:filetype_dict[key] = val
+    endfor
+else
+    let s:filetype_dict = {
+        \ 'c++': 'cpp',
+        \ 'viml': 'vim',
+        \ 'bash': 'sh',
+        \ 'ini': 'dosini'
+    \ }
+endif
 
 function! s:MarkdownHighlightSources(force)
     " Syntax highlight source code embedded in notes.
     " Look for code blocks in the current file
     let filetypes = {}
     for line in getline(1, '$')
-        let ft = matchstr(line, '```\zs[0-9A-Za-z_+-]*')
+        let ft = matchstr(line, '```\s*\zs[0-9A-Za-z_+-]*')
         if !empty(ft) && ft !~ '^\d*$' | let filetypes[ft] = 1 | endif
     endfor
     if !exists('b:mkd_known_filetypes')
         let b:mkd_known_filetypes = {}
+    endif
+    if !exists('b:mkd_included_filetypes')
+        " set syntax file name included
+        let b:mkd_included_filetypes = {}
     endif
     if !a:force && (b:mkd_known_filetypes == filetypes || empty(filetypes))
         return
@@ -635,9 +680,14 @@ function! s:MarkdownHighlightSources(force)
                 let filetype = ft
             endif
             let group = 'mkdSnippet' . toupper(substitute(filetype, "[+-]", "_", "g"))
-            let include = s:SyntaxInclude(filetype)
-            let command = 'syntax region %s matchgroup=%s start="^\s*```%s$" matchgroup=%s end="\s*```$" keepend contains=%s%s'
-            execute printf(command, group, startgroup, ft, endgroup, include, has('conceal') ? ' concealends' : '')
+            if !has_key(b:mkd_included_filetypes, filetype)
+                let include = s:SyntaxInclude(filetype)
+                let b:mkd_included_filetypes[filetype] = 1
+            else
+                let include = '@' . toupper(filetype)
+            endif
+            let command = 'syntax region %s matchgroup=%s start="^\s*```\s*%s$" matchgroup=%s end="\s*```$" keepend contains=%s%s'
+            execute printf(command, group, startgroup, ft, endgroup, include, has('conceal') && get(g:, 'vim_markdown_conceal', 1) ? ' concealends' : '')
             execute printf('syntax cluster mkdNonListItem add=%s', group)
 
             let b:mkd_known_filetypes[ft] = 1
@@ -676,9 +726,16 @@ function! s:MarkdownRefreshSyntax(force)
     endif
 endfunction
 
+function! s:MarkdownClearSyntaxVariables()
+    if &filetype == 'markdown'
+        unlet! b:mkd_included_filetypes
+    endif
+endfunction
+
 augroup Mkd
     autocmd!
     au BufWinEnter * call s:MarkdownRefreshSyntax(1)
+    au BufUnload * call s:MarkdownClearSyntaxVariables()
     au BufWritePost * call s:MarkdownRefreshSyntax(0)
     au InsertEnter,InsertLeave * call s:MarkdownRefreshSyntax(0)
     au CursorHold,CursorHoldI * call s:MarkdownRefreshSyntax(0)

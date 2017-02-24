@@ -32,10 +32,12 @@ if [ -d ~/bin/lib/python/ ]; then
 fi
 
 # Agents
-#if [ -z $SSH_AGENT_PID ]; then
-    echo "ssh-agetn run!"
+if [ $SSH_AUTH_SOCK ]; then
+    echo "SSH-agetn is FORWARD!"
+else
+    echo "SSH-agetn RUN!"
     eval $(ssh-agent -s) 
-#fi
+fi
 
 #if [ -z $GPG_AGENT_INFO ]; then
 #    echo "gpg-agetn run!"

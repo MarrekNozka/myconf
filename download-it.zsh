@@ -15,21 +15,16 @@ host=$(hostname | sed -r -e "s/^([^.]+).*$/\1/")
 [ -d @$host ] || mkdir @$host
 files=()
 files+=(.Xdefaults .Xresources .xinitrc .Xmodmap)
-files+=(.Xsession .Xsession-notion .Xsession-awesome)
+files+=(.Xsession)
 files+=(.gvimrc)
 files+=(.zprofile .zlogout)
-## notion
-files+=(.notion)
+## i3 
+files+=(.i3)
+
 for f in $files; do
     cp -a ~/$f ./@$host
 done
-rm -R ./@$host/.notion/default-session-*
-rm -Rf ./@$host/.notion/scripts/.git/
-cd @$host
-## awesome
-[ -d ./.config ] || mkdir ./.config
-cp -a ~/.config/awesome/ ./.config/
-cd -
+#
 ###############################################
 
 ### Shell, Vim,  TeX, colors

@@ -1,0 +1,8 @@
+!!!!!!!!!!!!!!
+!http://cs.gmu.edu/~sean/stuff/n800/keyboard/old.html
+!
+keycode 66 = Escape Escape
+clear lock
+!keycode 117 = Control_R
+!add Control = Control_R
+

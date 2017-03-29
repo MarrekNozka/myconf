@@ -182,7 +182,10 @@ alias   docal.='while true; do ; date; cal.; sleep 60; done'
 alias docal-1.='while true; do ; date; cal.; sleep  1; done'
 
 dodf() {
-    while df / /storage /home | uniq | grep / |\
+    while df /media/karlik /media/sd{a,b,c,d}{,1,2,3} / /storage /home 2>/dev/null |\
+          sort   |\
+          uniq   |\
+          grep / |\
           awk '{printf("%6s%6s%6s%4s  %s\n",  $2,$3,$4, $5,$6)}'; do
         sleep 7
         clear

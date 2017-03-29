@@ -98,6 +98,7 @@ try:
 except ImportError as e:
     no_jedi_warning(str(e))
     jedi = None
+    jedi_import_error = str(e)
 else:
     try:
         version = jedi.__version__
@@ -335,7 +336,8 @@ def clear_call_signatures():
     # 1. Search for a line with a call signature and save the appended
     #    characters
     # 2. Actually replace the line and redo the status quo.
-    py_regex = r'%sjedi=([0-9]+), (.*?)%s.*?%sjedi%s'.replace('%s', e)
+    py_regex = r'%sjedi=([0-9]+), (.*?)%s.*?%sjedi%s'.replace(
+        '%s', re.escape(e))
     for i, line in enumerate(vim.current.buffer):
         match = re.search(py_regex, line)
         if match is not None:
@@ -509,15 +511,14 @@ def rename():
     if not int(vim.eval('a:0')):
         # Need to save the cursor position before insert mode
         cursor = vim.current.window.cursor
-        changenr = vim.eval('changenr()') # track undo tree
+        changenr = vim.eval('changenr()')  # track undo tree
         vim_command('augroup jedi_rename')
         vim_command('autocmd InsertLeave <buffer> call jedi#rename'
-                '({}, {}, {})'.format(cursor[0], cursor[1], changenr))
+                    '({}, {}, {})'.format(cursor[0], cursor[1], changenr))
         vim_command('augroup END')
 
         vim_command("let s:jedi_replace_orig = expand('<cword>')")
         vim_command('normal! diw')
-        vim_command("let s:jedi_changedtick = b:changedtick")
         vim_command('startinsert')
 
     else:
@@ -566,7 +567,7 @@ def do_rename(replace, orig=None):
     # Sort the whole thing reverse (positions at the end of the line
     # must be first, because they move the stuff before the position).
     temp_rename = sorted(temp_rename, reverse=True,
-                         key=lambda x: (x.module_path, x.start_pos))
+                         key=lambda x: (x.module_path, x.line, x.column))
     buffers = set()
     for r in temp_rename:
         if r.in_builtin_module():
@@ -584,7 +585,7 @@ def do_rename(replace, orig=None):
         saved_view = vim_eval('string(winsaveview())')
 
         # Replace original word.
-        vim.current.window.cursor = r.start_pos
+        vim.current.window.cursor = (r.line, r.column)
         vim_command('normal! c{0:d}l{1}'.format(len(orig), replace))
 
         # Restore view.

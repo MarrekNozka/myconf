@@ -242,26 +242,26 @@ fi
 #############################################################
 #     Starrt terminálu, ToDo, Remind
 #############################################################
-if [ -z $loginsh ] && [ $USER != root ] && [ -z $NOTODO ]; then
-#    cat ~/.vim/linuxlogo  
-    if [ -x /usr/games/fortune ]; then
-       fortune -c debian \
-           linux \
-           cimrman \
-           40% pocitace \
-           40% /usr/share/games/fortunes/debian-hints 
-    fi
-    echo 
-    uptime -p
-    echo
-#	if [ -x /usr/bin/remind ]; then
-#		rem
-#	fi
-#    if [ -f ~/.todo ]; then
-#        cat ~/.todo
+#if [ -z $loginsh ] && [ $USER != root ] && [ -z $NOTODO ]; then
+##    cat ~/.vim/linuxlogo  
+#    if [ -x /usr/games/fortune ]; then
+#       fortune -c debian \
+#           linux \
+#           cimrman \
+#           40% pocitace \
+#           40% /usr/share/games/fortunes/debian-hints 
 #    fi
-    unset loginsh
-fi
+#    echo 
+#    uptime -p
+#    echo
+##	if [ -x /usr/bin/remind ]; then
+##		rem
+##	fi
+##    if [ -f ~/.todo ]; then
+##        cat ~/.todo
+##    fi
+#    unset loginsh
+#fi
 
 #############################################################
 #     Autoload zsh modules when they are referenced

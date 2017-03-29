@@ -27,7 +27,7 @@ let s:default_settings = {
     \ 'documentation_command': "'K'",
     \ 'show_call_signatures': 1,
     \ 'show_call_signatures_delay': 500,
-    \ 'call_signature_escape': "'=`='",
+    \ 'call_signature_escape': "'?!?'",
     \ 'auto_close_doc': 1,
     \ 'max_doc_height': 30,
     \ 'popup_select_first': 1,
@@ -57,13 +57,13 @@ endfor
 " ------------------------------------------------------------------------
 let s:script_path = fnameescape(expand('<sfile>:p:h:h'))
 
-function! s:init_python()
-    if g:jedi#force_py_version != 'auto'
+function! s:init_python() abort
+    if g:jedi#force_py_version !=# 'auto'
         " Always use the user supplied version.
         try
             return jedi#force_py_version(g:jedi#force_py_version)
         catch
-            throw "Could not setup g:jedi#force_py_version: ".v:exception
+            throw 'Could not setup g:jedi#force_py_version: '.v:exception
         endtry
     endif
 
@@ -75,15 +75,15 @@ function! s:init_python()
         " Get default python version from interpreter in $PATH.
         let s:def_py = system('python -c '.shellescape('import sys; sys.stdout.write(str(sys.version_info[0]))'))
         if v:shell_error != 0 || !len(s:def_py)
-            if !exists("g:jedi#squelch_py_warning")
+            if !exists('g:jedi#squelch_py_warning')
                 echohl WarningMsg
-                echom "Warning: jedi-vim failed to get Python version from sys.version_info: " . s:def_py
-                echom "Falling back to version 2."
+                echom 'Warning: jedi-vim failed to get Python version from sys.version_info: ' . s:def_py
+                echom 'Falling back to version 2.'
                 echohl None
             endif
             let s:def_py = 2
         elseif &verbose
-            echom "jedi-vim: auto-detected Python: ".s:def_py
+            echom 'jedi-vim: auto-detected Python: '.s:def_py
         endif
 
         " Make sure that the auto-detected version is available in Vim.
@@ -95,11 +95,11 @@ function! s:init_python()
         " usually because of a missing neovim module in a VIRTUAL_ENV.
         if has('nvim')
             echohl WarningMsg
-            echom "jedi-vim: the detected Python version (".s:def_py.")"
-                        \ "is not functional."
-                        \ "Is the 'neovim' module installed?"
-                        \ "While jedi-vim will work, it might not use the"
-                        \ "expected Python path."
+            echom 'jedi-vim: the detected Python version ('.s:def_py.')'
+                        \ 'is not functional.'
+                        \ 'Is the "neovim" module installed?'
+                        \ 'While jedi-vim will work, it might not use the'
+                        \ 'expected Python path.'
             echohl None
         endif
     endif
@@ -109,28 +109,28 @@ function! s:init_python()
     elseif has('python3')
         call jedi#setup_py_version(3)
     else
-        throw "jedi-vim requires Vim with support for Python 2 or 3."
+        throw 'jedi-vim requires Vim with support for Python 2 or 3.'
     endif
     return 1
 endfunction
 
 
-function! jedi#reinit_python()
+function! jedi#reinit_python() abort
     unlet! s:_init_python
     call jedi#init_python()
 endfunction
 
 
 let s:_init_python = -1
-function! jedi#init_python()
+function! jedi#init_python() abort
     if s:_init_python == -1
         try
             let s:_init_python = s:init_python()
         catch
             let s:_init_python = 0
-            if !exists("g:jedi#squelch_py_warning")
-                echoerr "Error: jedi-vim failed to initialize Python: "
-                            \ .v:exception." (in ".v:throwpoint.")"
+            if !exists('g:jedi#squelch_py_warning')
+                echoerr 'Error: jedi-vim failed to initialize Python: '
+                            \ .v:exception.' (in '.v:throwpoint.')'
             endif
         endtry
     endif
@@ -139,7 +139,7 @@ endfunction
 
 
 let s:python_version = 'null'
-function! jedi#setup_py_version(py_version)
+function! jedi#setup_py_version(py_version) abort
     if a:py_version == 2
         let cmd_init = 'pyfile'
         let cmd_exec = 'python'
@@ -149,56 +149,101 @@ function! jedi#setup_py_version(py_version)
         let cmd_exec = 'python3'
         let s:python_version = 3
     else
-        throw "jedi#setup_py_version: invalid py_version: ".a:py_version
+        throw 'jedi#setup_py_version: invalid py_version: '.a:py_version
     endif
 
     try
         execute cmd_init.' '.s:script_path.'/initialize.py'
     catch
-        throw "jedi#setup_py_version: ".v:exception
+        throw 'jedi#setup_py_version: '.v:exception
     endtry
     execute 'command! -nargs=1 PythonJedi '.cmd_exec.' <args>'
     return 1
 endfunction
 
 
-function! jedi#debug_info()
+function! jedi#debug_info() abort
     if s:python_version ==# 'null'
         call s:init_python()
     endif
+    echo '#### Jedi-vim debug information'
     echo 'Using Python version:' s:python_version
     let pyeval = s:python_version == 3 ? 'py3eval' : 'pyeval'
-    PythonJedi print(' - sys.version: {0}'.format(', '.join([x.strip() for x in __import__('sys').version.split("\n")])))
-    PythonJedi print(' - site module: {0}'.format(__import__('site').__file__))
-    PythonJedi print('Jedi path: {0}'.format(jedi_vim.jedi.__file__))
-    PythonJedi print('Jedi version: {}'.format(jedi_vim.jedi.__version__))
+    let s:pythonjedi_called = 0
+    PythonJedi import vim; vim.command('let s:pythonjedi_called = 1')
+    if !s:pythonjedi_called
+      echohl WarningMsg
+      echom 'PythonJedi failed to run, likely a Python config issue.'
+      if exists(':CheckHealth') == 2
+        echom 'Try :CheckHealth for more information.'
+      endif
+      echohl None
+    else
+      PythonJedi << EOF
+vim.command("echo printf(' - sys.version: %s', {0!r})".format(', '.join([x.strip() for x in __import__('sys').version.split('\n')])))
+vim.command("echo printf(' - site module: %s', {0!r})".format(__import__('site').__file__))
+
+try:
+  jedi_vim
+except Exception as e:
+  vim.command("echo printf('ERROR: jedi_vim is not available: %s: %s', {0!r}, {1!r})".format(e.__class__.__name__, str(e)))
+else:
+  try:
+    if jedi_vim.jedi is None:
+      vim.command("echo 'ERROR: the \"jedi\" Python module could not be imported.'")
+      vim.command("echo printf('       The error was: %s', {0!r})".format(getattr(jedi_vim, "jedi_import_error", "UNKNOWN")))
+    else:
+      vim.command("echo printf('Jedi path: %s', {0!r})".format(jedi_vim.jedi.__file__))
+      vim.command("echo printf(' - version: %s', {0!r})".format(jedi_vim.jedi.__version__))
+      vim.command("echo ' - sys_path:'")
+      for p in jedi_vim.jedi.Script('')._evaluator.sys_path:
+        vim.command("echo printf('    - %s', {0!r})".format(p))
+  except Exception as e:
+    vim.command("echo printf('There was an error accessing jedi_vim.jedi: %s', {0!r})".format(e))
+EOF
+    endif
     echo 'jedi-vim git version: '
     echon substitute(system('git -C '.s:script_path.' describe --tags --always --dirty'), '\v\n$', '', '')
     echo 'jedi git submodule status: '
     echon substitute(system('git -C '.s:script_path.' submodule status'), '\v\n$', '', '')
+    echo "\n"
+    echo '##### Settings'
+    echo '```'
+    for [k, V] in items(filter(copy(g:), "v:key =~# '\\v^jedi#'"))
+      let k = substitute(k, '\v^jedi#', '', '')
+      exe 'let default = '.get(s:default_settings, k, "'-'")
+      " vint: -ProhibitUsingUndeclaredVariable
+      if default !=# V
+        echo printf('g:%s = %s (default: %s)', k, string(V), string(default))
+        unlet! V  " Fix variable type mismatch with Vim 7.3.
+      endif
+      " vint: +ProhibitUsingUndeclaredVariable
+    endfor
+    echo "\n"
+    verb set omnifunc? completeopt?
+    echo '```'
 endfunction
 
-
-function! jedi#force_py_version(py_version)
+function! jedi#force_py_version(py_version) abort
     let g:jedi#force_py_version = a:py_version
     return jedi#setup_py_version(a:py_version)
 endfunction
 
 
-function! jedi#force_py_version_switch()
+function! jedi#force_py_version_switch() abort
     if g:jedi#force_py_version == 2
         call jedi#force_py_version(3)
     elseif g:jedi#force_py_version == 3
         call jedi#force_py_version(2)
     else
-        throw "Don't know how to switch from ".g:jedi#force_py_version."!"
+        throw "Don't know how to switch from ".g:jedi#force_py_version.'!'
     endif
 endfunction
 
 
 " Helper function instead of `python vim.eval()`, and `.command()` because
 " these also return error definitions.
-function! jedi#_vim_exceptions(str, is_eval)
+function! jedi#_vim_exceptions(str, is_eval) abort
     let l:result = {}
     try
         if a:is_eval
@@ -219,55 +264,55 @@ call jedi#init_python()  " Might throw an error.
 " ------------------------------------------------------------------------
 " functions that call python code
 " ------------------------------------------------------------------------
-function! jedi#goto()
+function! jedi#goto() abort
     PythonJedi jedi_vim.goto(mode="goto")
 endfunction
 
-function! jedi#goto_assignments()
+function! jedi#goto_assignments() abort
     PythonJedi jedi_vim.goto(mode="assignment")
 endfunction
 
-function! jedi#goto_definitions()
+function! jedi#goto_definitions() abort
     PythonJedi jedi_vim.goto(mode="definition")
 endfunction
 
-function! jedi#usages()
+function! jedi#usages() abort
     PythonJedi jedi_vim.goto(mode="related_name")
 endfunction
 
-function! jedi#rename(...)
+function! jedi#rename(...) abort
     PythonJedi jedi_vim.rename()
 endfunction
 
-function! jedi#rename_visual(...)
+function! jedi#rename_visual(...) abort
     PythonJedi jedi_vim.rename_visual()
 endfunction
 
-function! jedi#completions(findstart, base)
+function! jedi#completions(findstart, base) abort
     PythonJedi jedi_vim.completions()
 endfunction
 
-function! jedi#enable_speed_debugging()
+function! jedi#enable_speed_debugging() abort
     PythonJedi jedi_vim.jedi.set_debug_function(jedi_vim.print_to_stdout, speed=True, warnings=False, notices=False)
 endfunction
 
-function! jedi#enable_debugging()
+function! jedi#enable_debugging() abort
     PythonJedi jedi_vim.jedi.set_debug_function(jedi_vim.print_to_stdout)
 endfunction
 
-function! jedi#disable_debugging()
+function! jedi#disable_debugging() abort
     PythonJedi jedi_vim.jedi.set_debug_function(None)
 endfunction
 
-function! jedi#py_import(args)
+function! jedi#py_import(args) abort
     PythonJedi jedi_vim.py_import()
 endfun
 
-function! jedi#py_import_completions(argl, cmdl, pos)
+function! jedi#py_import_completions(argl, cmdl, pos) abort
     PythonJedi jedi_vim.py_import_completions()
 endfun
 
-function! jedi#clear_cache(bang)
+function! jedi#clear_cache(bang) abort
     PythonJedi jedi_vim.jedi.cache.clear_time_caches(True)
     if a:bang
         PythonJedi jedi_vim.jedi.parser.utils.ParserPickling.clear_cache()
@@ -278,17 +323,17 @@ endfunction
 " ------------------------------------------------------------------------
 " show_documentation
 " ------------------------------------------------------------------------
-function! jedi#show_documentation()
+function! jedi#show_documentation() abort
     PythonJedi if jedi_vim.show_documentation() is None: vim.command('return')
 
-    let bn = bufnr("__doc__")
+    let bn = bufnr('__doc__')
     if bn > 0
         let wi=index(tabpagebuflist(tabpagenr()), bn)
         if wi >= 0
             " If the __doc__ buffer is open in the current tab, jump to it
             silent execute (wi+1).'wincmd w'
         else
-            silent execute "sbuffer ".bn
+            silent execute 'sbuffer '.bn
         endif
     else
         split '__doc__'
@@ -307,11 +352,11 @@ function! jedi#show_documentation()
     if l:doc_lines > g:jedi#max_doc_height " max lines for plugin
         let l:doc_lines = g:jedi#max_doc_height
     endif
-    execute "resize ".l:doc_lines
+    execute 'resize '.l:doc_lines
 
     " quit comands
     nnoremap <buffer> q ZQ
-    execute "nnoremap <buffer> ".g:jedi#documentation_command." ZQ"
+    execute 'nnoremap <buffer> '.g:jedi#documentation_command.' ZQ'
 
     " highlight python code within rst
     unlet! b:current_syntax
@@ -320,14 +365,14 @@ function! jedi#show_documentation()
     syn region rstPythonRegion start=/^\v {4}/ end=/\v^( {4}|\n)@!/ contains=@rstPythonScript
     " >>> python code -> (doctests)
     syn region rstPythonRegion matchgroup=pythonDoctest start=/^>>>\s*/ end=/\n/ contains=@rstPythonScript
-    let b:current_syntax = "rst"
+    let b:current_syntax = 'rst'
 endfunction
 
 " ------------------------------------------------------------------------
 " helper functions
 " ------------------------------------------------------------------------
 
-function! jedi#add_goto_window(len)
+function! jedi#add_goto_window(len) abort
     set lazyredraw
     cclose
     let height = min([a:len, g:jedi#quickfix_window_height])
@@ -336,37 +381,40 @@ function! jedi#add_goto_window(len)
     if g:jedi#use_tabs_not_buffers == 1
         noremap <buffer> <CR> :call jedi#goto_window_on_enter()<CR>
     endif
-    au WinLeave <buffer> q  " automatically leave, if an option is chosen
+    augroup jedi_goto_window
+      au!
+      au WinLeave <buffer> q  " automatically leave, if an option is chosen
+    augroup END
     redraw!
 endfunction
 
 
-function! jedi#goto_window_on_enter()
+function! jedi#goto_window_on_enter() abort
     let l:list = getqflist()
     let l:data = l:list[line('.') - 1]
     if l:data.bufnr
         " close goto_window buffer
-        normal ZQ
+        normal! ZQ
         PythonJedi jedi_vim.new_buffer(vim.eval('bufname(l:data.bufnr)'))
         call cursor(l:data.lnum, l:data.col)
     else
-        echohl WarningMsg | echo "Builtin module cannot be opened." | echohl None
+        echohl WarningMsg | echo 'Builtin module cannot be opened.' | echohl None
     endif
 endfunction
 
 
-function! s:syn_stack()
-    if !exists("*synstack")
+function! s:syn_stack() abort
+    if !exists('*synstack')
         return []
     endif
-    return map(synstack(line('.'), col('.') - 1), 'synIDattr(v:val, "name")')
+    return map(synstack(line('.'), col('.') - 1), "synIDattr(v:val, 'name')")
 endfunc
 
 
-function! jedi#do_popup_on_dot_in_highlight()
+function! jedi#do_popup_on_dot_in_highlight() abort
     let highlight_groups = s:syn_stack()
     for a in highlight_groups
-        if a == 'pythonDoctest'
+        if a ==# 'pythonDoctest'
             return 1
         endif
     endfor
@@ -383,7 +431,7 @@ endfunc
 
 
 let s:show_call_signatures_last = [0, 0, '']
-function! jedi#show_call_signatures()
+function! jedi#show_call_signatures() abort
     if s:_init_python == 0
         return 1
     endif
@@ -413,7 +461,7 @@ function! jedi#show_call_signatures()
 endfunction
 
 
-function! jedi#clear_call_signatures()
+function! jedi#clear_call_signatures() abort
     if s:_init_python == 0
         return 1
     endif
@@ -423,7 +471,7 @@ function! jedi#clear_call_signatures()
 endfunction
 
 
-function! jedi#configure_call_signatures()
+function! jedi#configure_call_signatures() abort
     augroup jedi_call_signatures
     autocmd! * <buffer>
     if g:jedi#show_call_signatures == 2  " Command line call signatures
@@ -448,7 +496,7 @@ endfunction
 
 " Determine where the current window is on the screen for displaying call
 " signatures in the correct column.
-function! s:save_first_col()
+function! s:save_first_col() abort
     if bufname('%') ==# '[Command Line]' || winnr('$') == 1
         return 0
     endif
@@ -490,11 +538,9 @@ function! s:save_first_col()
 endfunction
 
 
-function! jedi#complete_string(is_popup_on_dot)
-
+function! jedi#complete_string(is_popup_on_dot) abort
     if a:is_popup_on_dot && !(g:jedi#popup_on_dot && jedi#do_popup_on_dot_in_highlight())
         return ''
-
     endif
     if pumvisible() && !a:is_popup_on_dot
         return "\<C-n>"
@@ -504,7 +550,7 @@ function! jedi#complete_string(is_popup_on_dot)
 endfunction
 
 
-function! jedi#complete_opened(is_popup_on_dot)
+function! jedi#complete_opened(is_popup_on_dot) abort
     if pumvisible()
         " Only go down if it is visible, user-enabled and the longest
         " option is set.
@@ -512,17 +558,17 @@ function! jedi#complete_opened(is_popup_on_dot)
             return "\<Down>"
         endif
         if a:is_popup_on_dot
-            if &completeopt !~ '\(noinsert\|noselect\)'
+            if &completeopt !~# '\(noinsert\|noselect\)'
                 " Prevent completion of the first entry with dot completion.
                 return "\<C-p>"
             endif
         endif
     endif
-    return ""
+    return ''
 endfunction
 
 
-function! jedi#smart_auto_mappings()
+function! jedi#smart_auto_mappings() abort
     " Auto put import statement after from module.name<space> and complete
     if search('\m^\s*from\s\+[A-Za-z0-9._]\{1,50}\%#\s*$', 'bcn', line('.'))
         " Enter character and start completion.

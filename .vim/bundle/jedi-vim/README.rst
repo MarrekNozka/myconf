@@ -34,7 +34,7 @@ Documentation
 Documentation is available in your vim: ``:help jedi-vim``. You can also look
 it up `on github <http://github.com/davidhalter/jedi-vim/blob/master/doc/jedi-vim.txt>`_.
 
-You can read the Jedi library documentation `here <http://jedi.jedidjah.ch>`_.
+You can read the Jedi library documentation `here <http://jedi.readthedocs.io/en/latest/>`_.
 
 If you want to report issues, just use the github issue tracker. In case of
 questions about the software, please use `stackoverflow
@@ -73,7 +73,7 @@ Requirements
 You need a VIM version that was compiled with Python 2.6 or later
 (``+python`` or ``+python3``), which is typical for most distributions on
 Linux.  You can check this from within VIM using
-``:python3 import sys; print sys.version`` (use ``:python`` for Python 2).
+``:python3 import sys; print(sys.version)`` (use ``:python`` for Python 2).
 
 Manual installation
 -------------------

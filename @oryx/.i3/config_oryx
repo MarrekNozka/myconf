@@ -5,8 +5,8 @@
 # this file and re-run i3-config-wizard(1).
 #
 
-set $primary DVI-I-1
-set $secondary VGA-1
+set $primary DVI-0
+set $secondary VGA-0
 
 # i3 config file (v4)
 #
@@ -33,6 +33,7 @@ floating_modifier $mod
 # start a terminal and aplication
 bindsym $mod+Return exec urxvtcd
 bindsym $mod+Shift+Return exec urxvtcd  -fn '-*-terminus-medium-r-*--16-*-*-*-*-*-iso10646-1'
+bindsym $mod+Control+Return exec urxvtcd -e ssh root@localhost
 bindsym $mod+F7 exec urxvtcd -bg white -fg black -sh 196
 bindsym $mod+F8 exec urxvtcd -bg white -fg black -sh 200
 
@@ -50,8 +51,8 @@ bindsym $mod+Shift+F4 exec ~/bin/ssh-xdotool.zsh X A
 
 
 # lock
-bindsym $mod+Control+p exec xscreensaver-command -lock
-bindsym $mod+Shift+p exec i3lock -c 000000
+bindsym $mod+F12 exec i3lock -en -c 000000 -i ~/.i3/jm.png
+bindsym $mod+Shift+F12 exec i3lock -end -c 000000 -i ~/.i3/jm.png
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -119,9 +120,12 @@ workspace 1 output $primary
 workspace 2 output $primary
 workspace 3 output $primary
 workspace 4 output $primary
-workspace 5 output $secondary
+workspace 5 output $primary
 workspace 6 output $secondary
 workspace 7 output $secondary
+workspace 8 output $secondary
+workspace 9 output $primary
+workspace 10 output $primary
 
 # switch to workspace
 bindsym $mod+1 workspace 1

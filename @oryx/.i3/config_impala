@@ -5,8 +5,10 @@
 # this file and re-run i3-config-wizard(1).
 #
 
-set $primary DVI-I-1
-set $secondary VGA-0
+set $primary LVDS-1
+set $secondary VGA-1
+
+set $terminal urxvtcd -sh 0
 
 # i3 config file (v4)
 #
@@ -31,8 +33,9 @@ font -*-terminus-medium-r-*-*-14-*-*-*-*-*-iso10646-1
 floating_modifier $mod
 
 # start a terminal and aplication
-bindsym $mod+Return exec urxvtcd
-bindsym $mod+Shift+Return exec urxvtcd  -fn '-*-terminus-medium-r-*--16-*-*-*-*-*-iso10646-1'
+bindsym $mod+Return exec $terminal
+bindsym $mod+Shift+Return exec $terminal -fn '-*-terminus-medium-r-*--16-*-*-*-*-*-iso10646-1'
+bindsym $mod+Control+Return exec $terminal -e ssh root@localhost
 bindsym $mod+F7 exec urxvtcd -bg white -fg black -sh 196
 bindsym $mod+F8 exec urxvtcd -bg white -fg black -sh 200
 
@@ -257,11 +260,12 @@ client.background       #ffffff
 new_window normal 2
 new_float normal 2
 
-for_window [class="Tilda"] border normal 2
+for_window [class="Tilda"] border normal 9
 for_window [class="Qmv"] floating enable
 for_window [instance="stardict"] floating enable
 for_window [class="Gman"] floating enable
 for_window [class="Gorilla.*"] floating enable
+for_window [class="Gtklp"] floating enable
 for_window [instance="nmLoginDialog.*"] floating enable
 
 #Markery

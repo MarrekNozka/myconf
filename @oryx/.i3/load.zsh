@@ -6,9 +6,9 @@
 # Úloha:   Load pro i3blocks
 ############################################################
 #
-#if [ $BLOCK_BUTTON ]; then
-#    urxvtcd &
-#fi
+if [ $BLOCK_BUTTON = 3 ]; then
+    urxvtcd  -e htop&
+fi
 
 if [[ $1 == 15 ]]; then
     col=3
@@ -21,7 +21,11 @@ fi
 load=$( cut -d ' ' -f $col < /proc/loadavg )
 
 print $load
-print $load
+if [[ $1 == 15 ]]; then 
+    print
+else
+    print $load
+fi
 
 if [[ $load > $(nproc --ignore=1) ]]; then
     print "#FFFC00"

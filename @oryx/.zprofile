@@ -6,11 +6,12 @@ export EDITOR="vim"
 export PAGER="vimpager"
 export MANPAGER="vimpager"
 
-export GREP_OPTIONS='-P --color=auto'
-export GREP_COLOR='1;33'
+export GREP_COLORS='1;33'
+#export GREP_OPTIONS='-P --color=auto'
+
 export LESS='-r'
 
-loginsh=1
+#loginsh=1
 # the default umask is set in /etc/login.defs
 umask 022
 

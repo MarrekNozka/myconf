@@ -319,8 +319,9 @@ let NERDDefaultDelims={ 'left': '#', 'leftAlt': '# ' }
 
 "" Markdown
 let g:vim_markdown_math=1
+let g:vim_markdown_conceal = 0
 set concealcursor=n   
-set conceallevel=1  
+set conceallevel=0
 
 """"""""""" CtrlP 
 let g:ctrlp_map = '<c-p>'

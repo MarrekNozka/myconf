@@ -1,6 +1,8 @@
 "============================================================================
-"File:        bashate.vim
-"Description: Bash script style checking plugin for syntastic.vim
+"File:        pug_lint_vue.vim
+"Description: Syntax checking plugin for syntastic using pug-lint-vue
+"             (https://github.com/sourceboat/pug-lint-vue)
+"Maintainer:  Tim Carry <tim at pixelastic dot com>
 "License:     This program is free software. It comes without any warranty,
 "             to the extent permitted by applicable law. You can redistribute
 "             it and/or modify it under the terms of the Do What The Fuck You
@@ -9,39 +11,30 @@
 "
 "============================================================================
 
-if exists('g:loaded_syntastic_sh_bashate_checker')
+if exists('g:loaded_syntastic_vue_pug_lint_vue_checker')
     finish
 endif
-let g:loaded_syntastic_sh_bashate_checker = 1
+let g:loaded_syntastic_vue_pug_lint_vue_checker = 1
 
 let s:save_cpo = &cpo
 set cpo&vim
 
-function! SyntaxCheckers_sh_bashate_GetLocList() dict
-    let makeprg = self.makeprgBuild({})
+function! SyntaxCheckers_vue_pug_lint_vue_GetLocList() dict
+    let buf = bufnr('')
+    let makeprg = self.makeprgBuild({ 'fname': syntastic#util#shescape(fnamemodify(bufname(buf), ':p')) })
 
-    let errorformat =
-        \ '%A%\s%#[%t] E%n: %m,' .
-        \ '%EE%n: %m,' .
-        \ '%Z - %f%\s%\+: L%l,' .
-        \ '%-G%.%#'
+    let errorformat = '%\s%#%l:%c %m'
 
-    let loclist = SyntasticMake({
+    return SyntasticMake({
         \ 'makeprg': makeprg,
         \ 'errorformat': errorformat,
-        \ 'subtype': 'Style',
-        \ 'returns': [0, 1] })
-
-    for e in loclist
-        let e['text'] = substitute(e['text'], "\\m: '.*", '', '')
-    endfor
-
-    return loclist
+        \ 'defaults': { 'bufnr': buf, 'type': 'E' } })
 endfunction
 
 call g:SyntasticRegistry.CreateAndRegisterChecker({
-    \ 'filetype': 'sh',
-    \ 'name': 'bashate' })
+    \ 'filetype': 'vue',
+    \ 'name': 'pug_lint_vue',
+    \ 'exec': 'pug-lint-vue' })
 
 let &cpo = s:save_cpo
 unlet s:save_cpo

@@ -40,18 +40,18 @@ bindsym $mod+F7 exec urxvtcd -bg white -fg black -sh 196
 bindsym $mod+F8 exec urxvtcd -bg white -fg black -sh 200
 
 # start program launcher
-bindsym $mod+Shift+F1 exec gman
-bindsym $mod+F1 exec ~/bin/man-xdotool.zsh
+bindsym $mod+F1 exec gmrun 'man '
 bindsym $mod+F2 exec kupfer
-bindsym $mod+d exec kupfer
+bindsym $mod+d exec gmrun
 bindsym $mod+x exec apwal
 
-bindsym $mod+F3       exec ~/bin/ssh-xdotool.zsh x a
-bindsym $mod+F4       exec ~/bin/ssh-xdotool.zsh X a
-bindsym $mod+Shift+F3 exec ~/bin/ssh-xdotool.zsh x A
-bindsym $mod+Shift+F4 exec ~/bin/ssh-xdotool.zsh X A
+bindsym $mod+F3       exec gmrun "ssh -xa "
+bindsym $mod+F4       exec gmrun "ssh -Xa "
+bindsym $mod+Shift+F3 exec gmrun "ssh -xA "
+bindsym $mod+Shift+F4 exec gmrun "ssh -XA "
 
 
+bindsym $mod+F11 exec xclock -update 1
 # lock
 bindsym $mod+F12 exec i3lock -en -c 000000 -i ~/.i3/jm.png
 bindsym $mod+Shift+F12 exec i3lock -end -c 000000 -i ~/.i3/jm.png
@@ -260,12 +260,14 @@ client.background       #ffffff
 new_window normal 2
 new_float normal 2
 
-for_window [class="Tilda"] border normal 9
+for_window [class="Tilda"] border normal 7
 for_window [class="Qmv"] floating enable
 for_window [instance="stardict"] floating enable
 for_window [class="Gman"] floating enable
 for_window [class="Gorilla.*"] floating enable
 for_window [class="Gtklp"] floating enable
+for_window [class="XClock"] floating enable
+
 for_window [instance="nmLoginDialog.*"] floating enable
 
 #Markery

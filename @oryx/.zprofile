@@ -1,19 +1,7 @@
 # ~/.zprofile: executed by zsh for login shells.
 
-export EDITOR="vim"
-#export PAGER="less"
-#export MANPAGER="less"
-export PAGER="vimpager"
-export MANPAGER="vimpager"
-
-export GREP_COLORS='1;33'
-#export GREP_OPTIONS='-P --color=auto'
-
-export LESS='-r'
-
-#loginsh=1
 # the default umask is set in /etc/login.defs
-umask 022
+umask 026
 
 # set PATH so it includes user's private bin if it exists
 if [ -d ~/bin/bin ] ; then

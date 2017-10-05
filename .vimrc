@@ -177,7 +177,9 @@ imap "" ""<Esc>i
 imap '' ''<Esc>i
 imap ** **<Esc>i
 
-"set keywordprg=man
+" http://vimdoc.sourceforge.net/htmldoc/usr_40.html#40.2
+command -nargs=1 Man Page! -t man <args>
+set keywordprg=man " použije se Vimpager; gVim to má nastaveno v ~/.gvimrc
 "vmap C <Esc>:set keywordprg=zsh\ -c<Return>`>`<v`>K<Esc>:set keywordprg=urxvt\ -e\ man<Return>
 "vmap C <Esc>:set keywordprg=zsh\ -c<Return>`>`<v`>K<Esc>:set keywordprg=man<Return>
 

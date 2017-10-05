@@ -47,6 +47,12 @@ alias apti='sudo aptitude -u; sudo aptitude clean; sudo aptitude forget-new'
 
 oo () { libreoffice $@ & }
 
+# grep
+alias grep='grep --color=auto'
+alias rgrep='rgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+
 # ssh
 alias poweroff-lp6='mussh -t 1 -h root@lp6{01,02,03,04,05,06,07,08,09,10,11,22,23,24,25}.lab.spseol.cz -c poweroff'
 

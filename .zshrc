@@ -64,7 +64,6 @@ setopt histignoredups         #  vymaže duplicitní příkazy, které jdou zase
 setopt histexpiredupsfirst    # vymaže všechny duplicity pokud je historie plná
 setopt histfindnodups         # duplicity v historii hledá jen jednou
 setopt histreduceblanks       # vymaže nic neznamenající mezery v příkazu
-setopt histallowclobber       # v historii přepíše > na >| 
 
 
 
@@ -104,6 +103,7 @@ alias mkdir='nocorrect mkdir' # no spelling correction on mkdir
 # 
 # bezpečné přesměrování výstupu
 setopt noclobber  # >> > >! >| >>! 
+setopt histallowclobber       # v historii přepíše > na >| 
 # pokročílá expanze žolíkových znaků
 setopt extendedglob # **/*.txt
 #

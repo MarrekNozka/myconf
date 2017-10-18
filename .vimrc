@@ -147,7 +147,8 @@ set tags=./tags,./TAGS,tags,TAGS,~/.vim/tags
 "autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 "au InsertLeave * match ExtraWhitespace /\s\+$/
 
-colorscheme slate
+colorscheme robinhood
+"colorscheme slate
 "colorscheme darkblue
 "colorscheme murphy
 "colorscheme torte

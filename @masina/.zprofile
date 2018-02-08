@@ -6,29 +6,31 @@ export EDITOR="vim"
 export PAGER="vimpager"
 export MANPAGER="vimpager"
 
-export GREP_OPTIONS='-P --color=auto'
-export GREP_COLOR='1;33'
+#export GREP_OPTIONS='--color=auto'
+export GREP_COLORS='1;33'
 export LESS='-r'
+
+export PERL5LIB="$HOME/weby/~nozka"
 
 loginsh=1
 # the default umask is set in /etc/login.defs
 umask 022
 
 # set PATH so it includes user's private bin if it exists
-if [ -d ~/bin/bin ] ; then
-    PATH=~/bin/bin:"${PATH}"
+if [ -d ~/bin ] ; then
+    PATH=~/bin:"${PATH}"
     export PATH
 fi
+
+#if [ -d ~/lib/python/ ]; then
+#    PYTHONPATH="${PYTHONPATH}:$HOME/lib/python/"
+#    export PYTHONPATH
+#fi
 
 # do the same with MANPATH
 if [ -d ~/man ]; then
     MANPATH=~/man${MANPATH:-:}
     export MANPATH
-fi
-
-if [ -d ~/bin/lib/python/ ]; then
-    PYTHONPATH="$HOME/bin/lib/python/"
-    export PYTHONPATH
 fi
 
 # Agents
@@ -40,8 +42,8 @@ else
 fi
 
 #if [ -z $GPG_AGENT_INFO ]; then
-#    echo "gpg-agetn run!"
-#    eval $(gpg-agent --daemon)
+    echo "gpg-agent run!"
+    eval $(gpg-agent --daemon)
 #fi
 
 #

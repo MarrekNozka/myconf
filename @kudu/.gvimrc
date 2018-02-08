@@ -1,7 +1,6 @@
 set guifont=Terminus\ 15
-colorscheme desert
-"colorscheme koehler
-"colorscheme torte
+colorscheme evening
+
 "Highlight
 set titlestring=gvim:\ \"%t\"(%L)%m%R  "titulek
 

@@ -1,11 +1,11 @@
 " Nastaveni pro python
 
 " Go
-map <leader>go <Esc>:write \| :silent !urxvt -e p2or3 "%" &<Return>
+map <leader>go <Esc>:write \| :silent !urxvtcd -e p2or3 "%" &<Return>
 imap <leader>go <Esc><leader>goa
 map <F12> <leader>go
 imap <F12> <leader>go
-map ,,Go <Esc>:write \| :silent !urxvt -e p2or3 -i "%" &<Return>
+map ,,Go <Esc>:write \| :silent !urxvtcd -e p2or3 -i "%" &<Return>
 imap ,,Go <Esc><leader>Goa
 map <C-F12> <leader>Go
 imap <C-F12> <leader>Go

@@ -1,1 +1,0 @@
-../ipython-wrapper.zsh

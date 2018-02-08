@@ -1,0 +1,23 @@
+#!/bin/zsh
+# Soubor:  p2or3.zsh
+# Datum:   15.05.2015 08:20
+# Autor:   Marek Nožka, marek <@T> tlapicka <dot> net
+# Licence: GNU/GPL 
+# Úloha:   spustí Python 2 nebo 3 podle toho co je potřeba
+############################################################
+
+
+for param in $@; do
+    if [[ $param =~ "^-" ]]; then
+        continue # pokud parametr začíná mínuskem
+    fi
+    shebang=$(head -n 1 $param | grep '^#!')
+    if [ $shebang ]; then
+        PYTHON=${shebang#'#!'}
+    else
+        PYTHON="python"
+    fi
+    break
+done
+
+exec $(echo $PYTHON) $@

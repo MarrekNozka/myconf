@@ -147,12 +147,16 @@ set tags=./tags,./TAGS,tags,TAGS,~/.vim/tags
 "autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 "au InsertLeave * match ExtraWhitespace /\s\+$/
 
-colorscheme robinhood
-"colorscheme slate
+set bg=dark
+map <Leader>l :set bg=light<Return>
+map <Leader>L :set bg=dark<Return>
+
+colorscheme slate
 "colorscheme darkblue
 "colorscheme murphy
 "colorscheme torte
 "colorscheme desert
+"colorscheme robinhood
 set guioptions=aAcrLm " Vzhled
 command Nomenu set guioptions=aAcrLm "e
 command Menu set guioptions=aArcLmtTh "e

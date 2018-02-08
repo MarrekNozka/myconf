@@ -1,0 +1,14 @@
+#!/bin/zsh
+# Soubor:  term.zsh
+# Datum:   11.10.2014 18:49
+# Úloha:   nový terminále, stejný adresár,  na na pozadí.
+############################################################
+
+# pokud není zadán první parametr nastaví se pocet=1
+pocet="${1-1}" 
+
+font='-*-terminus-medium-r-*--14-*-*-*-*-*-iso10646-1'
+
+for _ in `seq $pocet`; do
+    urxvtcd -fn $font -cd $PWD &
+done

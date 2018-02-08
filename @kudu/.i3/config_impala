@@ -35,7 +35,7 @@ floating_modifier $mod
 # start a terminal and aplication
 bindsym $mod+Return exec $terminal
 bindsym $mod+Shift+Return exec $terminal -fn '-*-terminus-medium-r-*--16-*-*-*-*-*-iso10646-1'
-bindsym $mod+Control+Return exec $terminal -e ssh root@localhost
+bindsym $mod+Control+Return exec $terminal -e ssh -XA root@localhost
 bindsym $mod+F7 exec urxvtcd -bg white -fg black -sh 196
 bindsym $mod+F8 exec urxvtcd -bg white -fg black -sh 200
 
@@ -51,7 +51,7 @@ bindsym $mod+Shift+F3 exec gmrun "ssh -xA "
 bindsym $mod+Shift+F4 exec gmrun "ssh -XA "
 
 
-bindsym $mod+F11 exec xclock -update 1
+bindsym $mod+F10 exec xclock -update 1
 # lock
 bindsym $mod+F12 exec i3lock -en -c 000000 -i ~/.i3/jm.png
 bindsym $mod+Shift+F12 exec i3lock -end -c 000000 -i ~/.i3/jm.png
@@ -260,7 +260,8 @@ client.background       #ffffff
 new_window normal 2
 new_float normal 2
 
-for_window [class="Tilda"] border normal 7
+for_window [class="Tilda"] border normal 21
+for_window [class="Gmrun"] border normal 21
 for_window [class="Qmv"] floating enable
 for_window [instance="stardict"] floating enable
 for_window [class="Gman"] floating enable

@@ -49,34 +49,17 @@ fi
 
 ####################################
 ### Binárky
-binarky=()
-binarky+=(regexcolor.pl regexcount.pl easymake.sh easyssh.sh)
-binarky+=(xplanet.sh without.pl avi-x264-lame.sh video-z-fotaku.zsh)
-binarky+=(chwall.sh prumer.pl without.pl spark rename4date.zsh)
-binarky+=(ipython-wrapper.zsh svg2x.zsh)
-binarky+=(screen.wrapper.zsh script-wrapper.zsh tmux.wrapper.zsh Tilda.zsh)
-binarky+=(vim-remote.zsh)
-binarky+=(auto-F5.zsh)
-binarky+=(vimcat vimpager)
-
-odkazy=()
-odkazy+=(regexcolor regexcount)
-odkazy+=(xplanet.sh without.pl avi-x264-lame video-z-fotaku.zsh) 
-odkazy+=(chwall prumer.pl without.pl spark rename4date) 
-odkazy+=(py py.black py.c py.inline py.kernel py.notebook pysh py.white)
-odkazy+=(svg2png svg2pdf)
-odkazy+=(bagr meloun forge Tilda programming script-wrapper) 
-odkazy+=(auto-F5)
-odkazy+=(vimcat vimpager)
 
 echo "######## binaries #########"
 [ -d ./bin ] || mkdir bin
-for file in $binarky; do
+for file in asf2mp3 asf2ogg prumer.pl term without.pl p2or3 \
+            pocasi počasí psql-drop.user.db psql-create.user.db \
+            autoclone cal. vimcat vimpager; do
     cp -a ~/bin/$file ./bin
 done
 
-[ -d ./bin/bin ] || mkdir bin/bin
-for file in $odkazy; do
-    cp -a ~/bin/bin/$file ./bin/bin
+[ -d ./lib ] || mkdir ./lib 
+for file in autoclone.zsh cal.zsh pocasi.sh psql-wrapper.zsh; do
+    cp -a ~/lib/$file ./lib
 done
 

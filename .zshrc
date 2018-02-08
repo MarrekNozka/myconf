@@ -1,5 +1,6 @@
 setopt ALL_EXPORT
 
+
 EDITOR="vim"
 PAGER="vimpager"
 # MANPAGER="vimpager"
@@ -11,6 +12,7 @@ GREP_COLORS='1;33'
 GREP_COLORS='ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36'
 LESS='-ri'
 #
+PYTHONIOENCODING=UTF8
 
 
 ############################################################

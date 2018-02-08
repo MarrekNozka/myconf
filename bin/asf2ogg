@@ -1,0 +1,44 @@
+#!/bin/bash
+	
+if [ -z $1 ]; then
+	echo "--Syntax:"
+	echo -e "\tasf2ogg inputfile[.asf]"
+	exit 0
+fi
+
+# Check of needed programs
+for PROGRAM in mplayer sox oggenc; do
+	echo "Checking $PROGRAM:"
+	{ which $PROGRAM && [ -x $(which $PROGRAM) ]; } || { 
+		echo -e "***\n Can't find program $PROGRAM\n Exit\n***"
+		exit 2
+		}
+	echo -e "*"
+done
+
+
+for FILE in "$@"; do
+	FILERENAME=$(basename $FILE .asf)
+	echo -e "*************************\n"
+	echo -e "  Processing $FILE\n"
+	echo -e "*************************\n"
+	sleep 1
+	mplayer "$FILE" -novideo -ao pcm:file="$FILERENAME.44.1.wav"
+	
+	echo -e "*************************\n"
+	echo -e "   Resampling with sox\nplease wait\n"
+	echo -e "*************************\n"
+	sox "$FILERENAME.44.1.wav" -c 1 -r 22500 -t wav "$FILERENAME.wav"
+	
+	echo -e "Encoding with oggenc\n"
+	oggenc -q 4 "$FILERENAME.wav"
+	echo -e "*************************"
+
+	echo -e "Deleting help files\n"
+	rm -f -v "$FILERENAME.44.1.wav" "$FILERENAME.wav"
+	echo -e "*************************"
+	echo -e "*************************"
+	echo -e "*************************\n"
+done
+
+

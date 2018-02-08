@@ -1,6 +1,7 @@
 ### Aliases and Functions for shell
 #
 #
+#
 ##### Glogal aliases ##########
 
 # enable color support of ls and also add handy aliases
@@ -13,7 +14,7 @@ fi
 alias vp='vimpager'
 alias vc='vimcat'
 
-alias uspat='sync && sudo s2disk'
+alias uspat='sudo /home/marek/lib/uspat.zsh'
 # some more ls aliases
 alias l='ls -CFm'
 alias ll='ls -lFh'
@@ -48,7 +49,7 @@ alias apti='sudo aptitude -u; sudo aptitude clean; sudo aptitude forget-new'
 oo () { libreoffice $@ & }
 
 # grep
-alias grep='grep --color=auto'
+alias grep='grep --color=auto -P'
 alias rgrep='rgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -72,7 +73,8 @@ mc.() {mc $1 $1}
 #
 alias netstat.='netstat -nap --inet --inet6'
 alias netstatt='netstat.'
-#
+
+# Aktivuje virtuální prostředí
 activate() {
     work=$PWD
     if [ $1 ] && [ -d $1 ]; then
@@ -82,9 +84,9 @@ activate() {
         print "activate: $1 není adresář" >/dev/stderr
         return 1
     fi
-    one=$(ls ./venv[_-]*/bin/activate | wc -l)
+    one=$(ls ./(.|)[vV][eE][nN][vV]*/bin/activate | wc -l)
     if [[ $one != 0 ]]; then
-        src=$(ls ./venv[_-]*/bin/activate)
+        src=$(ls ./(.|)[vV][eE][nN][vV]*/bin/activate)
     fi
     if [[ $one == 1 ]] && [ -f $src ]; then
         source $src
@@ -181,6 +183,10 @@ alias supl.='w3m http://www.spseol.cz/data/rozvrhy/suplobec.htm -dump | regexcol
 ##############################################################################
 alias howdoi='howdoi --color'
 alias howdoi.='howdoi --all'
+
+alias autoclone='source ~/lib/autoclone.zsh'
+
+alias py3='python3'
 
 alias   docal='while true; do ; date; ncal -A 1; sleep 60; done'
 alias docal-1='while true; do ; date; ncal -A 1; sleep  1; done'

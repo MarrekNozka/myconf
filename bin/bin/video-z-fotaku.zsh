@@ -1,1 +1,0 @@
-../video-z-fotaku.zsh

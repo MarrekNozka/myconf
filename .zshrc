@@ -39,6 +39,7 @@ zstyle ':completion:*' squeeze-slashes false
 #############################################################
 #   automatické doplňování
 #############################################################
+fpath=(~/.zshfuncs $fpath)
 autoload -U compinit # -z
 compinit
 # automatické doplňování má barvičky

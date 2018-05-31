@@ -58,6 +58,7 @@ alias fgrep='fgrep --color=auto'
 alias poweroff-lp6='mussh -t 1 -h root@lp6{01,02,03,04,05,06,07,08,09,10,11,22,23,24,25}.lab.spseol.cz -c poweroff'
 
 mkdircd () { mkdir -p $1 && cd $1; }
+mkdir.cd () { mkdir -p $1 && cd $1; }
 
 # proceses
 psg () { ps ux | grep $* | grep -v grep; }
@@ -73,6 +74,11 @@ mc.() {mc $1 $1}
 #
 alias netstat.='netstat -nap --inet --inet6'
 alias netstatt='netstat.'
+
+pip_completion() {
+    eval "`pip completion --zsh`"
+    compctl -K _pip_completion pip3
+}
 
 # Aktivuje virtuální prostředí
 activate() {

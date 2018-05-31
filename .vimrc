@@ -217,7 +217,7 @@ cmap <C-K> <Up>
 imap <C-H> <Left>
 imap <C-L> <Right>
 imap <C-J> <Down>
-imap <C-K> <Up>
+"imap <C-K> <Up> " digraph
 " ukládání
 map <C-U> :update<Return>
 imap <C-U> <C-O>:update<Return>
@@ -332,7 +332,10 @@ set conceallevel=0
 
 """"""""""" CtrlP 
 let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlPMixed'
+"let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
+
 
 """"""""""" NERD tree
 map <F7> :NERDTreeCWD<Return>

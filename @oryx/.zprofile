@@ -4,8 +4,8 @@
 umask 026
 
 # set PATH so it includes user's private bin if it exists
-if [ -d ~/bin/bin ] ; then
-    PATH=~/bin/bin:"${PATH}"
+if [ -d ~/bin ] ; then
+    PATH=~/bin:"${PATH}"
     export PATH
 fi
 
@@ -15,8 +15,8 @@ if [ -d ~/man ]; then
     export MANPATH
 fi
 
-if [ -d ~/bin/lib/python/ ]; then
-    PYTHONPATH="$HOME/bin/lib/python/"
+if [ -d ~/lib/python/ ]; then
+    PYTHONPATH="$HOME/lib/python/"
     export PYTHONPATH
 fi
 
@@ -32,14 +32,3 @@ fi
 #    echo "gpg-agetn run!"
 #    eval $(gpg-agent --daemon)
 #fi
-
-#
-# Synchronizace
-#echo "Synchronizovat? [A/n]"
-#read ANONE
-#if [ -z $ANONE ] || { [ $ANONE = a ] || [ $ANONE = A ]; }; then
-##    ssh-add
-#    synchronizuj
-#fi
-
-#unset loginsh

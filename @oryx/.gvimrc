@@ -1,5 +1,7 @@
 set guifont=Terminus\ 17
-colorscheme desert
+"colorscheme slate
+colorscheme evening
+"colorscheme desert
 "colorscheme koehler
 "colorscheme torte
 "Highlight

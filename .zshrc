@@ -8,8 +8,16 @@ if command -v vim.basic >/dev/null; then
     VIMPAGER_VIM='vim.basic'
 fi
 
-GREP_COLORS='1;33'
-GREP_COLORS='ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36'
+# černá	        0;30	tmavě šedá	    1;30
+# červená	    0;31	světle červená	1;31
+# zelená	    0;32	světle zelená	1;32
+# hnědá	        0;33	žlutá	        1;33
+# modrá	        0;34	světle modrá	1;34
+# purpurová	    0;35	světle purpurová1;35
+# azurová	    0;36	světle azurová	1;36
+# světle šedá	0;37	bílá	        1;37
+#GREP_COLORS='1;35'
+GREP_COLORS='ms=01;33:mc=01;33:sl=:cx=:fn=35:ln=32:bn=32:se=36'
 LESS='-ri'
 #
 PYTHONIOENCODING=UTF8

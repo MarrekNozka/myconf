@@ -21,7 +21,7 @@ alias ll='ls -lFh'
 alias la='ls -AF'
 alias lla='ls -AFlh'
 alias lld='ls -ld'
-lsd () { ls -ld $* && ls -l $*; }
+alias lsd='ls -d'
 alias lsX='ls -X'
 alias lss='ls -sh'
 alias lst='ls -t'
@@ -61,7 +61,8 @@ mkdircd () { mkdir -p $1 && cd $1; }
 mkdir.cd () { mkdir -p $1 && cd $1; }
 
 # proceses
-psg () { ps ux | grep $* | grep -v grep; }
+#psg () { ps ux | grep $* | grep -v grep; }
+alias psg='pgrep -la'
 
 killg () { kill -9 $(ps ax | grep $* | grep -v grep | cut -d" " -f1,2;) }
 
@@ -80,9 +81,29 @@ pip_completion() {
     compctl -K _pip_completion pip3
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Aktivuje virtuální prostředí
 activate() {
     work=$PWD
+    if [ $1 ] && [ -e $1/bin/activate ]; then
+        source $1/bin/activate
+        return 0
+    fi
     if [ $1 ] && [ -d $1 ]; then
         cd $1
         change=change
@@ -109,6 +130,7 @@ activate() {
     unset one
     unset src
 }
+#
 #
 alias createdb.='createdb -e -E UTF8 -l cs_CZ.UTF-8 -T template0'
 #

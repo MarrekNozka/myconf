@@ -14,6 +14,24 @@ if ! command xsel >/dev/null; then
     exit(1)
 fi
 
+
+args=$(getopt --name $(basename $0) -o d: -- "$@")
+eval set -- $args   # převede $args zpět do pozičních parametrů
+while true; do
+    case $1 in 
+        -d)
+            shift
+            cd $1
+            shift
+            ;;
+        --)
+            shift
+            break ; # tohle byl poslední...
+            ;;
+    esac
+done
+
+
 if [ $1 ]; then
     DST=$1
 else
@@ -23,6 +41,8 @@ ADR=$(basename $DST .git)
 
 git clone $DST
 
+# aby bylo možné přejít do adresáře, který jsem právě naklonoval
+# musím si udělat alias autoclone='source autoclone.zsh'
 if [[ $0 =~ 'autoclone.zsh' ]]; then
     cd $ADR
 else

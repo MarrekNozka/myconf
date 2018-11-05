@@ -3,7 +3,8 @@
 set noloadplugins
 
 set background=dark
-colorscheme slate
+"colorscheme slate
+colorscheme koehler
 syntax on
 
 

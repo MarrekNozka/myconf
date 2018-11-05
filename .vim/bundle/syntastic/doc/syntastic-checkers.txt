@@ -81,6 +81,7 @@ SYNTAX CHECKERS BY LANGUAGE                          *syntastic-checkers-lang*
     OCaml....................................|syntastic-checkers-ocaml|
 
     Perl.....................................|syntastic-checkers-perl|
+    Perl 6...................................|syntastic-checkers-perl6|
     PHP......................................|syntastic-checkers-php|
     POD......................................|syntastic-checkers-pod|
     Pug (formerly Jade)......................|syntastic-checkers-pug|
@@ -131,6 +132,7 @@ SYNTAX CHECKERS BY LANGUAGE                          *syntastic-checkers-lang*
     YACC.....................................|syntastic-checkers-yacc|
     YAML.....................................|syntastic-checkers-yaml|
     YANG.....................................|syntastic-checkers-yang|
+    YARA.....................................|syntastic-checkers-yara|
 
     Z80......................................|syntastic-checkers-z80|
     Zope Page Templates......................|syntastic-checkers-zpt|
@@ -232,7 +234,7 @@ linter.
 
                                                *'g:syntastic_ada_config_file'*
 Type: string
-Default: ".syntastic_ada_config"
+Default: unset
 File containing additional compilation flags to be passed to the linter, one
 option per line (cf. |syntastic-config-files|).
 
@@ -451,7 +453,7 @@ assembler. Set it to something like "-mtune=native": >
 <
                                                *'g:syntastic_asm_config_file'*
 Type: string
-Default: ".syntastic_asm_config"
+Default: unset
 File containing additional compilation flags to be passed to the assembler,
 one option per line (see |syntastic-config-files|).
 
@@ -557,7 +559,7 @@ Additionally:
 
                                             *'g:syntastic_avrgcc_config_file'*
 Type: string
-Default: ".syntastic_avrgcc_config"
+Default: unset
 File containing compilation flags (such as defines or include directories),
 one option per line (cf. |syntastic-config-files|).
 
@@ -598,7 +600,7 @@ Additionally:
 
                                        *'g:syntastic_clang_check_config_file'*
 Type: string
-Default: ".syntastic_clang_check_config"
+Default: unset
 File containing compilation flags (such as defines or include directories),
 one option per line (cf. |syntastic-config-files|).
 
@@ -649,7 +651,7 @@ Additionally:
 
                                         *'g:syntastic_clang_tidy_config_file'*
 Type: string
-Default: ".syntastic_clang_tidy_config"
+Default: unset
 File containing compilation flags (such as defines or include directories),
 one option per line (cf. |syntastic-config-files|).
 
@@ -691,7 +693,7 @@ Additionally:
 
                                           *'g:syntastic_cppcheck_config_file'*
 Type: string
-Default: ".syntastic_cppcheck_config"
+Default: unset
 File containing compilation flags (such as defines or include directories),
 one option per line (cf. |syntastic-config-files|).
 
@@ -780,7 +782,7 @@ linter.
 
                                                  *'g:syntastic_c_config_file'*
 Type: string
-Default: ".syntastic_c_config"
+Default: unset
 File containing additional compilation flags to be passed to the linter, one
 option per line (cf. |syntastic-config-files|).
 
@@ -874,7 +876,7 @@ Additionally:
 
                                             'g:syntastic_oclint_config_file'
 Type: string
-Default: ".syntastic_oclint_config"
+Default: unset
 File containing compilation flags (such as defines or include directories),
 one option per line (cf. |syntastic-config-files|).
 
@@ -915,7 +917,7 @@ Additionally:
 
                                            *'g:syntastic_pc_lint_config_file'*
 Type: string
-Default: "options.lnt"
+Default: unset
 Name of an indirect (.lnt) file. A file with that name is looked up in the
 current directory and in parent directories; first such file found is used.
 
@@ -940,7 +942,7 @@ Additionally:
 
                                             *'g:syntastic_sparse_config_file'*
 Type: string
-Default: ".syntastic_sparse_config"
+Default: unset
 File containing compilation flags (such as defines or include directories),
 one option per line (cf. |syntastic-config-files|).
 
@@ -973,7 +975,7 @@ Additionally:
 
                                             *'g:syntastic_splint_config_file'*
 Type: string
-Default: ".syntastic_splint_config"
+Default: unset
 File containing project-specific options to be passed to "Splint"
 (such as defines or include directories), one option per line (cf.
 |syntastic-config-files|).
@@ -1033,7 +1035,7 @@ Additionally:
 
                                             'g:syntastic_avrgcc_config_file'
 Type: string
-Default: ".syntastic_avrgcc_config"
+Default: unset
 File containing compilation flags (such as defines or include directories),
 one option per line (cf. |syntastic-config-files|).
 
@@ -1060,7 +1062,7 @@ Additionally:
 
                                        'g:syntastic_clang_check_config_file'
 Type: string
-Default: ".syntastic_clang_check_config"
+Default: unset
 file containing compilation flags (such as defines or include directories),
 one option per line (cf. |syntastic-config-files|).
 
@@ -1111,14 +1113,14 @@ Additionally:
 
                                         'g:syntastic_clang_tidy_config_file'
 Type: string
-Default: ".syntastic_clang_tidy_config"
+Default: unset
 File containing compilation flags (such as defines or include directories),
 one option per line (cf. |syntastic-config-files|).
 
 Note~
 
 By default you can set "ClangTidy" parameters in
-'g:syntastic_ppc_clang_tidy_args', and compilation parameters (defines,
+'g:syntastic_cpp_clang_tidy_args', and compilation parameters (defines,
 optimisation flags, etc.) in the configuration file.
 
 If you want "ClangTidy" to use compilation databases
@@ -1153,7 +1155,7 @@ Additionally:
 
                                           'g:syntastic_cppcheck_config_file'
 Type: string
-Default: ".syntastic_cppcheck_config"
+Default: unset
 File containing compilation flags (such as defines or include directories),
 one option per line (cf. |syntastic-config-files|).
 
@@ -1278,7 +1280,7 @@ linter.
 
                                                *'g:syntastic_cpp_config_file'*
 Type: string
-Default: ".syntastic_cpp_config"
+Default: unset
 File containing additional compilation flags to be passed to the linter, one
 option per line (cf. |syntastic-config-files|).
 
@@ -1361,7 +1363,7 @@ Additionally:
 
                                             'g:syntastic_oclint_config_file'
 Type: string
-Default: ".syntastic_oclint_config"
+Default: unset
 File containing compilation flags (such as defines or include directories),
 one option per line (cf. |syntastic-config-files|).
 
@@ -1403,7 +1405,7 @@ Additionally:
 
                                            'g:syntastic_pc_lint_config_file'
 Type: string
-Default: "options.lnt"
+Default: unset
 Name of an indirect (.lnt) file. A file with that name is looked up in the
 current directory and in parent directories; first such file found is used.
 
@@ -1429,7 +1431,7 @@ Additionally:
 
                                             *'g:syntastic_verapp_config_file'*
 Type: string
-Default: ".syntastic_verapp_config"
+Default: unset
 File containing additional compilation flags to be passed to the linter, one
 option per line (cf. |syntastic-config-files|).
 
@@ -1474,7 +1476,7 @@ Maintainer:  Doug Ireton
 "Foodcritic" is a linter for "Chef" cookbooks (http://www.opscode.com/chef/).
 See the project's page for more information:
 
-    http://acrmp.github.io/foodcritic/
+    http://www.foodcritic.io/
 
 Checker options~
 
@@ -1560,7 +1562,7 @@ Compilation flags (such as "-std=cobol2002") to be passed to the linter.
 
                                              *'g:syntastic_cobol_config_file'*
 Type: string
-Default: ".syntastic_cobol_config"
+Default: unset
 File containing additional compilation flags to be passed to the linter, one
 option per line (cf. |syntastic-config-files|).
 
@@ -1843,7 +1845,8 @@ Checker options~
 This checker is initialised using the "makeprgBuild()" function and thus it
 accepts the standard options described at |syntastic-config-makeprg|.
 
-See also: |syntastic-scss-stylelint|.
+See also: |syntastic-html-stylelint|, |syntastic-less-stylelint|,
+|syntastic-scss-stylelint|.
 
 ==============================================================================
 SYNTAX CHECKERS FOR CUCUMBER                     *syntastic-checkers-cucumber*
@@ -1902,7 +1905,7 @@ Example: >
 <
                                               *'g:syntastic_cuda_config_file'*
 Type: string
-Default: ".syntastic_cuda_config"
+Default: unset
 File containing additional compilation flags to be passed to the linter, one
 option per line (cf. |syntastic-config-files|).
 
@@ -1947,7 +1950,7 @@ linter.
 
                                                  *'g:syntastic_d_config_file'*
 Type: string
-Default: ".syntastic_d_config"
+Default: unset
 File containing additional compilation flags to be passed to the linter, one
 option per line (cf. |syntastic-config-files|).
 
@@ -2339,7 +2342,7 @@ Compilation flags (such as "-std=f95") to be passed to the linter.
 
                                            *'g:syntastic_fortran_config_file'*
 Type: string
-Default: ".syntastic_fortran_config"
+Default: unset
 File containing additional compilation flags to be passed to the linter, one
 option per line (cf. |syntastic-config-files|).
 
@@ -2509,10 +2512,11 @@ The following checkers are available for Go (filetype "go"):
 
     1. go.......................|syntastic-go-go|
     2. gofmt....................|syntastic-go-gofmt|
-    3. Golint...................|syntastic-go-golint|
-    4. Go Meta Linter...........|syntastic-go-gometalinter|
-    5. gotype...................|syntastic-go-gotype|
-    6. vet......................|syntastic-go-govet|
+    3. GolangCI-Lint............|syntastic-go-golangci_lint|
+    4. Golint...................|syntastic-go-golint|
+    5. Go Meta Linter...........|syntastic-go-gometalinter|
+    6. gotype...................|syntastic-go-gotype|
+    7. vet......................|syntastic-go-govet|
 
 ------------------------------------------------------------------------------
 1. go                                                        *syntastic-go-go*
@@ -2561,7 +2565,22 @@ autocommand towards that end: >
     autocmd FileType go autocmd BufWritePre <buffer> Fmt
 <
 ------------------------------------------------------------------------------
-3. Golint                                                *syntastic-go-golint*
+3. GolangCI-Lint                                  *syntastic-go-golangci_lint*
+
+Name:        golangci_lint
+Maintainer:  Elvis Macak <elvis@lnmpy.com>
+
+GolangCI-Lint is a linters aggregator. See the project's page for details:
+
+    https://github.com/golangci/golangci-lint
+
+Checker options~
+
+This checker is initialised using the "makeprgBuild()" function and thus it
+accepts the standard options described at |syntastic-config-makeprg|.
+
+------------------------------------------------------------------------------
+4. Golint                                                *syntastic-go-golint*
 
 Name:        golint
 Maintainer: Hiroshi Ioka <hirochachacha@gmail.com>
@@ -2576,7 +2595,7 @@ This checker is initialised using the "makeprgBuild()" function and thus it
 accepts the standard options described at |syntastic-config-makeprg|.
 
 ------------------------------------------------------------------------------
-4. Go Meta Linter                                  *syntastic-go-gometalinter*
+5. Go Meta Linter                                  *syntastic-go-gometalinter*
 
 Name:        gometalinter
 Maintainer: Joshua Rubin <joshua@rubixconsulting.com>
@@ -2593,7 +2612,7 @@ This checker is initialised using the "makeprgBuild()" function and thus it
 accepts the standard options described at |syntastic-config-makeprg|.
 
 ------------------------------------------------------------------------------
-5. gotype                                                *syntastic-go-gotype*
+6. gotype                                                *syntastic-go-gotype*
 
 Name:        gotype
 Maintainer:  luz <ne.tetewi@gmail.com>
@@ -2603,7 +2622,7 @@ See the tool's documentation for details:
     https://godoc.org/golang.org/x/tools/cmd/gotype
 
 ------------------------------------------------------------------------------
-6. vet                                                    *syntastic-go-govet*
+7. vet                                                    *syntastic-go-govet*
 
 Name:        govet
 Maintainer:  Kamil Kisiel <kamil@kamilkisiel.net>
@@ -2837,9 +2856,10 @@ The following checkers are available for HTML (filetype "html"):
     4. HTMLHint.................|syntastic-html-htmlhint|
     5. JSHint...................|syntastic-html-jshint|
     6. proselint................|syntastic-html-proselint|
-    7. textlint.................|syntastic-html-textlint|
-    8. Validator................|syntastic-html-validator|
-    9. W3.......................|syntastic-html-w3|
+    7. stylelint................|syntastic-html-stylelint|
+    8. textlint.................|syntastic-html-textlint|
+    9. Validator................|syntastic-html-validator|
+    10. W3......................|syntastic-html-w3|
 
 ------------------------------------------------------------------------------
 1. ESLint                                              *syntastic-html-eslint*
@@ -3017,7 +3037,26 @@ See also: |syntastic-asciidoc-proselint|, |syntastic-help-proselint|,
 |syntastic-text-proselint|, |syntastic-xhtml-proselint|.
 
 ------------------------------------------------------------------------------
-7. textlint                                          *syntastic-html-textlint*
+7. stylelint                                        *syntastic-html-stylelint*
+
+Name:        stylelint
+Maintainer:  Tim Carry <tim@pixelastic.com>
+
+"stylelint" is a style linter for Cascading Stylesheets. See the project's
+page for more information:
+
+    http://stylelint.io/
+
+Checker options~
+
+This checker is initialised using the "makeprgBuild()" function and thus it
+accepts the standard options described at |syntastic-config-makeprg|.
+
+See also: |syntastic-css-stylelint|, |syntastic-less-stylelint|,
+|syntastic-scss-stylelint|.
+
+------------------------------------------------------------------------------
+8. textlint                                          *syntastic-html-textlint*
 
 Name:        textlint
 Maintainer:  LCD 47 <lcd047@gmail.com>
@@ -3042,7 +3081,7 @@ work:
 See also: |syntastic-markdown-textlint|, |syntastic-text-textlint|.
 
 ------------------------------------------------------------------------------
-8. Validator                                        *syntastic-html-validator*
+9. Validator                                        *syntastic-html-validator*
 
 Name:        validator
 Maintainer:  LCD 47 <lcd047@gmail.com>
@@ -3115,7 +3154,7 @@ You can lookup the meaning of these codes in cURL's manual:
     http://curl.haxx.se/docs/manpage.html#EXIT
 
 ------------------------------------------------------------------------------
-9. W3                                                      *syntastic-html-w3*
+10. W3                                                     *syntastic-html-w3*
 
 Name:        w3
 Maintainer:  Martin Grenfell <martin.grenfell@gmail.com>
@@ -3185,6 +3224,9 @@ Maintainer:  Dmitry Geurkov <d.geurkov@gmail.com>
 
     http://checkstyle.sourceforge.net/
 
+You need a working installation of Java Runtime Environment to run
+"Checkstyle".
+
 Checker options~
 
 This checker is initialised using the "makeprgBuild()" function and thus it
@@ -3203,6 +3245,10 @@ Default: "sun_checks.xml"
 Path to the configuration file for the "-c" option (cf.
 http://checkstyle.sourceforge.net/cmdline.html#Command_line_usage).
 
+                                          *'g:syntastic_java_checkstyle_exec'*
+Type: string
+Default: "java"
+Path to the "java" executable.
 
 Notes~
 
@@ -3362,9 +3408,10 @@ The following checkers are available for JavaScript (filetype "javascript"):
     7. JSHint...................|syntastic-javascript-jshint|
     8. JSLint...................|syntastic-javascript-jslint|
     9. JSXHint..................|syntastic-javascript-jsxhint|
-    10. mixedindentlint.........|syntastic-javascript-mixedindentlint|
-    11. standard................|syntastic-javascript-standard|
-    12. tern-lint...............|syntastic-javascript-tern_lint|
+    10. Lynt....................|syntastic-javascript-lynt|
+    11. mixedindentlint.........|syntastic-javascript-mixedindentlint|
+    12. standard................|syntastic-javascript-standard|
+    13. tern-lint...............|syntastic-javascript-tern_lint|
 
 ------------------------------------------------------------------------------
 1. Closure Compiler                     *syntastic-javascript-closurecompiler*
@@ -3594,7 +3641,7 @@ syntastic to call "JSLint" with no options.
 ------------------------------------------------------------------------------
 9. JSXHint                                      *syntastic-javascript-jsxhint*
 
-Name:        JSXHint
+Name:        jsxhint
 Maintainer:  Thomas Boyt <me@thomasboyt.com>
 
 "JSXHint" is a wrapper around JSHint (http://jshint.com/) for
@@ -3660,7 +3707,29 @@ To get around this, "Syntastic-React" can be used as a replacement for
     https://github.com/jaxbot/syntastic-react
 
 ------------------------------------------------------------------------------
-10. mixedindentlint                     *syntastic-javascript-mixedindentlint*
+10. Lynt                                           *syntastic-javascript-lynt*
+
+Name:        lynt
+Maintainer:  LCD 47 <lcd047@gmail.com>
+
+"Lynt" is a JavaScript linter with support for TypeScript, Flow, and React.
+See the project's page for more information:
+
+    https://github.com/saadq/lynt
+
+Checker options~
+
+This checker is initialised using the "makeprgBuild()" function and thus it
+accepts the standard options described at |syntastic-config-makeprg|.
+
+Note~
+
+Automatically fixing errors (option "--fix") is not supported.
+
+See also: |syntastic-typescript-lynt|.
+
+------------------------------------------------------------------------------
+11. mixedindentlint                     *syntastic-javascript-mixedindentlint*
 
 Name:        mixedindentlint
 Maintainer:  Payton Swick <payton@foolord.com>
@@ -3678,7 +3747,7 @@ accepts the standard options described at |syntastic-config-makeprg|.
 See also: |syntastic-css-mixedindentlint|, |syntastic-scss-mixedindentlint|.
 
 ------------------------------------------------------------------------------
-11. standard                                   *syntastic-javascript-standard*
+12. standard                                   *syntastic-javascript-standard*
 
 Name:        standard
 Maintainer:  LCD 47 <lcd047@gmail.com>
@@ -3712,7 +3781,7 @@ example to use happiness (https://github.com/JedWatson/happiness) instead of
     let g:syntastic_javascript_standard_generic = 1
 <
 ------------------------------------------------------------------------------
-12. tern-lint                                 *syntastic-javascript-tern_lint*
+13. tern-lint                                 *syntastic-javascript-tern_lint*
 
 Name:        tern_lint
 Maintainer:  LCD 47 <lcd047@gmail.com>
@@ -3824,6 +3893,7 @@ The following checkers are available for LESS (filetype "less"):
 
     1. lessc....................|syntastic-less-lessc|
     2. RECESS...................|syntastic-less-recess|
+    3. stylelint................|syntastic-less-stylelint|
 
 ------------------------------------------------------------------------------
 1. lessc                                                *syntastic-less-lessc*
@@ -3864,6 +3934,25 @@ This checker is initialised using the "makeprgBuild()" function and thus it
 accepts the standard options described at |syntastic-config-makeprg|.
 
 See also: |syntastic-css-recess|.
+
+------------------------------------------------------------------------------
+3. stylelint                                        *syntastic-less-stylelint*
+
+Name:        stylelint
+Maintainer:  Tim Carry <tim@pixelastic.com>
+
+"stylelint" is a style linter for Cascading Stylesheets. See the project's
+page for more information:
+
+    http://stylelint.io/
+
+Checker options~
+
+This checker is initialised using the "makeprgBuild()" function and thus it
+accepts the standard options described at |syntastic-config-makeprg|.
+
+See also: |syntastic-css-stylelint|, |syntastic-html-stylelint|,
+|syntastic-scss-stylelint|.
 
 ==============================================================================
 SYNTAX CHECKERS FOR LEX                               *syntastic-checkers-lex*
@@ -4024,7 +4113,8 @@ The following checkers are available for Markdown (filetype "markdown"):
 
     1. Markdown lint tool.......|syntastic-markdown-mdl|
     2. proselint................|syntastic-markdown-proselint|
-    3. textlint.................|syntastic-markdown-textlint|
+    3. remark-lint..............|syntastic-markdown-remark_lint|
+    4. textlint.................|syntastic-markdown-textlint|
 
 ------------------------------------------------------------------------------
 1. Markdown lint tool                                 *syntastic-markdown-mdl*
@@ -4082,7 +4172,29 @@ See also: |syntastic-asciidoc-proselint|, |syntastic-help-proselint|,
 |syntastic-text-proselint|, |syntastic-xhtml-proselint|.
 
 ------------------------------------------------------------------------------
-3. textlint                                      *syntastic-markdown-textlint*
+3. remark-lint                                *syntastic-markdown-remark_lint*
+
+Name:        remark_lint
+Maintainer:  Tim Carry <tim@pixelastic.com>
+
+"remark-lint" is a code style linter for Markdown files.  See the project's
+page at GitHub for details:
+
+     https://github.com/remarkjs/remark-lint
+
+Note~
+
+Syntastic can't check whether "remark-lint" is installed properly beyond the
+existence of an executable named "remark". Please make sure "remark-lint" is
+installed and working properly before attempting to use it with syntastic.
+
+Checker options~
+
+This checker is initialised using the "makeprgBuild()" function and thus it
+accepts the standard options described at |syntastic-config-makeprg|.
+
+------------------------------------------------------------------------------
+4. textlint                                      *syntastic-markdown-textlint*
 
 Name:        textlint
 Maintainer:  LCD 47 <lcd047@gmail.com>
@@ -4299,7 +4411,7 @@ linter.
 
                                               *'g:syntastic_objc_config_file'*
 Type: string
-Default: ".syntastic_objc_config"
+Default: unset
 File containing additional compilation flags to be passed to the linter, one
 option per line (cf. |syntastic-config-files|).
 
@@ -4363,7 +4475,7 @@ Additionally:
 
                                             'g:syntastic_oclint_config_file'
 Type: string
-Default: ".syntastic_oclint_config"
+Default: unset
 File containing compilation flags (such as defines or include directories),
 one option per line (cf. |syntastic-config-files|).
 
@@ -4410,7 +4522,7 @@ linter.
 
                                             *'g:syntastic_objcpp_config_file'*
 Type: string
-Default: ".syntastic_objcpp_config"
+Default: unset
 File containing additional compilation flags to be passed to the linter, one
 option per line (cf. |syntastic-config-files|).
 
@@ -4474,7 +4586,7 @@ Additionally:
 
                                             'g:syntastic_oclint_config_file'
 Type: string
-Default: ".syntastic_oclint_config"
+Default: unset
 File containing compilation flags (such as defines or include directories),
 one option per line (cf. |syntastic-config-files|).
 
@@ -4562,11 +4674,11 @@ Security~
 
 This checker runs "perl -c" against your files, which in turn executes any
 "BEGIN", "UNITCHECK", and "CHECK" blocks, and any "use" statements in your
-file (cf. http://perldoc.perl.org/perlrun.html#*-c*). This is probably fine if
-you wrote the file yourself, but it can be a problem if you're trying to check
-third party files. If you are 100% willing to let Vim run the code in your
-file, set 'g:syntastic_enable_perl_checker' to 1 in your vimrc to enable this
-checker: >
+files (cf. http://perldoc.perl.org/perlrun.html#*-c*). This is probably fine
+if you wrote the file yourself, but it can be a problem if you're trying to
+check third party files. If you are 100% willing to let Vim run the code in
+your files, set 'g:syntastic_enable_perl_checker' to 1 in your vimrc to enable
+this checker: >
     let g:syntastic_enable_perl_checker = 1
 <
 There is also a buffer-local version of this variable, that takes precedence
@@ -4589,7 +4701,7 @@ Default: "perl"
 The perl interpreter to use.
 
                                                  *'g:syntastic_perl_lib_path'*
-Type: list os strings
+Type: list of strings
 Default: []
 List of include directories to be added to the perl command line. Example: >
     let g:syntastic_perl_lib_path = [ "./lib", "./lib/auto" ]
@@ -4650,6 +4762,65 @@ This checker is initialised using the "makeprgBuild()" function and thus it
 accepts the standard options described at |syntastic-config-makeprg|.
 
 See also: |syntastic-pod-podchecker|.
+
+==============================================================================
+SYNTAX CHECKERS FOR PERL 6                          *syntastic-checkers-perl6*
+
+The following checkers are available for Perl 6 (filetype "perl6"):
+
+    1. perl6....................|syntastic-perl6-perl6|
+
+------------------------------------------------------------------------------
+1. perl6                                               *syntastic-perl6-perl6*
+
+Name:        perl6
+Maintainers: Claudio Ramirez <pub.claudio@gmail.com>
+
+"perl6" is a checker for Perl 6 files using the "Rakudo" compiler. See the
+project's page for details:
+
+    http://rakudo.org/
+
+Syntastic requires Rakudo Star release 2017.01 or later.
+
+Security~
+
+This checker runs "perl6 -c" against your files, which executes any "BEGIN"
+and "CHECK" blocks (cf. https://docs.perl6.org/programs/00-running). This
+is probably fine if you wrote the files yourself, but it can be a problem if
+you're trying to check third party files. If you are 100% willing to let Vim
+run the code in your files, set 'g:syntastic_enable_perl6_checker' to 1 in
+your vimrc to enable this checker: >
+    let g:syntastic_enable_perl6_checker = 1
+<
+There is also a buffer-local version of this variable, that takes precedence
+over it in the buffers where it is defined.
+
+Please note that setting this variable doesn't automatically enable the
+checker, you still need to add it to 'g:syntastic_perl6_checkers' if you plan
+to use it.
+
+Checker options~
+
+This checker is initialised using the "makeprgBuild()" function and thus it
+accepts the standard options described at syntastic-config-makeprg.
+
+Additionally:
+
+                                                *'g:syntastic_perl6_lib_path'*
+Type: list of strings
+Default: []
+List of include directories to be added to the perl6 command line. Example: >
+    let g:syntastic_perl6_lib_path = [ "./lib", "./lib/auto" ]
+<
+You can also set the "PERL6LIB" environment variable to a colon-separated
+list of add-hoc include paths. These paths will then be added to the ones
+prescribed by |'g:syntastic_perl6_lib_path'|.
+
+Note~
+
+At the time of this writing the support for JSON error output of the "Rakudo"
+compiler is still incomplete.
 
 ==============================================================================
 SYNTAX CHECKERS FOR PHP                               *syntastic-checkers-php*
@@ -5916,6 +6087,9 @@ Syntastic uses the command line version of "Scalastyle":
 
     http://www.scalastyle.org/command-line.html
 
+You need a working installation of Java Runtime Environment to run
+"Scalastyle".
+
 Checker options~
 
 This checker is initialised using the "makeprgBuild()" function and thus it
@@ -5934,6 +6108,11 @@ Type: string
 Default: "scalastyle_config.xml"
 Path to the configuration file to use. You might want to also set this to a
 full path.
+
+                                         *'g:syntastic_scala_scalastyle_exec'*
+Type: string
+Default: "java"
+Path to the "java" executable.
 
 ==============================================================================
 SYNTAX CHECKERS FOR SCSS                             *syntastic-checkers-scss*
@@ -6064,7 +6243,8 @@ Checker options~
 This checker is initialised using the "makeprgBuild()" function and thus it
 accepts the standard options described at |syntastic-config-makeprg|.
 
-See also: |syntastic-css-stylelint|.
+See also: |syntastic-css-stylelint|, |syntastic-html-stylelint|,
+|syntastic-less-stylelint|.
 
 ==============================================================================
 SYNTAX CHECKERS FOR SH                                 *syntastic-checkers-sh*
@@ -6229,7 +6409,8 @@ SYNTAX CHECKERS FOR SOLIDITY                     *syntastic-checkers-solidity*
 The following checkers are available for Solidity (filetype "solidity"):
 
     1. solc.....................|syntastic-solidity-solc|
-    2. Solium...................|syntastic-solidity-solium|
+    2. Solhint..................|syntastic-solidity-solhint|
+    3. Solium...................|syntastic-solidity-solium|
 
 ------------------------------------------------------------------------------
 1. solc                                              *syntastic-solidity-solc*
@@ -6255,7 +6436,30 @@ You probably also need a plugin to set |filetype| for Solidity files, such as
     https://github.com/tomlion/vim-solidity
 
 ------------------------------------------------------------------------------
-2. Solium                                          *syntastic-solidity-solium*
+2. Solhint                                        *syntastic-solidity-solhint*
+
+Name:        solhint
+Maintainer:  Brett Sun <qisheng.brett.sun@gmail.com>
+
+"Solhint" is a style linter for "Solidity" files. See the project's page for
+details:
+
+    https://github.com/protofire/solhint
+
+Checker options~
+
+This checker is initialised using the "makeprgBuild()" function and thus it
+accepts the standard options described at |syntastic-config-makeprg|.
+
+Note~
+
+You probably also need a plugin to set |filetype| for Solidity files, such as
+"vim-solidity":
+
+    https://github.com/tomlion/vim-solidity
+
+------------------------------------------------------------------------------
+3. Solium                                          *syntastic-solidity-solium*
 
 Name:        solium
 Maintainer:  Matthijs van den Bos <matthijs@vandenbos.org>
@@ -6282,6 +6486,7 @@ SYNTAX CHECKERS FOR SQL                               *syntastic-checkers-sql*
 The following checkers are available for SQL (filetype "sql"):
 
     1. sqlint...................|syntastic-sql-sqlint|
+    2. tsqllint.................|syntastic-sql-tsqllint|
 
 ------------------------------------------------------------------------------
 1. sqlint                                               *syntastic-sql-sqlint*
@@ -6293,6 +6498,22 @@ Maintainer:  Steve Purcell <steve@sanityinc.com>
 details:
 
     https://github.com/purcell/sqlint
+
+Checker options~
+
+This checker is initialised using the "makeprgBuild()" function and thus it
+accepts the standard options described at |syntastic-config-makeprg|.
+
+------------------------------------------------------------------------------
+2. tsqllint                                           *syntastic-sql-tsqllint*
+
+Name:        tsqllint
+Maintainer:  Daniel Walker <dwalker@fifo99.com>
+
+"tsqllint" is a lint checker for Transact-SQL scripts. See the project's page
+at GitHub for details:
+
+    https://github.com/tsqllint/tsqllint
 
 Checker options~
 
@@ -6382,7 +6603,7 @@ Default: 1
 Whether to show informational messages ("chktex" option "-m"). By default
 informational messages are shown as warnings.
 
-Note~
+Notes~
 
 If you're checking files containing tab characters, then Vim's 'tabstop'
 must match "ChkTeX"'s idea of tabstop, otherwise column numbers will be
@@ -6390,6 +6611,9 @@ shifted. At the time of this writing, "ChkTeX"'s tabstop is hardcoded to 8,
 so you should probably add something like this to your vimrc: >
     set tabstop=8
 <
+Note also that because of the way "ChkTeX" handles error formats column
+numbers are not available on Windows when running under "cmd.exe".
+
 ------------------------------------------------------------------------------
 2. lacheck                                             *syntastic-tex-lacheck*
 
@@ -6712,7 +6936,8 @@ SYNTAX CHECKERS FOR TYPESCRIPT                 *syntastic-checkers-typescript*
 The following checkers are available for TypeScript (filetype "typescript"):
 
     1. ESLint...................|syntastic-typescript-eslint|
-    2. TSLint...................|syntastic-typescript-tslint|
+    2. Lynt.....................|syntastic-typescript-lynt|
+    3. TSLint...................|syntastic-typescript-tslint|
 
 ------------------------------------------------------------------------------
 1. ESLint                                        *syntastic-typescript-eslint*
@@ -6743,7 +6968,29 @@ See also: |syntastic-html-eslint|, |syntastic-javascript-eslint|,
 |syntastic-vue-eslint|.
 
 ------------------------------------------------------------------------------
-2. TSLint                                        *syntastic-typescript-tslint*
+2. Lynt                                            *syntastic-typescript-lynt*
+
+Name:        lynt
+Maintainer:  LCD 47 <lcd047@gmail.com>
+
+"Lynt" is a JavaScript linter with support for TypeScript, Flow, and React.
+See the project's page for more information:
+
+    https://github.com/saadq/lynt
+
+Checker options~
+
+This checker is initialised using the "makeprgBuild()" function and thus it
+accepts the standard options described at |syntastic-config-makeprg|.
+
+Note~
+
+Automatically fixing errors (option "--fix") is not supported.
+
+See also: |syntastic-javascript-lynt|.
+
+------------------------------------------------------------------------------
+3. TSLint                                        *syntastic-typescript-tslint*
 
 Name:        tslint
 Maintainer:  Seon-Wook Park <seon.wook@swook.net>
@@ -6868,7 +7115,7 @@ linter.
 
                                            *'g:syntastic_verilog_config_file'*
 Type: string
-Default: ".syntastic_verilog_config"
+Default: unset
 File containing additional compilation flags to be passed to the linter, one
 option per line (cf. |syntastic-config-files|).
 
@@ -7467,6 +7714,36 @@ You probably also need a plugin to set |filetype| for YANG files, such as
 "yang.vim":
 
     https://github.com/nathanalderson/yang.vim
+
+==============================================================================
+SYNTAX CHECKERS FOR YARA                             *syntastic-checkers-yara*
+
+The following checkers are available for YARA rule files (filetype "yara"):
+
+    1. yarac....................|syntastic-yara-yarac|
+
+------------------------------------------------------------------------------
+1. yarac                                                *syntastic-yara-yarac*
+
+Name:        yarac
+Maintainer:  Albert Song <albb@teamt5.org>
+
+"yarac" is the official compiler for YARA rule files. See the project's page
+at GitHub for more information:
+
+    https://github.com/VirusTotal/yara
+
+Checker options~
+
+This checker is initialised using the "makeprgBuild()" function and thus it
+accepts the standard options described at |syntastic-config-makeprg|.
+
+Note~
+
+You probably also need a plugin to set |filetype| for YARA rule files, such as
+"vim-yara":
+
+    https://github.com/yaunj/vim-yara
 
 ==============================================================================
 SYNTAX CHECKERS FOR Z80                               *syntastic-checkers-z80*

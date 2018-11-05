@@ -17,3 +17,5 @@ imap <Leader>ma <Esc>:Make<Return>
 
 map <Leader>Ma :write\|make<Return>
 
+syn match pythonBoolean "\(\W\|^\)\@<=self\(\.\)\@="
+syn match pythonBoolean "\(\W\|^\)\zsself\ze\."

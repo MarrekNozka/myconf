@@ -108,6 +108,7 @@ let mapleader = ",,"
 let maplocalleader = ",,"
 
 "source ~/.vim/skeletons.vim
+"au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
 "autocmd BufRead,BufNewFile *.html,*.xhtml,*.php source ~/.vim/html.vim
 "autocmd BufRead,BufNewFile *.html,*.xhtml,*.php source ~/.vim/html.menu
 "au BufNewFile *.php,*.html,*.xhtml 0r ~/.vim/sablony/xhtml.html
@@ -172,7 +173,7 @@ set cpo&vim
 " seřadí označené řádky podle abecedy
 " vnoremap <leader>s :sort<CR>
 
-"Páry
+""Páry
 imap <> <><Esc>i
 imap () ()<Esc>i
 imap [] []<Esc>i
@@ -298,6 +299,12 @@ let g:syntastic_always_populate_loc_list = 1
 "let g:syntastic_python_flake8_args = "--ignore=E202,E201"
 let g:syntastic_scss_scss_args = "--compass"
 
+"let g:syntastic_c_checkers = ['make', 'avrgcc']
+"let g:syntastic_c_make_exec="make nocolors"
+let g:syntastic_c_checkers = ['avrgcc']
+let g:syntastic_avrgcc_config_file=".syntastic_avrgcc_config"
+
+
 
 """""""""""""""""""""""" TagList plugin
 nnoremap <silent> <F8> :TlistToggle<CR><C-W><Left>
@@ -334,7 +341,8 @@ set conceallevel=0
 let g:ctrlp_map = '<c-p>'
 "let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'ra'
+"let g:ctrlp_working_path_mode = 'ra'
+"let g:ctrlp_working_path_mode = 'c'
 
 
 """"""""""" NERD tree

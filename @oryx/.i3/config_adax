@@ -35,7 +35,7 @@ floating_modifier $mod
 # start a terminal and aplication
 bindsym $mod+Return exec $terminal
 bindsym $mod+Shift+Return exec $terminal -fn '-*-terminus-medium-r-*--16-*-*-*-*-*-iso10646-1'
-bindsym $mod+Control+Return exec $terminal -e ssh root@localhost
+bindsym $mod+Control+Return exec $terminal -e ssh -XA root@localhost
 bindsym $mod+F7 exec urxvtcd -bg white -fg black -sh 196
 bindsym $mod+F8 exec urxvtcd -bg white -fg black -sh 200
 
@@ -53,7 +53,8 @@ bindsym $mod+Shift+F4 exec gmrun "ssh -XA "
 
 bindsym $mod+F10 exec xclock -update 1
 # lock
-bindsym $mod+F12       exec i3lock -en -c 000000 -i ~/.i3/jm2.png
+bindsym $mod+F12 exec i3lock -en -c 000000 -i ~/.i3/jm.png
+bindsym $mod+Shift+F12 exec i3lock -end -c 000000 -i ~/.i3/jm.png
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -267,8 +268,6 @@ for_window [class="Gman"] floating enable
 for_window [class="Gorilla.*"] floating enable
 for_window [class="Gtklp"] floating enable
 for_window [class="XClock"] floating enable
-for_window [class="Arandr"] floating enable
-for_window [class="Wicd-client.py"] floating enable
 
 for_window [instance="nmLoginDialog.*"] floating enable
 

@@ -17,3 +17,19 @@ imap <Leader>ma <Esc>:Make<Return>
 
 map <Leader>Ma :write\|make<Return>
 
+syn match pythonBoolean "\(\W\|^\)\@<=self\(\.\)\@="
+syn match pythonBoolean "\(\W\|^\)\zsself\ze\."
+
+
+
+set formatprg=autopep8
+set equalprg=autopep8\ -
+
+" formátování "odstavce"
+map <Leader><Return> my][%gq%`y
+imap <Leader><Return> <Esc><Leader><Return>
+
+" formátování celého souboru
+map <Leader>g<Return> mygggqG`y
+imap <Leader>g<Return> <Esc><Leader><Return>
+

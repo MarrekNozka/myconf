@@ -19,7 +19,7 @@ set incsearch		" Incremental search
 set mouse=a		" Enable mouse usage (all modes)
 
 "let g:vimpager_less_mode = 0    " pohyb jako v klasickém vimu
-let g:vimpager_passthrough = 1  " u krátkých souborů neproběhne vimcat 
+let g:vimpager_passthrough = 0  " u krátkých souborů neproběhne vimcat 
 
 
 "------------------------------------------------------------------------------"

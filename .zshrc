@@ -1,12 +1,12 @@
 setopt ALL_EXPORT
 
-
 EDITOR="vim"
 PAGER="vimpager"
 # MANPAGER="vimpager"
 if command -v vim.basic >/dev/null; then
     VIMPAGER_VIM='vim.basic'
 fi
+
 
 # černá	        0;30	tmavě šedá	    1;30
 # červená	    0;31	světle červená	1;31
@@ -22,6 +22,7 @@ LESS='-ri'
 #
 PYTHONIOENCODING=UTF8
 
+unsetopt ALL_EXPORT
 
 ############################################################
 #    The following lines were added by compinstall
@@ -113,8 +114,8 @@ alias cp='nocorrect cp'       # no spelling correction on cp
 alias mkdir='nocorrect mkdir' # no spelling correction on mkdir
 # 
 # bezpečné přesměrování výstupu
-setopt noclobber  # >> > >! >| >>! 
-setopt histallowclobber       # v historii přepíše > na >| 
+#setopt noclobber  # >> > >! >| >>! 
+#setopt histallowclobber       # v historii přepíše > na >| 
 # pokročílá expanze žolíkových znaků
 setopt extendedglob # **/*.txt
 #
@@ -122,7 +123,7 @@ setopt beep notify #un
 # cd
 setopt autocd # pokud napíšu jen cestu pouužije se automaticky cd
 #CDPATH=".:~:~/Documents:~/Documents/SPSe"
-CDPATH=".:~:~/Documents/SPSe:~/Documents/VOS"
+#CDPATH=".:~:~/Documents/SPSe:~/Documents/VOS"
 
 #############################################################
 ###      Completion
@@ -283,15 +284,15 @@ fi
 #############################################################
 #     Autoload zsh modules when they are referenced
 #############################################################
-zmodload -a zsh/stat stat
-zmodload -a zsh/zpty zpty
-zmodload -a zsh/zprof zprof
+#zmodload -a zsh/stat stat
+#zmodload -a zsh/zpty zpty
+#zmodload -a zsh/zprof zprof
+#
 #zmodload -ap zsh/mapfile mapfile
-autoload zmv
+#autoload zmv
 #autoload -U zutil 
 #autoload -U complist
 
 #############################################################
-unsetopt ALL_EXPORT
 
 eval $(dircolors -b ~/.dir_colors) 

@@ -11,6 +11,8 @@ g:indentLine_color_gui	indentLine.txt	/*g:indentLine_color_gui*
 g:indentLine_color_term	indentLine.txt	/*g:indentLine_color_term*
 g:indentLine_color_tty_dark	indentLine.txt	/*g:indentLine_color_tty_dark*
 g:indentLine_color_tty_light	indentLine.txt	/*g:indentLine_color_tty_light*
+g:indentLine_concealcursor	indentLine.txt	/*g:indentLine_concealcursor*
+g:indentLine_conceallevel	indentLine.txt	/*g:indentLine_conceallevel*
 g:indentLine_enabled	indentLine.txt	/*g:indentLine_enabled*
 g:indentLine_faster	indentLine.txt	/*g:indentLine_faster*
 g:indentLine_fileType	indentLine.txt	/*g:indentLine_fileType*
@@ -20,7 +22,7 @@ g:indentLine_indentLevel	indentLine.txt	/*g:indentLine_indentLevel*
 g:indentLine_leadingSpaceChar	indentLine.txt	/*g:indentLine_leadingSpaceChar*
 g:indentLine_leadingSpaceEnabled	indentLine.txt	/*g:indentLine_leadingSpaceEnabled*
 g:indentLine_maxLines	indentLine.txt	/*g:indentLine_maxLines*
-g:indentLine_noConcealCursor	indentLine.txt	/*g:indentLine_noConcealCursor*
+g:indentLine_setColors	indentLine.txt	/*g:indentLine_setColors*
 g:indentLine_showFirstIndentLevel	indentLine.txt	/*g:indentLine_showFirstIndentLevel*
 g:loaded_indentLine	indentLine.txt	/*g:loaded_indentLine*
 indentLine-changelog	indentLine.txt	/*indentLine-changelog*

@@ -11,6 +11,7 @@
 ######################################################################
 
 var=""
+name=$0
 ######################################################################
 #                          FUNKCE                                    #
 ######################################################################
@@ -19,7 +20,7 @@ var=""
 # funkce vytiskne help
 printHelp() {
 cat <<EOF
-Skript $0
+Skript $name
 slouží pro jednoduchou kompilaci zdrojového kódu.
 
 EOF
@@ -84,3 +85,8 @@ for i in "$@"; do
 done
 #      Zpracování ne-přepínačových parametrů
 ##.................................................................###
+
+
+if [[ $0 =~ 'enable' ]]; then
+    sleep
+fi

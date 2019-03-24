@@ -8,7 +8,7 @@ execute "syn match NERDTreeUp #\\V". s:tree_up_dir_line ."#"
 "quickhelp syntax elements
 syn match NERDTreeHelpKey #" \{1,2\}[^ ]*:#ms=s+2,me=e-1
 syn match NERDTreeHelpKey #" \{1,2\}[^ ]*,#ms=s+2,me=e-1
-syn match NERDTreeHelpTitle #" .*\~#ms=s+2,me=e-1
+syn match NERDTreeHelpTitle #" .*\~$#ms=s+2,me=e-1
 syn match NERDTreeToggleOn #(on)#ms=s+1,he=e-1
 syn match NERDTreeToggleOff #(off)#ms=e-3,me=e-1
 syn match NERDTreeHelpCommand #" :.\{-}\>#hs=s+3
@@ -22,8 +22,8 @@ syn match NERDTreeLinkDir #.*/ ->#me=e-3 containedin=NERDTreeDir
 "highlighing for directory nodes and file nodes
 syn match NERDTreeDirSlash #/# containedin=NERDTreeDir
 
-exec 'syn match NERDTreeClosable #'.escape(g:NERDTreeDirArrowCollapsible, '~').'# containedin=NERDTreeDir,NERDTreeFile'
-exec 'syn match NERDTreeOpenable #'.escape(g:NERDTreeDirArrowExpandable, '~').'# containedin=NERDTreeDir,NERDTreeFile'
+exec 'syn match NERDTreeClosable #' . escape(g:NERDTreeDirArrowCollapsible, '~') . '\ze .*/# containedin=NERDTreeDir,NERDTreeFile'
+exec 'syn match NERDTreeOpenable #' . escape(g:NERDTreeDirArrowExpandable, '~') . '\ze .*/# containedin=NERDTreeDir,NERDTreeFile'
 
 let s:dirArrows = escape(g:NERDTreeDirArrowCollapsible, '~]\-').escape(g:NERDTreeDirArrowExpandable, '~]\-')
 exec 'syn match NERDTreeDir #[^'.s:dirArrows.' ].*/#'
@@ -35,6 +35,15 @@ exec 'syn match NERDTreeRO # *\zs.*\ze \['.g:NERDTreeGlyphReadOnly.'\]# contains
 
 syn match NERDTreeFlags #^ *\zs\[.\]# containedin=NERDTreeFile,NERDTreeExecFile
 syn match NERDTreeFlags #\[.\]# containedin=NERDTreeDir
+
+"highlighing to conceal the delimiter around the file/dir name
+if has("conceal")
+    exec 'syn match NERDTreeNodeDelimiters #' . g:NERDTreeNodeDelimiter . '# conceal containedin=NERDTreeFile,NERDTreeLinkFile,NERDTreeExecFile,NERDTreeRO,NERDTreeDir'
+    setlocal conceallevel=3 concealcursor=nvic
+else
+    exec 'syn match NERDTreeNodeDelimiters #' . g:NERDTreeNodeDelimiter . '# containedin=NERDTreeFile,NERDTreeLinkFile,NERDTreeExecFile,NERDTreeRO,NERDTreeDir'
+    hi! link NERDTreeNodeDelimiters Ignore
+endif
 
 syn match NERDTreeCWD #^[</].*$#
 

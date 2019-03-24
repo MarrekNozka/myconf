@@ -21,7 +21,7 @@ alias ll='ls -lFh'
 alias la='ls -AF'
 alias lla='ls -AFlh'
 alias lld='ls -ld'
-lsd () { ls -ld $* && ls -l $*; }
+alias lsd='ls -d'
 alias lsX='ls -X'
 alias lss='ls -sh'
 alias lst='ls -t'
@@ -61,7 +61,8 @@ mkdircd () { mkdir -p $1 && cd $1; }
 mkdir.cd () { mkdir -p $1 && cd $1; }
 
 # proceses
-psg () { ps ux | grep $* | grep -v grep; }
+#psg () { ps ux | grep $* | grep -v grep; }
+alias psg='pgrep -la'
 
 killg () { kill -9 $(ps ax | grep $* | grep -v grep | cut -d" " -f1,2;) }
 
@@ -69,6 +70,8 @@ alias ps.='ps -u $USER --forest --format pid,tty,pcpu,args'
 alias ps..='ps -u $USER --forest --format pid,tty,pcpu,"%mem",stat,start,time,args'
 alias ps...='ps -A --forest --format user,pid,pcpu,"%mem",stat,start,time,args'
 alias pss='ps.'
+#
+alias pwgen.='pwgen -y'
 #
 mc.() {mc $1 $1} 
 #
@@ -80,9 +83,21 @@ pip_completion() {
     compctl -K _pip_completion pip3
 }
 
+
+
+
 # Aktivuje virtuální prostředí
 activate() {
+
     work=$PWD
+    if [ $1 ] && [ -e $1/bin/activate ]; then
+        source $1/bin/activate
+        unset work
+        unset change
+        unset one
+        unset src
+        return 0
+    fi
     if [ $1 ] && [ -d $1 ]; then
         cd $1
         change=change
@@ -109,6 +124,7 @@ activate() {
     unset one
     unset src
 }
+#
 #
 alias createdb.='createdb -e -E UTF8 -l cs_CZ.UTF-8 -T template0'
 #
@@ -151,7 +167,9 @@ if [ $USER != root ]; then
 
 # mplayer
 mp() { 
-    if which mplayer2 &>/dev/null; then
+    if which mpv &>/dev/null; then
+        mpv $@
+    elif which mplayer2 &>/dev/null; then
         mplayer2 $@
     else
         mplayer $@
@@ -191,6 +209,7 @@ alias howdoi='howdoi --color'
 alias howdoi.='howdoi --all'
 
 alias autoclone='source ~/lib/autoclone.zsh'
+alias autoclone.tmp='autoclone -t'
 
 alias py3='python3'
 
@@ -280,7 +299,7 @@ chtitle(){
     vi.py() { vi "$(ls -tp *.py |head -n 1)" $@ }
 
 # Web
-    web.caritas () { echo "lcd ~/weby/lipnik.caritas.cz/; open caritas; mirror -Rnve ."|lftp;}
+    #web.caritas () { echo "lcd ~/weby/lipnik.caritas.cz/; open caritas; mirror -Rnve ."|lftp;}
     #web.farnost.www () { echo "lcd ~/weby/farnostlipnik.cz/; open farnost; mirror -RnveL www"|lftp;}
     #web.pascal-du () { echo "lcd ~/public_html/; open tlapicka; mirror -ReL pascal-du"|lftp;}
     #alias mamut.web='unison mamut'

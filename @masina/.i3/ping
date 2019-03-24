@@ -1,0 +1,14 @@
+#!/bin/sh
+#----------------------------------------------------------------------------------------------------
+#Check internet connectivity through ping exit code
+
+if ping -c 1 8.8.8.8 > /dev/null 2>&1; then
+	echo "Link Up"; 
+	echo "Up"; 
+	echo "#00FF00"; 
+else
+	echo "Link Down"; 
+	echo "Down"; 
+	echo "#FF0000"; 
+fi
+

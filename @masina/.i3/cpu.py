@@ -61,7 +61,7 @@ with LockFile(fname):
         f.write(graph[-5:] + '\n')
 
 print("{}% {} {}%".format(a, graph, b))
-print(        "{}% {}%".format(a, b))
+print("{}% {} {}%".format(a, graph[-2:], b))
 
 if b >= crit:
     print("#FF0000")

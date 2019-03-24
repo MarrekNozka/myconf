@@ -25,3 +25,7 @@ done
 
 #######           SKRIPT         ##########
 
+
+if [[ $0 =~ 'enable' ]]; then
+    sleep
+fi

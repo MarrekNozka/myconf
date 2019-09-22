@@ -110,6 +110,6 @@ if has("autocmd")
   " ...zaregistruj funkci SKEL_on_new_file() na provedení po každém otevření nového souboru.
   augroup skeletons
     au!
-    autocmd BufNewFile *    call SKEL_on_new_file()
+    "autocmd BufNewFile *    call SKEL_on_new_file()
   augroup END
 endif

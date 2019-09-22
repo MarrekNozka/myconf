@@ -7,6 +7,8 @@ undotree-intro	undotree.txt	/*undotree-intro*
 undotree-license	undotree.txt	/*undotree-license*
 undotree-usage	undotree.txt	/*undotree-usage*
 undotree.txt	undotree.txt	/*undotree.txt*
+undotree_CustomDiffpanelCmd	undotree.txt	/*undotree_CustomDiffpanelCmd*
+undotree_CustomUndotreeCmd	undotree.txt	/*undotree_CustomUndotreeCmd*
 undotree_DiffAutoOpen	undotree.txt	/*undotree_DiffAutoOpen*
 undotree_DiffCommand	undotree.txt	/*undotree_DiffCommand*
 undotree_DiffpanelHeight	undotree.txt	/*undotree_DiffpanelHeight*

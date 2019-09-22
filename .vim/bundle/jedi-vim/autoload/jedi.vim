@@ -34,7 +34,7 @@ let s:default_settings = {
     \ 'popup_select_first': 1,
     \ 'quickfix_window_height': 10,
     \ 'force_py_version': "'auto'",
-    \ 'smart_auto_mappings': 1,
+    \ 'smart_auto_mappings': 0,
     \ 'use_tag_stack': 1
 \ }
 
@@ -333,9 +333,10 @@ function! jedi#py_import_completions(argl, cmdl, pos) abort
 endfun
 
 function! jedi#clear_cache(bang) abort
-    PythonJedi jedi_vim.jedi.cache.clear_time_caches(True)
     if a:bang
-        PythonJedi jedi_vim.jedi.parser.utils.ParserPickling.clear_cache()
+        PythonJedi jedi_vim.jedi.cache.clear_time_caches(True)
+    else
+        PythonJedi jedi_vim.jedi.cache.clear_time_caches(False)
     endif
 endfunction
 
@@ -377,7 +378,9 @@ function! jedi#show_documentation() abort
 
     " quit comands
     nnoremap <buffer> q ZQ
-    execute 'nnoremap <buffer> '.g:jedi#documentation_command.' ZQ'
+    if len(g:jedi#documentation_command)
+      execute 'nnoremap <buffer> '.g:jedi#documentation_command.' ZQ'
+    endif
 endfunction
 
 " ------------------------------------------------------------------------

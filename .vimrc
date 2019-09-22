@@ -288,20 +288,26 @@ if has("autocmd")
   filetype plugin indent on
 endif
 
-
 """"""""""""""""""""""""""PluIns"""""""""""""""""""""""""
 execute pathogen#infect()
 
+
 "" Syntastic plugin
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 "  aptitude intall python-flake8
 let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 "let g:syntastic_python_flake8_args = "--ignore=E202,E201"
 let g:syntastic_scss_scss_args = "--compass"
 
 "let g:syntastic_c_checkers = ['make', 'avrgcc']
 "let g:syntastic_c_make_exec="make nocolors"
-let g:syntastic_c_checkers = ['avrgcc']
+let g:syntastic_c_checkers = ['avrgcc -Iinc']
 let g:syntastic_avrgcc_config_file=".syntastic_avrgcc_config"
 
 
@@ -355,9 +361,10 @@ let g:indentLine_enabled = 0
 "let g:jedi#force_py_version = 3
 "set omnifunc=jedi#completions
 let g:jedi#popup_on_dot = 0
-let g:jedi#show_call_signatures = 0
-command JediAno let g:jedi#show_call_signatures = 1
-command JediNe  let g:jedi#show_call_signatures = 0
+let g:jedi#popup_select_first = 0
+let g:jedi#show_call_signatures = "2"
+command JediAno let g:jedi#show_call_signatures = "1"
+command JediNe  let g:jedi#show_call_signatures = "0"
 
 """""" Viki
  let g:vikiUpperCharacters = "A-ZĚŠČŘŽÝÁÍÉÚŮÓĎŤŘŇ"
@@ -384,4 +391,26 @@ map <Leader>h :VikiHome<Return>
 imap <Leader>h <Esc>:VikiHome<Return>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Python Syntax https://github.com/hdima/python-syntax
+let python_highlight_all = 1
+
+" python-mode
+let g:pymode_python = 'python3'
+let g:pymode_indent = 1
+let g:pymode_run = 0
+let g:pymode_breakpoint = 0
+let g:pymode_lint = 0
+let g:pymode_rope = 1
+
+" autopep8
+let g:autopep8_on_save = 1
+"let g:autopep8_ignore="E501,W293"
+let g:autopep8_disable_show_diff=1
+"let g:autopep8_diff_type='vertical'
+
+" pydiction
+let g:pydiction_location = '~/.vim/bundle/pydiction/complete-dict'
+
+au BufNewFile * SkeletonList
+
 " vim:nospell:

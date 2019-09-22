@@ -91,7 +91,9 @@
 'g:syntastic_html_validator_exec'	syntastic-checkers.txt	/*'g:syntastic_html_validator_exec'*
 'g:syntastic_html_validator_nsfilter'	syntastic-checkers.txt	/*'g:syntastic_html_validator_nsfilter'*
 'g:syntastic_html_validator_parser'	syntastic-checkers.txt	/*'g:syntastic_html_validator_parser'*
+'g:syntastic_html_validator_schema'	syntastic-checkers.txt	/*'g:syntastic_html_validator_schema'*
 'g:syntastic_html_w3_api'	syntastic-checkers.txt	/*'g:syntastic_html_w3_api'*
+'g:syntastic_html_w3_doctype'	syntastic-checkers.txt	/*'g:syntastic_html_w3_doctype'*
 'g:syntastic_html_w3_exec'	syntastic-checkers.txt	/*'g:syntastic_html_w3_exec'*
 'g:syntastic_java_checkstyle_classpath'	syntastic-checkers.txt	/*'g:syntastic_java_checkstyle_classpath'*
 'g:syntastic_java_checkstyle_conf_file'	syntastic-checkers.txt	/*'g:syntastic_java_checkstyle_conf_file'*
@@ -148,6 +150,14 @@
 'g:syntastic_scala_scalastyle_jar'	syntastic-checkers.txt	/*'g:syntastic_scala_scalastyle_jar'*
 'g:syntastic_sparse_config_file'	syntastic-checkers.txt	/*'g:syntastic_sparse_config_file'*
 'g:syntastic_splint_config_file'	syntastic-checkers.txt	/*'g:syntastic_splint_config_file'*
+'g:syntastic_svg_validator_api'	syntastic-checkers.txt	/*'g:syntastic_svg_validator_api'*
+'g:syntastic_svg_validator_exec'	syntastic-checkers.txt	/*'g:syntastic_svg_validator_exec'*
+'g:syntastic_svg_validator_nsfilter'	syntastic-checkers.txt	/*'g:syntastic_svg_validator_nsfilter'*
+'g:syntastic_svg_validator_parser'	syntastic-checkers.txt	/*'g:syntastic_svg_validator_parser'*
+'g:syntastic_svg_validator_schema'	syntastic-checkers.txt	/*'g:syntastic_svg_validator_schema'*
+'g:syntastic_svg_w3_api'	syntastic-checkers.txt	/*'g:syntastic_svg_w3_api'*
+'g:syntastic_svg_w3_doctype'	syntastic-checkers.txt	/*'g:syntastic_svg_w3_doctype'*
+'g:syntastic_svg_w3_exec'	syntastic-checkers.txt	/*'g:syntastic_svg_w3_exec'*
 'g:syntastic_tex_chktex_showmsgs'	syntastic-checkers.txt	/*'g:syntastic_tex_chktex_showmsgs'*
 'g:syntastic_vala_modules'	syntastic-checkers.txt	/*'g:syntastic_vala_modules'*
 'g:syntastic_vala_vapi_dirs'	syntastic-checkers.txt	/*'g:syntastic_vala_vapi_dirs'*
@@ -160,6 +170,14 @@
 'g:syntastic_verilog_remove_include_errors'	syntastic-checkers.txt	/*'g:syntastic_verilog_remove_include_errors'*
 'g:syntastic_vimlint_options'	syntastic-checkers.txt	/*'g:syntastic_vimlint_options'*
 'g:syntastic_xhtml_tidy_ignore_errors'	syntastic-checkers.txt	/*'g:syntastic_xhtml_tidy_ignore_errors'*
+'g:syntastic_xhtml_validator_api'	syntastic-checkers.txt	/*'g:syntastic_xhtml_validator_api'*
+'g:syntastic_xhtml_validator_exec'	syntastic-checkers.txt	/*'g:syntastic_xhtml_validator_exec'*
+'g:syntastic_xhtml_validator_nsfilter'	syntastic-checkers.txt	/*'g:syntastic_xhtml_validator_nsfilter'*
+'g:syntastic_xhtml_validator_parser'	syntastic-checkers.txt	/*'g:syntastic_xhtml_validator_parser'*
+'g:syntastic_xhtml_validator_schema'	syntastic-checkers.txt	/*'g:syntastic_xhtml_validator_schema'*
+'g:syntastic_xhtml_w3_api'	syntastic-checkers.txt	/*'g:syntastic_xhtml_w3_api'*
+'g:syntastic_xhtml_w3_doctype'	syntastic-checkers.txt	/*'g:syntastic_xhtml_w3_doctype'*
+'g:syntastic_xhtml_w3_exec'	syntastic-checkers.txt	/*'g:syntastic_xhtml_w3_exec'*
 'g:vaxe_hxml'	syntastic-checkers.txt	/*'g:vaxe_hxml'*
 'syntastic_<filetype>_<checker>_<option>'	syntastic.txt	/*'syntastic_<filetype>_<checker>_<option>'*
 'syntastic_<filetype>_<checker>_exe'	syntastic.txt	/*'syntastic_<filetype>_<checker>_exe'*
@@ -326,6 +344,7 @@ syntastic-checkers-solidity	syntastic-checkers.txt	/*syntastic-checkers-solidity
 syntastic-checkers-spec	syntastic-checkers.txt	/*syntastic-checkers-spec*
 syntastic-checkers-sql	syntastic-checkers.txt	/*syntastic-checkers-sql*
 syntastic-checkers-stylus	syntastic-checkers.txt	/*syntastic-checkers-stylus*
+syntastic-checkers-svg	syntastic-checkers.txt	/*syntastic-checkers-svg*
 syntastic-checkers-tcl	syntastic-checkers.txt	/*syntastic-checkers-tcl*
 syntastic-checkers-tex	syntastic-checkers.txt	/*syntastic-checkers-tex*
 syntastic-checkers-texinfo	syntastic-checkers.txt	/*syntastic-checkers-texinfo*
@@ -463,6 +482,7 @@ syntastic-javascript-jshint	syntastic-checkers.txt	/*syntastic-javascript-jshint
 syntastic-javascript-jsl	syntastic-checkers.txt	/*syntastic-javascript-jsl*
 syntastic-javascript-jslint	syntastic-checkers.txt	/*syntastic-javascript-jslint*
 syntastic-javascript-jsxhint	syntastic-checkers.txt	/*syntastic-javascript-jsxhint*
+syntastic-javascript-lynt	syntastic-checkers.txt	/*syntastic-javascript-lynt*
 syntastic-javascript-mixedindentlint	syntastic-checkers.txt	/*syntastic-javascript-mixedindentlint*
 syntastic-javascript-standard	syntastic-checkers.txt	/*syntastic-javascript-standard*
 syntastic-javascript-tern_lint	syntastic-checkers.txt	/*syntastic-javascript-tern_lint*
@@ -579,6 +599,8 @@ syntastic-sql-sqlint	syntastic-checkers.txt	/*syntastic-sql-sqlint*
 syntastic-sql-tsqllint	syntastic-checkers.txt	/*syntastic-sql-tsqllint*
 syntastic-statusline-flag	syntastic.txt	/*syntastic-statusline-flag*
 syntastic-stylus-stylint	syntastic-checkers.txt	/*syntastic-stylus-stylint*
+syntastic-svg-validator	syntastic-checkers.txt	/*syntastic-svg-validator*
+syntastic-svg-w3	syntastic-checkers.txt	/*syntastic-svg-w3*
 syntastic-tcl-nagelfar	syntastic-checkers.txt	/*syntastic-tcl-nagelfar*
 syntastic-tex-chktex	syntastic-checkers.txt	/*syntastic-tex-chktex*
 syntastic-tex-lacheck	syntastic-checkers.txt	/*syntastic-tex-lacheck*
@@ -595,6 +617,7 @@ syntastic-turtle-rapper	syntastic-checkers.txt	/*syntastic-turtle-rapper*
 syntastic-turtle-ttl	syntastic-checkers.txt	/*syntastic-turtle-ttl*
 syntastic-twig-twiglint	syntastic-checkers.txt	/*syntastic-twig-twiglint*
 syntastic-typescript-eslint	syntastic-checkers.txt	/*syntastic-typescript-eslint*
+syntastic-typescript-lynt	syntastic-checkers.txt	/*syntastic-typescript-lynt*
 syntastic-typescript-tslint	syntastic-checkers.txt	/*syntastic-typescript-tslint*
 syntastic-vala-valac	syntastic-checkers.txt	/*syntastic-vala-valac*
 syntastic-verilog-iverilog	syntastic-checkers.txt	/*syntastic-verilog-iverilog*
@@ -611,6 +634,8 @@ syntastic-vue-pug_lint_vue	syntastic-checkers.txt	/*syntastic-vue-pug_lint_vue*
 syntastic-xhtml-jshint	syntastic-checkers.txt	/*syntastic-xhtml-jshint*
 syntastic-xhtml-proselint	syntastic-checkers.txt	/*syntastic-xhtml-proselint*
 syntastic-xhtml-tidy	syntastic-checkers.txt	/*syntastic-xhtml-tidy*
+syntastic-xhtml-validator	syntastic-checkers.txt	/*syntastic-xhtml-validator*
+syntastic-xhtml-w3	syntastic-checkers.txt	/*syntastic-xhtml-w3*
 syntastic-xml-plutil	syntastic-checkers.txt	/*syntastic-xml-plutil*
 syntastic-xml-xmllint	syntastic-checkers.txt	/*syntastic-xml-xmllint*
 syntastic-xquery-basex	syntastic-checkers.txt	/*syntastic-xquery-basex*

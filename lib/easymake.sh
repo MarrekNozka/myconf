@@ -8,7 +8,11 @@
 # Popis: Skript najde nejnovější soubor .c a zkompiluje jej.
 #
 
-GCCFLAGS="-Wall -std=c99 -pedantic -g -lm"
+#GCCFLAGS="-Wall -std=c99 -pedantic -g -lm"
+
+CC="clang"
+CCFLAGS="-Wall -Wextra -std=c99 -g"
+
 ######################################################################
 #                          FUNKCE                                    #
 ######################################################################
@@ -100,20 +104,22 @@ fi
 
 if [ $VSTUP ] && [ $VYSTUP ]; then
     echo kompiluji $VSTUP do souboru $VYSTUP
-    GCC="gcc $GCCFLAGS -o $VYSTUP $VSTUP" 
+    COMMAND="$CC $CCFLAGS -o $VYSTUP $VSTUP" 
     echo $GCC; 
-    $GCC && RUN="true"
+    $COMMAND && RUN="true"
 else 
     echo -e "ERROR: Nenašel jsem vstupní soubor\n\nHELP:"
     printHelp
     exit 1;
 fi
+
 if [ $RUN ];  then 
 #    rm -f /tmp/binarka
     if [ -d ~/tmp ]; then
         ln -svf $PWD/$VYSTUP ~/tmp/binarka
     fi
 fi
+
 # binárka se spustí jestliže proběhla kompilace bez chyb a pokud 
 if [ $RUN ] && ! [ $COMPILEONLY ]; then 
     echo -e "\n";

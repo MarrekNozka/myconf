@@ -13,6 +13,10 @@ fi
 
 alias vp='vimpager'
 alias vc='vimcat'
+alias vcat='vimcat'
+
+alias cat.='vimcat'
+alias less.='vimpager'
 
 alias uspat='sudo /home/marek/lib/uspat.zsh'
 # some more ls aliases
@@ -62,7 +66,8 @@ mkdir.cd () { mkdir -p $1 && cd $1; }
 
 # proceses
 #psg () { ps ux | grep $* | grep -v grep; }
-alias psg='pgrep -la'
+alias pgrep='pgrep -fa'
+alias psg='pgrep'
 
 killg () { kill -9 $(ps ax | grep $* | grep -v grep | cut -d" " -f1,2;) }
 
@@ -141,12 +146,13 @@ alias 'Ježíš'='convert -resize x900 ~/Documents/Catolic/obrazy/Jesus-by-Akian
 #alias cal.='ncal -3M | sed "/^So/i---------------------------------------------------------" | regexcolor "^(Po|St|Pá).*$" bold "\b$(date +%-d)\b" reverse'
 
 #################################################x
-VIMPATH=$(which vim)
 # vim, gvim
-    alias v='vim.basic'
-    alias v.NONE='vim.basic -u NONE' 
-    alias vi="$VIMPATH -p"
-    alias vi.NONE="$VIMPATH -u NONE"
+alias v='vim.basic'
+alias v.NONE='vim.basic -u NONE' 
+alias vi="nvim -p"
+alias vi.NONE="nvim -u NONE -p"
+
+alias vimrc='vim ~/.config/nvim/init.vim'
 
 # util
 hist() {
@@ -165,85 +171,82 @@ if [ $USER != root ]; then
 
     alias kontroluj.Claws-Mail='md5sum .claws-mail/**/* 2>/dev/null| md5sum; md5sum Mail/**/* 2>/dev/null | md5sum;'
 
-# mplayer
-mp() { 
-    if which mpv &>/dev/null; then
-        mpv $@
-    elif which mplayer2 &>/dev/null; then
-        mplayer2 $@
-    else
-        mplayer $@
-    fi
-}
-smp() { 
-    if which smplayer2 &>/dev/null; then
-        smplayer2 $@ &
-    else
-        smplayer $@ &
-    fi
-}
+    # mplayer
+    mp() { 
+        if which mpv &>/dev/null; then
+            mpv $@
+        elif which mplayer2 &>/dev/null; then
+            mplayer2 $@
+        else
+            mplayer $@
+        fi
+    }
+    smp() { 
+        if which smplayer2 &>/dev/null; then
+            smplayer2 $@ &
+        else
+            smplayer $@ &
+        fi
+    }
 
-# mocp
-alias m.play="mocp --play"
-alias mY="m.play"
-alias m.stop="mocp --stop"
-alias mS="m.stop"
-alias m.pause="mocp --toggle-pause"
-alias mP="m.pause"
-alias m.next="mocp --next"
-alias m.previous="mocp --previous"
+    # mocp
+    alias m.play="mocp --play"
+    alias mY="m.play"
+    alias m.stop="mocp --stop"
+    alias mS="m.stop"
+    alias m.pause="mocp --toggle-pause"
+    alias mP="m.pause"
+    alias m.next="mocp --next"
+    alias m.previous="mocp --previous"
 
-# Remind
+    # Remind
     #alias rem+='remind -n | sort; cat ~/.todo'
     #alias rem='remind -c+2; cat ~/.todo'
-    alias todo='vi ~/Viki/ToDo.viki'
-    alias cat.todo='cat ~/.todo'
-    alias todo.cat='cat ~/.todo'
-
-# Supl
-alias supl='w3m http://www.spseol.cz/data/rozvrhy/suplobec.htm -dump | egrep No'
-alias supl.='w3m http://www.spseol.cz/data/rozvrhy/suplobec.htm -dump | regexcolor No "bold yellow"'
+    #alias todo='vi ~/Viki/ToDo.viki'
+    #alias cat.todo='cat ~/.todo'
+    #alias todo.cat='cat ~/.todo'
 
 ##############################################################################
-alias howdoi='howdoi --color'
-alias howdoi.='howdoi --all'
+    alias howdoi='howdoi --color'
+    alias howdoi.='howdoi --all'
 
-alias autoclone='source ~/lib/autoclone.zsh'
-alias autoclone.tmp='autoclone -t'
+    alias autoclone='source ~/lib/autoclone.zsh'
+    alias autoclone.tmp='autoclone -t'
 
-alias py3='python3'
+    alias py37='python3.7'
+    alias py='py37'
 
-alias   docal='while true; do ; date; ncal -A 1; sleep 60; done'
-alias docal-1='while true; do ; date; ncal -A 1; sleep  1; done'
-alias   docal.='while true; do ; date; cal.; sleep 60; done'
-alias docal-1.='while true; do ; date; cal.; sleep  1; done'
+    alias   docal='while true; do ; date; ncal -A 1; sleep 60; done'
+    alias docal-1='while true; do ; date; ncal -A 1; sleep  1; done'
+    alias   docal.='while true; do ; date; cal.; sleep 60; done'
+    alias docal-1.='while true; do ; date; cal.; sleep  1; done'
 
-dodf() {
-    while df /media/karlik /media/sd{a,b,c,d}{,1,2,3} / /storage /home 2>/dev/null |\
-          sort   |\
-          uniq   |\
-          grep / |\
-          awk '{printf("%6s%6s%6s%4s  %s\n",  $2,$3,$4, $5,$6)}'; do
-        sleep 7
-        clear
-        echo
-        date +"%A %_d.%b %Y %_H:%M"
-        echo
-        date +"%_V. týden, %_j. den v roce"
-        printf "\n%6s%6s%6s%4s %s\n" Celkem Užito Volno "%"
-    done
-}
+    dodf() {
+        while df /media/karlik /media/sd{a,b,c,d}{,1,2,3} / /storage /home 2>/dev/null |\
+            sort   |\
+            uniq   |\
+            grep / |\
+            awk '{printf("%6s%6s%6s%4s  %s\n",  $2,$3,$4, $5,$6)}'; do
+            sleep 7
+            clear
+            echo
+            date +"%A %_d.%b %Y %_H:%M"
+            echo
+            date +"%_V. týden, %_j. den v roce"
+            printf "\n%6s%6s%6s%4s %s\n" Celkem Užito Volno "%"
+        done
+    }
 
 
-#set_term_title
-chtitle(){
-    if [ $1 = '-d' ]; then
-        unset terminaltitle
-    else
-        terminaltitle='True'
-        echo -en "\033]0;$1\a"
-    fi
-}
+    #set_term_title
+    chtitle(){
+        if [ $1 = '-d' ]; then
+            unset terminaltitle
+        else
+            terminaltitle='True'
+            echo -en "\033]0;$1\a"
+        fi
+    }
 
 # Wine
 #    alias sas.exe='export LC_MESSAGES="cs_CZ.UTF-8"; wine "C:\SAS6\Programy\sas.exe"'
@@ -277,7 +280,8 @@ chtitle(){
     alias nazeleno='chmod +x'
 
 # vim, gvim
-    alias vim='gvim -p'
+    alias vim='nvim-qt'
+
     alias vimm="~/bin/vim-remote.zsh"
     alias vis='gvim -S' #:mksession
    #alias vit="gvim --servername GVIM --remote-send '<C-\><C-N>:tabnew<CR>' --remote "

@@ -1,1 +1,2 @@
-../odsazovani.vim
+
+let g:indentLine_enabled = 1

@@ -1,11 +1,16 @@
+## http://zsh.sourceforge.net/Doc/Release/zsh_toc.html
+## http://zsh.sourceforge.net/Doc/Release/Options.html#Options
+
+
 setopt ALL_EXPORT
 
-EDITOR="vim"
+EDITOR="nvim"
 PAGER="vimpager"
 # MANPAGER="vimpager"
 if command -v vim.basic >/dev/null; then
     VIMPAGER_VIM='vim.basic'
 fi
+VIMPAGER_VIM='vim.athena'
 
 
 # černá	        0;30	tmavě šedá	    1;30
@@ -65,7 +70,9 @@ setopt nohup
 HISTFILE=~/.histfile
 HISTSIZE=9999
 SAVEHIST=9999
-setopt appendhistory 
+setopt append_history       # jedna relace nebude přepisovat druhou
+setopt inc_append_history   # historie se uloží vždy předtím, než se cmd spustí
+                            # takže nová relace ji bude mít k dispozici
 setopt histbeep
 setopt incappendhistory
 #setopt sharehistory  
@@ -158,7 +165,7 @@ zstyle ':completion:*:processes-names' command 'ps axho command'
 autoload -U promptinit
 promptinit; 
 
-if [ $USER = root ]; then
+if [ `whoami` = root ]; then
 #        prompt adam2 cyan red red forground;
     ZSHcol=red
 else

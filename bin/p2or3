@@ -15,7 +15,7 @@ for param in $@; do
     if [ $shebang ]; then
         PYTHON=${shebang#'#!'}
     else
-        PYTHON="python"
+        PYTHON="python3"
     fi
     break
 done

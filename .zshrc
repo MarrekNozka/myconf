@@ -4,13 +4,15 @@
 
 setopt ALL_EXPORT
 
+NVIM_LISTEN_ADDRESS=/tmp/nvim.main
 EDITOR="nvim"
 PAGER="vimpager"
 # MANPAGER="vimpager"
-if command -v vim.basic >/dev/null; then
-    VIMPAGER_VIM='vim.basic'
-fi
-VIMPAGER_VIM='vim.athena'
+#if command -v vim.basic >/dev/null; then
+#    VIMPAGER_VIM='vim.basic'
+#fi
+#VIMPAGER_VIM='vim.athena'
+VIMPAGER_VIM='nvim'
 
 
 # černá	        0;30	tmavě šedá	    1;30
@@ -24,10 +26,29 @@ VIMPAGER_VIM='vim.athena'
 #GREP_COLORS='1;35'
 GREP_COLORS='ms=01;33:mc=01;33:sl=:cx=:fn=35:ln=32:bn=32:se=36'
 LESS='-ri'
-#
+
 PYTHONIOENCODING=UTF8
 
+QT_QPA_PLATFORMTHEME=gtk2
+
 unsetopt ALL_EXPORT
+
+#source ~/.zsh/git-prompt/zshrc.sh
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' stagedstr 'S' 
+zstyle ':vcs_info:*' unstagedstr 'U' 
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' actionformats '%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
+zstyle ':vcs_info:*' formats '%F{5}[%F{2}%b%F{5}] %F{2}%c%F{3}%u%f'
+zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
+zstyle ':vcs_info:*' enable git 
+git-untracked() {
+  if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
+  [[ $(git ls-files --other --directory --exclude-standard | sed q | wc -l | tr -d ' ') == 1 ]] ; then
+  hook_com[unstaged]+='%F{1}??%f'
+fi
+}
+
 
 ############################################################
 #    The following lines were added by compinstall
@@ -46,6 +67,7 @@ zstyle ':completion:*' group-name ''
 zstyle ':completion::complete:*' use-cache on
 zstyle ':completion::complete:*' cache-path ~/.zsh/cache/$HOST
 zstyle ':completion:*' squeeze-slashes false
+#zstyle ':completion:*' rehash true
 
 # End of lines added by compinstall
 #############################################################
@@ -56,6 +78,21 @@ zstyle ':completion:*' squeeze-slashes false
 fpath=(~/.zshfuncs $fpath)
 autoload -U compinit # -z
 compinit
+
+#eval "$(~/.local/bin/pip3 completion --zsh)"
+# pip zsh completion start
+function _pip_completion {
+  local words cword
+  read -Ac words
+  read -cn cword
+  reply=( $( COMP_WORDS="$words[*]" \
+             COMP_CWORD=$(( cword-1 )) \
+             PIP_AUTO_COMPLETE=1 $words[1] ) )
+}
+compctl -K _pip_completion pip
+compctl -K _pip_completion pip3
+# pip zsh completion end
+
 # automatické doplňování má barvičky
 zmodload -i zsh/complist
 eval $(dircolors -b ~/.dir_colors) 
@@ -173,17 +210,19 @@ else
     ZSHcol=green
 fi
 
-if [ $SSH_CLIENT ]; then 
-    ZSHcol2=red
-else 
+#if [ -z $SSH_CONNECTION ] || [[ $SSH_CONNECTION =~ ' ::1 |127\.0\.0\.' ]]; then 
+if [ -z $SSH_CONNECTION ] ; then 
     ZSHcol2=green
+elif [[ $SSH_CONNECTION =~ ' ::1 |127\.0\.0\.' ]]; then
+    ZSHcol2=magenta
+else 
+    ZSHcol2=red
 fi
 
 #datum a čas
 ZSHd="%b%F{yellow}%D{%a %e.%b %Y %T}"
 #tty
 ZSHt="%b%F{green}%l"
-RPROMPT="%B<%F{black}%!%F{default}|$ZSHd%F{default}|$ZSHt"
 ##########################################
 #
 #začátek
@@ -205,6 +244,10 @@ title () {
 }
 
 precmd () {
+    # https://stackoverflow.com/questions/1128496/to-get-a-prompt-which-indicates-git-branch-in-zsh#1128583
+    #branch=$(git symbolic-ref HEAD 2>/dev/null | cut -d'/' -f3)
+    vcs_info
+    #ZSHlen=${#${(%):-.%?.:....%n@%m...%~.....$branch}}
     ZSHlen=${#${(%):-.%?.:....%n@%m...%~...}}
     if (( $ZSHlen < $COLUMNS )); then
         ZSHesc='%~'
@@ -229,6 +272,7 @@ precmd () {
         ZSHz="%B%F{cyan}\`-%b%F{cyan}-%B%F{white}%B%F{forground}%(\!.##.>) %b%f%k"
     fi
     PROMPT=$(print $ZSHo$ZSHh$ZSHw$ZSHline$k\\n$ZSHz)
+    RPROMPT="%B<%F{black}%!%F{default}|${vcs_info_msg_0_}|$ZSHd%F{default}|$ZSHt"
 #   #MC
     if [ $ISMC ] || [ $MC_SID ]; then
 #        prompt walters $ZSHcol 

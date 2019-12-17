@@ -14,26 +14,22 @@ ROFI_FB_START_DIR=$HOME # starting directory
 
 # Beginning of the script:
 # Create the directory for the files of the script
-if [ ! -d $(dirname "${ROFI_FB_PREV_LOC_FILE}") ]
-then
+if [ ! -d $(dirname "${ROFI_FB_PREV_LOC_FILE}") ]; then
     mkdir -p "$(dirname "${ROFI_FB_PREV_LOC_FILE}")"
 fi
-if [ ! -d $(dirname "${ROFI_FB_HISTORY_FILE}") ]
-then
+if [ ! -d $(dirname "${ROFI_FB_HISTORY_FILE}") ]; then
     mkdir -p "$(dirname "${ROFI_FB_HISTORY_FILE}")"
 fi
 
 # Initialize $ROFI_FB_CUR_DIR
-if [ -d "${ROFI_FB_START_DIR}" ]
-then
+if [ -d "${ROFI_FB_START_DIR}" ]; then
     ROFI_FB_CUR_DIR="${ROFI_FB_START_DIR}"
 else
     ROFI_FB_CUR_DIR="$PWD"
 fi
 
 # Read last location, otherwise we default to $ROFI_FB_START_DIR or $PWD.
-if [ -f "${ROFI_FB_PREV_LOC_FILE}" ]
-then
+if [ -f "${ROFI_FB_PREV_LOC_FILE}" ]; then
     ROFI_FB_CUR_DIR=$(cat "${ROFI_FB_PREV_LOC_FILE}") 
 fi 
 

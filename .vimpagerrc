@@ -3,7 +3,9 @@
 set noloadplugins
 
 set background=dark
-colorscheme slate
+"colorscheme slate
+"colorscheme koehler
+colorscheme 256-jungle
 syntax on
 
 
@@ -21,6 +23,8 @@ set mouse=a		" Enable mouse usage (all modes)
 "let g:vimpager_less_mode = 0    " pohyb jako v klasickém vimu
 let g:vimpager_passthrough = 0  " u krátkých souborů neproběhne vimcat 
 
+
+set guioptions=aAcrL " Vzhled
 
 "------------------------------------------------------------------------------"
 " vim:ft=vim

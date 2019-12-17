@@ -1,12 +1,17 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 HISTFILE=~/.cache/rofi/man_script_history
 HISTCOUNT=14
 TERMINAL=urxvtcd
+export PAGER=vimpager
 
 if [ ! -d $(dirname "$HISTFILE") ]; then
     mkdir -p "$(dirname "$HISTFILE")"
 fi
+if [ ! -s "$HISTFILE" ]; then
+    echo ls >"$HISTFILE"
+fi
+
 
 
 if [ -z "$@" ]; then     # generate list of choice
@@ -20,5 +25,5 @@ else                     # process the choice
 
     # lunch
     manpage=$(awk '{ print $2 " " $1 }' <<< $@ | tr -d '()')
-    exec $TERMINAL -e man $manpage
+    eval "exec $TERMINAL -e man $manpage"
 fi

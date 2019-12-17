@@ -1,0 +1,25 @@
+#!/usr/bin/env python2
+# -*- coding: utf8 -*-
+# Soubor:  skeletonVIM_FILE_NAME
+# Datum:   skeletonVIM_CREATION_CZDATETIME
+# Autor:   Marek Nožka, nozka <@t> spseol <d.t> cz
+# Autor:   Marek Nožka, marek <@t> tlapicka <d.t> net
+# Licence: GNU/GPL
+# Úloha:
+# Popis:
+############################################################################
+from __future__ import division, print_function, unicode_literals
+
+import sys
+from sys import stdin, stdout, stderr
+from math import pi
+############################################################################
+while True:
+    try:
+        line = raw_input('app>> ')
+    except EOFError:
+        exit(0)
+    except KeyboardInterrupt:
+        exit(1)
+    except:
+        stdout.write("ERROR\n")

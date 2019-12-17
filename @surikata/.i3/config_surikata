@@ -8,7 +8,8 @@
 set $primary DVI-I-1
 set $secondary VGA-1
 
-set $terminal sakura -f 'Terminus 14'
+#set $terminal sakura -f 'Terminus 14'
+set $terminal urxvtcd
 
 # i3 config file (v4)
 #
@@ -37,7 +38,8 @@ floating_modifier $mod
 bindsym $mod+Return exec $terminal
 bindsym $mod+Shift+Return exec $terminal -f 'Terminus 10'
 bindsym $mod+Control+Return exec $terminal -e ssh -XA root@localhost
-bindsym $mod+F6 exec urxvtcd
+#bindsym $mod+F6 exec urxvtcd
+bindsym $mod+F6 exec sakura -f 'Terminus 14'
 bindsym $mod+F7 exec urxvtcd -bg white -fg black -sh 196
 bindsym $mod+F8 exec urxvtcd -bg white -fg black -sh 200
 
@@ -211,14 +213,14 @@ mode "resize" {
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 7 px or 7 ppt
-        bindsym Down resize grow height 7 px or 7 ppt
-        bindsym Up resize shrink height 7 px or 7 ppt
         bindsym Right resize grow width 7 px or 7 ppt
+        bindsym Down resize shrink height 7 px or 7 ppt
+        bindsym Up resize grow height 7 px or 7 ppt
 
         bindsym Shift+Left resize shrink width 3 px or 1 ppt
-        bindsym Shift+Down resize grow  height 3 px or 1 ppt
-        bindsym Shift+Up resize shrink  height 3 px or 1 ppt
         bindsym Shift+Right resize grow  width 3 px or 1 ppt
+        bindsym Shift+Down resize shrink  height 3 px or 1 ppt
+        bindsym Shift+Up resize grow  height 3 px or 1 ppt
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"

@@ -1,0 +1,249 @@
+/******************************************************************************
+*                          Other CSS files                                    *
+******************************************************************************/
+/*@import 'pygment.css';*/
+/*@import 'typogrify.css';*/
+
+/******************************************************************************
+*                          reset nebo normalize                               *
+******************************************************************************/
+/*@import "normalize";*/
+@import "compass/reset";
+
+/******************************************************************************
+*                          Compass and Susy                                   *
+******************************************************************************/
+@import "compass/css3";
+@import "compass/css3/border-radius";
+@import "compass/typography/lists/horizontal-list";
+
+//@import "fancy-buttons";
+/*fancy-button ( color, font-size, border-radius, border-size ) */
+
+
+@import "susy";
+
+/******************************************************************************
+*                          Fonts                                              *
+******************************************************************************/
+@import url(https://fonts.googleapis.com/css?family=Bree+Serif&subset=latin,latin-ext);
+@import url(https://fonts.googleapis.com/css?family=Lora:400,400italic,700,700italic&subset=latin,latin-ext);
+
+$font_text: 'Lora', Georgia, "DejaVu Serif", serif;
+$font_nadpis: 'Bree serif', Georgia, "Times New Roman", "DejaVu Serif", serif;
+
+/******************************************************************************
+*                          Colors                                             *
+******************************************************************************/
+$oranzova: #EF6C00;
+@import "color-schemer";
+$cs-primary: $oranzova;
+$cs-scheme: 'accented-analogic';  // mono, complement, triad, tetrad, 
+                                  // analogic, accented-analogic
+$cs-hue-offset: 20;
+$cs-brightness-offset: 20;
+$cs-color-model: ryb;  // rgb, ryb
+
+/*@include cs-test(cs-primary() cs-secondary() cs-tertiary() );*/
+
+$full-color: green;
+$on-color: blue;
+$teach-color: magenta;
+$off-color: red;
+$global-color: #FFE24F;
+
+$zelena:  #55AA55;
+
+$modra: #0431A1;
+$modra_s: #0648EE;
+$pisek: #EFA100;
+
+$seda: #f7f7f7;
+
+/******************************************************************************
+*                           Grid                                              *
+******************************************************************************/
+$susy: (
+    columns: 24,  // The number of columns in your grid
+    gutters: 1/4, // The size of a gutter in relation to a single column
+    /*output: isolate,*/
+    gutter-position: split,
+    global-box-sizing: border-box,
+);
+
+/******************************************************************************
+*                           Defaults                                          *
+******************************************************************************/
+$default-border-radius: 15px;
+
+/******************************************************************************
+*                           Layout                                            *
+******************************************************************************/
+@include border-box-sizing;
+
+body {
+    @include container;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: $font_text;
+    font-size: 110%;
+    max-width: 60em;
+    line-height: normal;
+    padding: 0px 20px;
+}
+
+a {
+    color: cs-secondary();
+}
+a:hover {
+    color: cs-tertiary();
+}
+em {
+    font-variant: small-caps;
+}
+strong {
+   font-weight: bold;
+}
+
+p {
+    margin-top: 2ex;
+    margin-bottom: 2ex;
+}
+
+table.adddomain {
+    td:nth-of-type(2) > input {
+        width: 30em;
+    }
+    background-color: $seda;
+    padding: 1ex;
+    th, td {
+        border: 0px solid black;
+        border-collapse: collapse;
+    }
+    th   {
+        padding: 0ex 1ex 0ex 1ex;
+    }
+    td {
+        padding: 0ex 1ex 1ex 1ex;
+    }
+}
+
+table.listdomain {
+    tr:nth-of-type(1) {
+        border-bottom: 2px solid cs-tertiary();
+    }
+    tr td:nth-of-type(3) {
+        max-width: 25em;
+    }
+    tr:hover {
+        background-color: $seda;
+    }
+    td {
+        padding: 0.5ex 1ex 0ex;
+    }
+    .inactive {
+        color: #555;
+    }
+}
+
+
+main {
+        @include span(24);
+}
+
+footer {
+        @include span(24);
+}
+
+
+#{headings(all)} {
+    /*font-family: $font_nadpis;*/
+    font-weight: bold;
+    color: $oranzova;
+    a {
+        color: $oranzova;
+    }
+    margin-top: 1em;
+    margin-bottom: 1ex;
+}
+
+h1 {
+    font-size: 2.6em;
+}
+h2 {
+    font-size: 2.1em;
+}
+h3 {
+    font-size: 1.7em;
+}
+h4 {
+    font-size: 1.3em;
+    color: cs-secondary()
+}
+h5 {
+    font-size: 1.15em;
+}
+h6 {
+    font-size: 1em;
+}
+
+li {
+    @include push(1); 
+    list-style-type: disc;
+    display: list-item;
+}
+
+dt {
+    font-weight: bold;
+}
+dd {
+    @include push(1); 
+    list-style-type: square;
+    display: list-item;
+}
+
+.left {
+    text-align: left;
+}
+.right {
+    text-align: right;
+}
+
+.ok-field {
+    border: solid 3px green;
+}
+.error-field {
+    border: solid 3px red;
+}
+
+#logo {
+    width: 261px;
+    height: 298px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    img {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        @include transition(2400ms linear);
+    }
+    img:first-child {
+        opacity: 0;
+    }
+    img:last-child {
+        opacity: 1;
+    }
+}
+#logo:hover{
+    img:first-child {
+        opacity: 1;
+    }
+    img:last-child {
+        opacity: 0;
+    }
+}
+
+/*-----------------------------------------------------------------------------
+vim:nowrap:
+*/

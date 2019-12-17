@@ -61,13 +61,14 @@ alias fgrep='fgrep --color=auto'
 # ssh
 alias poweroff-lp6='mussh -t 1 -h root@lp6{01,02,03,04,05,06,07,08,09,10,11,22,23,24,25}.lab.spseol.cz -c poweroff'
 
-mkdircd () { mkdir -p $1 && cd $1; }
 mkdir.cd () { mkdir -p $1 && cd $1; }
+alias mkdircd=mkdir.cd
 
 # proceses
 #psg () { ps ux | grep $* | grep -v grep; }
-alias pgrep='pgrep -fa'
-alias psg='pgrep'
+alias pgrep.a='pgrep -a'
+alias pgrep.af='pgrep -a -f'
+alias psg='pgrep.af'
 
 killg () { kill -9 $(ps ax | grep $* | grep -v grep | cut -d" " -f1,2;) }
 
@@ -82,6 +83,15 @@ mc.() {mc $1 $1}
 #
 alias netstat.='netstat -nap --inet --inet6'
 alias netstatt='netstat.'
+
+# qpdfview
+pdf.server() {
+    qpdfview --unique --choose-instance $@ &
+}
+pdf() {
+    qpdfview --unique $@ &
+}
+
 
 pip_completion() {
     eval "`pip completion --zsh`"
@@ -147,12 +157,32 @@ alias 'Ježíš'='convert -resize x900 ~/Documents/Catolic/obrazy/Jesus-by-Akian
 
 #################################################x
 # vim, gvim
-alias v='vim.basic'
-alias v.NONE='vim.basic -u NONE' 
 alias vi="nvim -p"
 alias vi.NONE="nvim -u NONE -p"
 
-alias vimrc='vim ~/.config/nvim/init.vim'
+
+alias nv='nvr -s --remote-tab-silent'
+alias nv='nvr --remote-tab-silent'
+alias nv.serverlist='nvr --serverlist'
+nv.server() {
+    SERVER=$1
+    shift
+    nvr -s --servername /tmp/nvim.$SERVER --remote-tab $@
+}
+
+#alias vim='NVIM_LISTEN_ADDRESS=/tmp/nvim.qt nvim-qt'
+#alias gv='nvr --servername /tmp/nvim.qt --remote-tab-silent'
+alias vim='urxvtcd -e nvr -s --servername /tmp/nvim.term --remote-tab' 
+alias vim.new='urxvtcd -e nvim' 
+vim.server() {
+    SERVER=$1
+    shift
+    urxvtcd -e nvr -s --servername /tmp/nvim.$SERVER --remote-tab
+}
+
+alias vimrc='NVIM_LISTEN_ADDRESS=/tmp/nvim.vimrc nvim-qt +Cd ~/.config/nvim/init.vim'
+alias zshrc='NVIM_LISTEN_ADDRESS=/tmp/nvim.zshrc nvim-qt +Cd ~/.zshrc'
+alias iiirc='NVIM_LISTEN_ADDRESS=/tmp/nvim.iiirc nvim-qt +Cd ~/.i3/config'
 
 # util
 hist() {
@@ -279,13 +309,18 @@ if [ $USER != root ]; then
     alias chmod.public_html='chmod -R a+r ~/public_html/'
     alias nazeleno='chmod +x'
 
-# vim, gvim
-    alias vim='nvim-qt'
+#jumpapp
+    jump() {
+        jumpapp $@
+        i3-msg '[urgent="newest"] focus' &>/dev/null
+    }
 
-    alias vimm="~/bin/vim-remote.zsh"
+# vim, gvim
+
+
     alias vis='gvim -S' #:mksession
    #alias vit="gvim --servername GVIM --remote-send '<C-\><C-N>:tabnew<CR>' --remote "
-    vicd () { gvim "+cd $(dirname $1)" $1; }
+    vicd () { nvim-qt "+cd $(dirname $1)" $1; }
     viS () {
         if [ -f ./vim.vim ]; then
             gvim -S vim.vim

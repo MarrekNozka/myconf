@@ -1,0 +1,78 @@
+\input utf8-t1
+\documentclass[11pt,a4paper]{article}
+%\usepackage[utf8]{inputenc}
+\usepackage[czech]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\usepackage{encxvlna}
+	%%% Další balíčky
+	%\usepackage{marek}
+	%\usepackage{graphics} %,graphicsx  
+
+	%%% Pro vstup do zdrojáku přímo z DVI souboru
+	%\usepackage[active]{srcltx} %% stejné jako cslatex --src-specials pokus.tex 
+
+	%%% automaticky z Text2Tags
+	%\usepackage{amsfonts,graphicx,url}	
+	%\usepackage[pdfstartview=FitH,urlcolor=blue,colorlinks=true,bookmarks=true]{hyperref}
+
+	%%% Nastavení odstavcové zarážky a odsazení odstavců
+	%\setlength{\parskip}{8pt}\parindent=0pt  % no paragraph indentation
+
+	%%% Řádkování  
+	%\def\baselinestretch{1.25}\normalsize % Řádkování
+
+	%\frenchspacing      % Příkaz řídící  mezerování po tečce na konci vět.
+
+	%%%% Redefinice příkazů 
+	%\renewcommand{\refname}{Literatura} 
+	%\newcommand{\odstavec}[1]{{\bf #1} \\}
+
+	%%%%%%%%%%%%%%%% OKRAJE %%%%%%%%%%%%%%%%%%%%%%%%
+
+%%  http://tug.ctan.org/tex-archive/macros/latex/contrib/geometry/
+    \usepackage[a4paper, hoffset=0mm, voffset=0mm, nomarginpar, 
+        twoside=false, landscape=false, 
+        %marginparwidth=1in, marginparsep=1in,
+        %width=6.5in, height=8.5in, 
+        %includehead, includefoot, headheight=1in, headsep=4mm, footskip=0.7in 
+        top=4cm, bottom=25mm, 
+        left=25mm,  right=25mm,  
+        %twocolumn, columnsep=40mm,
+        ]{geometry}
+
+	%%%%%%%%%%%%%%%%%%%% HLAVIČKA   %%%%%%%%%%%%%%%%%%%%
+	% \usepackage{fancyhdr}
+	%\pagestyle{fancy}			%styl stránkování 
+	%\lhead{} \chead{} %\rhead{\sectionmark} 
+	%\lfoot{} \rfoot{}
+	%\title{} \date{} \author{} \thanks{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\pagestyle{plain}   % čísla stránek ('empty'  nic)
+
+    \setcounter{secnumdepth}{2}
+    \setcounter{tocdepth}{2}
+
+\title{}
+\author{Marek Nožka, marek@tlapicka.net}
+
+\begin{document}
+%\tolerance 1000
+%\hbadness \tolerance
+%%\advance\hbadness -1
+%%\righthyphenmin=2
+
+\date{\today}
+\maketitle
+%\clearpage
+
+
+
+\end{document}
+
+======================================
+vim:foldcolumn=4:foldmethod=indent:foldenable
+vim:ft=tex

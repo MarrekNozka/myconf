@@ -18,7 +18,7 @@ alias vcat='vimcat'
 alias cat.='vimcat'
 alias less.='vimpager'
 
-alias uspat='sudo /home/marek/lib/uspat.zsh'
+#alias uspat='sudo /home/marek/lib/uspat.zsh'
 # some more ls aliases
 alias l='ls -CFm'
 alias ll='ls -lFh'
@@ -157,12 +157,15 @@ alias 'Ježíš'='convert -resize x900 ~/Documents/Catolic/obrazy/Jesus-by-Akian
 
 #################################################x
 # vim, gvim
-alias vi="nvim -p"
+#alias vi="nvim -p"
 alias vi.NONE="nvim -u NONE -p"
 
 
+# otevře soubor v `$NVIM_LISTEN_ADDRESS` neovimu
 alias nv='nvr -s --remote-tab-silent'
 alias nv='nvr --remote-tab-silent'
+
+# otevře soubor v konkrétním neovimu
 alias nv.serverlist='nvr --serverlist'
 nv.server() {
     SERVER=$1
@@ -172,17 +175,17 @@ nv.server() {
 
 #alias vim='NVIM_LISTEN_ADDRESS=/tmp/nvim.qt nvim-qt'
 #alias gv='nvr --servername /tmp/nvim.qt --remote-tab-silent'
-alias vim='urxvtcd -e nvr -s --servername /tmp/nvim.term --remote-tab' 
-alias vim.new='urxvtcd -e nvim' 
+#alias vim='urxvtcd -e nvr -s --servername /tmp/nvim.term --remote-tab' 
+#alias vim.new='urxvtcd -e nvim' 
 vim.server() {
     SERVER=$1
     shift
     urxvtcd -e nvr -s --servername /tmp/nvim.$SERVER --remote-tab
 }
 
-alias vimrc='NVIM_LISTEN_ADDRESS=/tmp/nvim.vimrc nvim-qt +Cd ~/.config/nvim/init.vim'
-alias zshrc='NVIM_LISTEN_ADDRESS=/tmp/nvim.zshrc nvim-qt +Cd ~/.zshrc'
-alias iiirc='NVIM_LISTEN_ADDRESS=/tmp/nvim.iiirc nvim-qt +Cd ~/.i3/config'
+#alias vimrc='NVIM_LISTEN_ADDRESS=/tmp/nvim.vimrc nvim-qt +Cd ~/.config/nvim/init.vim'
+#alias zshrc='NVIM_LISTEN_ADDRESS=/tmp/nvim.zshrc nvim-qt +Cd ~/.zshrc'
+#alias iiirc='NVIM_LISTEN_ADDRESS=/tmp/nvim.iiirc nvim-qt +Cd ~/.i3/config'
 
 # util
 hist() {
@@ -194,6 +197,9 @@ hist() {
 #
 if [ $USER != root ]; then
     
+    alias pwscly='~/Git/pwscly/.venv/bin/python ~/Git/pwscly/pwscly.py'
+    alias heslo='~/Git/pwscly/.venv/bin/python ~/Git/pwscly/pwscly.py ~/.hesla.dat'
+
     alias akcent-ne='cstocs --onebyone utf8 ascii'
     alias diakritika-ne='akcent-ne'
     #alias pravopis='ispell -d czech -b'

@@ -4,15 +4,15 @@
 
 setopt ALL_EXPORT
 
-NVIM_LISTEN_ADDRESS=/tmp/nvim.main
+NVIM_LISTEN_ADDRESS=/tmp/nvim.default
 EDITOR="nvim"
 PAGER="vimpager"
+VIMPAGER_VIM='nvim'
 # MANPAGER="vimpager"
 #if command -v vim.basic >/dev/null; then
 #    VIMPAGER_VIM='vim.basic'
 #fi
 #VIMPAGER_VIM='vim.athena'
-VIMPAGER_VIM='nvim'
 
 
 # černá	        0;30	tmavě šedá	    1;30
@@ -30,6 +30,7 @@ LESS='-ri'
 PYTHONIOENCODING=UTF8
 
 QT_QPA_PLATFORMTHEME=gtk2
+PWSCLYFILE=~/.hesla.dat
 
 unsetopt ALL_EXPORT
 
@@ -79,6 +80,7 @@ fpath=(~/.zshfuncs $fpath)
 autoload -U compinit # -z
 compinit
 
+
 #eval "$(~/.local/bin/pip3 completion --zsh)"
 # pip zsh completion start
 function _pip_completion {
@@ -117,7 +119,7 @@ setopt incappendhistory
 setopt histignorespace        # pokud začnu příkaz mezerou neuloží se do historie
 #setopt HISTIGNOREALLDUPS      # příkaz je v historii jen jednou
 setopt histignoredups         #  vymaže duplicitní příkazy, které jdou zasebou
-setopt histexpiredupsfirst    # vymaže všechny duplicity pokud je historie plná
+#setopt histexpiredupsfirst    # vymaže všechny duplicity pokud je historie plná
 setopt histfindnodups         # duplicity v historii hledá jen jednou
 setopt histreduceblanks       # vymaže nic neznamenající mezery v příkazu
 
@@ -345,5 +347,55 @@ fi
 #autoload -U complist
 
 #############################################################
+#         My completion function
+#
+#  * https://github.com/zsh-users/zsh-completions/blob/master/zsh-completions-howto.org
+#  * vim /usr/share/zsh/functions/Completion/Unix/_cp
+#
+_myvim() {
+    #_alternative 'files:filename:_files'
+    _arguments '-s[servername]:filename:->files' '-l[server lists]' '*:file:_files'
+    case "$state" in
+        files)
+            local -a servers
+            servers=(`nvr --serverlist | sed -e s%/tmp/nvim.%%`)
+            _values 'servers' $servers
+            ;;
+    esac
+}
+compdef _myvim vi vim
+#############################################################
 
+# FZF
+# https://doronbehar.com/articles/ZSH-FZF-completion/
+source /usr/share/zsh/vendor-completions/_fzf
+
+# FZY
+source ~/lib/zsh-fzy/zsh-fzy.plugin.zsh
+# ALT-C: cd into the selected directory
+# CTRL-T: Place the selected file path in the command line
+# CTRL-R: Place the selected command from history in the command line
+# CTRL-P: Place the selected process ID in the command line
+bindkey '\ec' fzy-cd-widget
+bindkey '^F'  fzy-file-widget
+bindkey '^R'  fzy-history-widget
+bindkey '^K'  fzy-proc-widget
+
+## forgit
+# https://github.com/wfxr/forgit
+forgit_log=g.log
+forgit_diff=g.diff
+forgit_add=g.add
+forgit_reset_head=g.reset.head #git reset HEAD <file>
+forgit_ignore=g.ignore
+forgit_restore=g.restire # git restore <file>
+forgit_clean=g.clean
+forgit_stash_show=g.stash
+source ~/lib/forgit/forgit.plugin.zsh
+
+#################################################################
 eval $(dircolors -b ~/.dir_colors) 
+
+# Ctrl+S zamkne výstup terminálu, který přijámá vstup ale nezobrazuje výstup 
+# Ctrl-Q se to odemkne... A tímto se tahle věc (nechápu k čemu je) vypíná...
+stty -ixon

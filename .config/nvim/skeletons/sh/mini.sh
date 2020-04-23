@@ -1,9 +1,13 @@
-#!/bin/bash
-# File:    skeletonVIM_FILE_NAME
-# Date:    skeletonVIM_CREATION_CZDATETIME
-# Author:  Marek Nožka, marek <@t> tlapicka <d.t> net
+#!/bin/zsh
+# Soubor:  skeletonVIM_FILE_NAME
+# Datum:   skeletonVIM_CREATION_CZDATETIME
+# Autor:   Marek Nožka, marek <@T> tlapicka <dot> net
 # Licence: GNU/GPL 
-# Task: 
+# Úloha: 
 ############################################################
 
+cd $(dirname $0)
 
+if [[ $0 =~ 'enable' ]]; then
+    sleep
+fi

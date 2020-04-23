@@ -20,6 +20,9 @@ fi
 if [ ! -d $(dirname "${ROFI_FB_HISTORY_FILE}") ]; then
     mkdir -p "$(dirname "${ROFI_FB_HISTORY_FILE}")"
 fi
+if [ ! -s "$ROFI_FB_HISTORY_FILE" ]; then
+    echo . >"$ROFI_FB_HISTORY_FILE"
+fi
 
 # Initialize $ROFI_FB_CUR_DIR
 if [ -d "${ROFI_FB_START_DIR}" ]; then

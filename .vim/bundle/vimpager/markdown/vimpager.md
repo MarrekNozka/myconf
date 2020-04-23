@@ -15,6 +15,7 @@
   - [-h | --help | --usage](#-h----help----usage)
   - [-v | --version](#-v----version)
   - [+ | +G](#--g)
+  - [+F](#f)
   - [-N | --LINE-NUMBERS](#-n----line-numbers)
   - [-c cmd](#-c-cmd)
   - [--cmd cmd](#--cmd-cmd)
@@ -175,8 +176,13 @@ check `exists('g:vimpager.enabled')` instead.
 below, make sure the `g:vimpager` and `g:less` dicts exist like so:
 
 ```vim
-let g:vimpager = {}
-let g:less     = {}
+if !exists('g:vimpager')
+  let g:vimpager = {}
+endif
+
+if !exists('g:less')
+  let g:less     = {}
+endif
 ```
 
 If you want to disable less compatibility mode, and use regular vim
@@ -351,6 +357,11 @@ Print the version information.
 ## + | +G
 
 Start at the end of the file, just like less.
+
+## +F
+
+Follow file, like `tail -f` or `less +F`, equivalent to pressing `F` in less
+mode.
 
 ## -N | --LINE-NUMBERS
 

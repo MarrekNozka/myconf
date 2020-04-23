@@ -11,6 +11,7 @@
 #GCCFLAGS="-Wall -std=c99 -pedantic -g -lm"
 
 CC="clang"
+CC="gcc"
 CCFLAGS="-Wall -Wextra -std=c99 -g"
 
 ######################################################################

@@ -52,7 +52,7 @@ bindsym $mod+Control+d exec gmrun
 bindsym $mod+Shift+d   exec kupfer
 bindsym Mod1+F2        exec rofi -show drun
 
-bindsym $mod+x exec apwal
+#bindsym $mod+x exec apwal
 
 bindsym $mod+F2       exec rofi -show ssh
 bindsym $mod+F3       exec rofi -ssh-client "ssh -xa" -display-ssh 'ssh -xa' -show ssh
@@ -71,6 +71,7 @@ bindsym $mod+F5 exec rofi -show file
 bindsym $mod+F10 exec xclock -update 1
 # lock
 bindsym $mod+F12 exec i3lock -en -c 000000 -i ~/.i3/jm.png
+bindsym $mod+Shift+F12 exec i3lock-fancy
 
 workspace_auto_back_and_forth yes
 
@@ -106,8 +107,8 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # move focused window to Workspace left/right
-bindsym $mod+Control+Left move to output left
-bindsym $mod+Control+Right move to output right
+#bindsym $mod+Control+Left move to output left
+#bindsym $mod+Control+Right move to output right
 
 # switch between the current and the previously focused one
 bindsym $mod+b workspace back_and_forth
@@ -178,6 +179,11 @@ bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 
+bindsym $mod+Control+Left workspace prev
+bindsym $mod+Control+h workspace prev
+bindsym $mod+Control+Right workspace next 
+bindsym $mod+Control+l workspace next 
+
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
 bindsym $mod+Shift+2 move container to workspace 2
@@ -189,6 +195,10 @@ bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
+
+# move focused container to Workspace left/right
+bindsym $mod+Mod1+Left move container to workspace prev
+bindsym $mod+Mod1+Right move container to workspace next
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -348,3 +358,20 @@ bindsym $mod+Shift+space   move scratchpad
 bindsym $mod+button1 floating toggle
 bindsym $mod+button3 move to output left
 
+
+
+
+mode "jumpapp" {
+    bindsym v exec jump.sh vivaldi; mode "default"
+    bindsym c exec jump.sh claws-mail; mode "default"
+    bindsym m exec jump.sh claws-mail; mode "default"
+    bindsym z exec jump.sh zim; mode "default"
+    bindsym j exec jump.sh jupyter-qtconsole --existing; mode "default"
+    bindsym t exec jump.sh -t root urxvt; mode "default"
+    bindsym x exec apwal; mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+x mode "jumpapp"

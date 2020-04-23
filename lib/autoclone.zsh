@@ -15,7 +15,7 @@ if ! command xsel >/dev/null; then
 fi
 
 
-args=$(getopt --name $(basename $0) -o htd: -- "$@")
+args=$(getopt --name $(basename $0) -o htsd: -- "$@")
 eval set -- $args   # převede $args zpět do pozičních parametrů
 while true; do
     case $1 in 
@@ -36,12 +36,19 @@ clonování se provede v adresáři <destination>
 clonování se provede v adresáři /tmp
     $ autoclone -t
 
+provede se mělká (shallow) kopie
+    $ autoclone -s
+
 EOF
             return 0
             shift
             ;;
         -t)
             cd /tmp
+            shift
+            ;;
+        -s)
+            shallow="--depth 1"
             shift
             ;;
         -d)
@@ -64,7 +71,7 @@ else
     ADR=$(basename $REPO .git)
 fi
 
-git clone $REPO $1 || {
+git clone `eval echo $shallow` $REPO $1 || {
     cat <<EOF
 Klonování se nepovedlo. Ve schránce je uloženo toto:
 >>>$REPO<<<

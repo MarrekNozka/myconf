@@ -15,6 +15,9 @@ hi Normal	    ctermfg=253         ctermbg=None         cterm=None   guifg=#dadad
 hi Normal	    ctermfg=253         ctermbg=234         cterm=None   guifg=#dadada guibg=#1c1c1c
 
 hi Cursor       ctermfg=253         ctermbg=57          cterm=None
+hi iCursor      ctermfg=253         ctermbg=57          cterm=None
+hi MatchParen   ctermfg=160        ctermbg=8           cterm=Bold 
+
 hi SpecialKey	ctermfg=70          ctermbg=None        cterm=None
 hi Directory	ctermfg=57          ctermbg=254         cterm=None
 hi ErrorMsg     ctermfg=160         ctermbg=245         cterm=None

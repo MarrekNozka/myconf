@@ -2,6 +2,10 @@
 " volba -u soubor načte soubor a ostatní konfirutaci přeskočí
 " vim -u NONE načte čistý vim, bez konfigurace
 set nocompatible "nejí to vi ale vim
+if !exists('g:vscode')
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 set noautoread
 "set termguicolors
 """autocmd! bufwritepost .vimrc source %  " automaticky načte .vimrc
@@ -80,11 +84,12 @@ set smartcase  "ignorecase platí pouze tehdy pokud v~hledaném výrazu jsou jen
 set incsearch  "ukazuje mi co hledám ještě předtím než dám Enter
 
 set wildmenu "v :příkazovém řádku zobrazí menu pro výběr
-set wildmode=list:longest,list:full "chování TAB v~příkazovém řádku
+"set wildmode=list:longest,list:full "chování TAB v~příkazovém řádku
 set wildignore=*~,*.o,*.log,*.aux "Ignoruje při doplňování tabulátorem
 
 set confirm		"pokud jsem nepoužil ! a měl jsem, tak se mě zeptá co dělat
 set showmatch   "zvýraznění páru závorek
+set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr-o-sm:hor20
 set nojoinspaces " při spojování řádků nedává dvě mezery
 
 set visualbell "vizuální zvonek
@@ -113,7 +118,7 @@ nnoremap <F9> :UndotreeToggle<cr>
 
 
 set title 
-set titlestring=vim:\ \"%t\"(%L)%m%R  "titulek
+set titlestring=vim:\ \"%t\"(%L)%m%R[%{expand(v:servername)[10:]}] "titulek
 set mouse=a          "myš v konzole
 "set mousemodel=popup "pravé tlačítko myši v grafické verzi otevírat vyskakovací menu
 
@@ -127,6 +132,7 @@ let maplocalleader = ",,"
 
 let g:python_host_prog  = '/usr/bin/python2'	  " Python 2
 let g:python3_host_prog = '/usr/bin/python3'  " Python 3
+"let g:ruby_host_prog = '~/.gem/ruby/2.5.0/bin/neovim-ruby-host'
 
 "source ~/.vim/skeletons.vim
 "au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
@@ -199,25 +205,28 @@ set guifont=Terminus:h14
 set shortmess-=Fc
 
 "Spell
-map <Leader>s :set spell spelllang=cs,en<Return>
+map <Leader>ss :set spell spelllang=cs,en<Return>
 map <Leader>S :set nospell<Return>
 "set spell spelllang=cs,en
 set nospell
 set cpo&vim
 
 
+tnoremap <Esc> <C-\><C-n>
+
+
 " seřadí označené řádky podle abecedy
 " vnoremap <leader>s :sort<CR>
 
-""Páry
-imap <> <><Esc>i
-imap () ()<Esc>i
-imap [] []<Esc>i
-imap {} {}<Esc>i
-imap $$ $$<Esc>i
-imap "" ""<Esc>i
-imap '' ''<Esc>i
-imap ** **<Esc>i
+""Páry (závorky)
+"imap <> <><Esc>i
+"imap () ()<Esc>i
+"imap [] []<Esc>i
+"imap {} {}<Esc>i
+"imap $$ $$<Esc>i
+"imap "" ""<Esc>i
+"imap '' ''<Esc>i
+"imap ** **<Esc>i
 
 " http://vimdoc.sourceforge.net/htmldoc/usr_40.html#40.2
 command -nargs=1 Man Page! -t man <args>
@@ -262,10 +271,10 @@ cmap <C-K> <Up>
 "imap <C-K> <Up>     " kolize :h digraph
 
 " ukládání
-map <C-U> :update<Return>
-imap <C-U> <C-O>:update<Return>
-map <Leader>U :update<Return>
-imap <Leader>U <C-O>:update<Return>
+map <C-S> :update<Return>
+imap <C-s> <C-O>:update<Return>
+map <Leader>u :update<Return>
+imap <Leader>u <C-O>:update<Return>
 
 """"""""""""""""""""""""""""
 " Ctrl+Alt+J  Ctrl+Alt+K přesouvá řádek nahoru dolů
@@ -349,7 +358,7 @@ Plug 'https://github.com/scrooloose/nerdcommenter'
 Plug 'https://github.com/tmux-plugins/vim-tmux', { 'for': 'tmux'}
 
 "Plug 'https://github.com/Valloric/YouCompleteMe'
-Plug 'https://github.com/ycm-core/YouCompleteMe', { 'do': 'python3 install.py --clang-completer ' }
+Plug 'https://github.com/ycm-core/YouCompleteMe', { 'do': 'python3 install.py --clangd-completer ' }
 Plug 'https://github.com/python-mode/python-mode', { 'for': 'python'}
 "Plug 'https://github.com/davidhalter/jedi-vim', { 'for': 'python'}
 "Plug 'https://github.com/rkulla/pydiction', { 'for': 'python'}
@@ -361,7 +370,20 @@ Plug 'https://github.com/Glench/Vim-Jinja2-Syntax'
 
 Plug 'https://github.com/tpope/vim-markdown', {'for': 'markdown'}
 
-Plug 'https://github.com/MarrekNozka/vim-skeletonlist'
+Plug 'https://github.com/MarrekNozka/vim-skeletonlist'                    "F4
+
+Plug 'https://github.com/mileszs/ack.vim'
+
+Plug 'cloudhead/neovim-fuzzy'
+
+" Track the engine.
+Plug 'SirVer/ultisnips'
+" Snippets are separated from the engine. Add this if you want them:
+Plug 'honza/vim-snippets'
+
+Plug 'frazrepo/vim-rainbow'                      "F11
+
+Plug 'jiangmiao/auto-pairs'
 
 " Initialize plugin system
 call plug#end()
@@ -388,6 +410,7 @@ let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 "let g:syntastic_python_flake8_args = "--ignore=E202,E201"
+let g:syntastic_python_flake8_args = "--ignore=E203,E501,W503"
 let g:syntastic_scss_scss_args = "--compass"
 
 "let g:syntastic_c_checkers = ['make', 'avrgcc']
@@ -486,6 +509,8 @@ let g:pymode_rope_completion = 0
 let g:pymode_rope_regenerate_on_write = 0
 let g:pymode_rope_project_root = ""
 let g:pymode_rope_ropefolder='.ropeproject'
+let g:pymode_rope_rename_bind='<leader>rr'
+
 
 " autopep8
 let g:autopep8_on_save = 1
@@ -518,7 +543,6 @@ autocmd BufNewFile * unsilent SkeletonList
 
 
 "" YCM YouCompleteMe
-
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_extra_conf_globlist = ['~/dev/*','!~/*']
@@ -527,7 +551,56 @@ map <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 "" https://github.com/ycm-core/YouCompleteMe#the-gycm_semantic_triggers-option
 let g:ycm_semantic_triggers = {'python': ['re!from\s', 're!from\s+\S+\s+import\s']}
 
+let g:ycm_min_num_of_chars_for_completion = 1
+
+
+"" Ack 
+"  https://github.com/mileszs/ack.vim
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+  let g:ackprg = 'ag --nogroup --nocolor --column'
+endif
+
+"" NeoVim-Fuzzy
+" https://github.com/cloudhead/neovim-fuzzy
+" https://github.com/jhawthorn/fzy
+nnoremap <leader>e :let g:fuzzy_opencmd='edit'<cr>:FuzzyOpen<cr>
+nnoremap <leader>v :let g:fuzzy_opencmd='vs'<cr>:FuzzyOpen<cr>
+nnoremap <leader>s :let g:fuzzy_opencmd='sp'<cr>:FuzzyOpen<cr>
+nnoremap <leader>t :let g:fuzzy_opencmd='tabe'<cr>:FuzzyOpen<cr>
+
+
+"" UltiSnips
+" https://github.com/SirVer/ultisnips
+" https://github.com/honza/vim-snippets
+
+let g:UltiSnipsExpandTrigger="<c-q>"
+"let g:UltiSnipsListSnippets="<c-i>"
+let g:UltiSnipsJumpForwardTrigger="<c-n>"
+let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+
+
+" Rainbow Parentheses Improved
+" https://github.com/frazrepo/vim-rainbow
+let g:rainbow_active = 1
+map <F11> :RainbowToggle<Return>
+let g:rainbow_load_separately = [
+    \ [ '*'     , [['(', ')'], ['\[', '\]'], ['{', '}'], ['{{', '}}'], ['{%', '%}']] ],
+    \ [ '*.tex' , [['(', ')'], ['\[', '\]']] ],
+    \ [ '*.{html,htm}' , [['(', ')'], ['\[', '\]'], ['{', '}'], ['<\a[^>]*>', '</[^>]*>']] ],
+    \ ]
+let g:rainbow_ctermfgs = ['white', 'darkyellow', 'yellow', 'magenta']
+
+
+
+" Auto Pairs
+" https://github.com/jiangmiao/auto-pairs
+let g:AutoPairsFlyMode = 1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
+endif
 " vim:nospell:

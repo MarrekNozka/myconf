@@ -1,19 +1,22 @@
-#!/bin/bash
-# File:    skeletonVIM_FILE_NAME
-# Date:    skeletonVIM_CREATION_CZDATETIME
-# Author:  Marek Nožka, marek <@t> tlapicka <d.t> net
+#!/bin/zsh
+# Soubor:  skeletonVIM_FILE_NAME
+# Datum:   skeletonVIM_CREATION_CZDATETIME
+# Autor:   Marek Nožka, marek <@t> tlapicka <d.t> net
 # Licence: GNU/GPL 
-# Task: 
-# Description:
-#
-############################################################
+# Úloha: 
+# Popis:   
 
-#######           HELP           ##########
+
+name=$(basename $0)
 # pokud existuje parametr -h vytiskne help
 for param in $@; do
-    if [ $param == "-h" ] || [ $param == "--help" ]; then
+    if [[ $param == "-h" ]] || [[ $param == "--help" ]]; then
         cat <<EOF
-Skript $0
+Skript $name
+slouží ..
+
+
+$name [] <>
 
 EOF
         exit 0;
@@ -22,3 +25,7 @@ done
 
 #######           SKRIPT         ##########
 
+
+if [[ $0 =~ 'enable' ]]; then
+    sleep
+fi

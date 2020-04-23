@@ -1,16 +1,17 @@
-#!/bin/bash
-# File:    skeletonVIM_FILE_NAME
-# Date:    skeletonVIM_CREATION_CZDATETIME
-# Author:  Marek Nožka, marek <@t> tlapicka <d.t> net
+#!/bin/zsh
+# Soubor:  skeletonVIM_FILE_NAME
+# Datum:   skeletonVIM_CREATION_CZDATETIME
+# Autor:   Marek Nožka, marek <@t> tlapicka <d.t> net
 # Licence: GNU/GPL 
-# Task: 
-# Description:
+# Úloha: 
+# Popis:   
 #
 ######################################################################
 #                         Proměnné                                   #
 ######################################################################
 
 var=""
+name=$(basename $0)
 ######################################################################
 #                          FUNKCE                                    #
 ######################################################################
@@ -19,8 +20,10 @@ var=""
 # funkce vytiskne help
 printHelp() {
 cat <<EOF
-Skript $0
-slouží pro jednoduchou kompilaci zdrojového kódu.
+Skript $name
+slouží ....
+
+$name [] <>
 
 EOF
 }
@@ -38,9 +41,13 @@ TOaONO() {
 ##.................................................................###
 #        zpracování přepínačů příkazového řádku
 
+if [ -z $1 ]; then
+    printHelp
+    exit 0;
+fi
 # pokud je zadán parametr -h nebo --help vytiskne help s končí
 for param in $@; do
-    if [ $param == "-h" ] || [ $param == "--help" ]; then
+    if [[ $param == "-h" ]] || [[ $param == "--help" ]]; then
         printHelp
         exit 0;
     fi
@@ -80,3 +87,8 @@ for i in "$@"; do
 done
 #      Zpracování ne-přepínačových parametrů
 ##.................................................................###
+
+
+if [[ $0 =~ 'enable' ]]; then
+    sleep
+fi

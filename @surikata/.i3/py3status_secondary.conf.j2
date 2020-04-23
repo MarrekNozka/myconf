@@ -1,0 +1,82 @@
+
+
+order += 'group disk'
+order += 'uptime'
+order += 'timer'
+#order += 'group disk2'
+#order += 'netdata'
+#order += 'sysdata'
+order += 'cpugraph'
+order += 'loadavg'
+order += 'clock'
+order += 'volume_status'
+
+
+group disk {
+    cycle = 12
+    format = "{output}{button}"
+    click_mode = "button"
+    click_mode = "all"
+
+# man i3status
+    disk "/" {
+        #format = "/ %free (%total)"
+        #format = "/ %free (%avail) / %percentage_avail"
+        format = "/ %avail (%percentage_used)[%used/%total]"
+    }
+    disk "/home" {
+        format = "/home %avail (%percentage_used)[%used/%total]"
+    }
+{%- if hostname in ('surikata',) or 'lp6' in hostname %}
+    disk "/storage" {
+        format = "/storage %avail (%percentage_used)[%used/%total]"
+    }
+{% endif %}
+{%- if hostname == 'surikata' %}
+    disk "/var/cache/rsnapshot/" {
+        format = "/v/c/rsnapshot %avail (%percentage_used)[%used/%total]"
+    }
+{% endif %}
+}
+
+
+group disk2 {
+    cycle = 12
+    format = "{output}{button}"
+    click_mode = "button"
+    click_mode = "all"
+
+    i3block disk-home {
+        label = '/home'
+        instance = '/home'
+        command = '/usr/share/i3blocks/disk'
+        interval = 30
+    }
+}
+
+
+tztime local {
+    format = "%_d. %b %Y %H:%M:%S"
+    color = '#ff7f00'
+}
+clock {
+    color = '#ff7f00'
+    format = "{Local}"
+    format_time = "%A{icon}%_d. %b %Y %H:%M:%S"
+}
+
+loadavg {
+    format = '[\?color=1avg {1avg}%] [\?color=5avg {5avg}%] [\?color=15avg {15avg}%]'
+}
+
+
+volume_status {
+    command = 'amixer'
+    format_muted = '[\?if=is_input 😶|♪]: MM'
+}
+timer {
+    format = '{timer}'
+}
+
+{#..........................................................................#}
+# vim:ft=jinja:nospell

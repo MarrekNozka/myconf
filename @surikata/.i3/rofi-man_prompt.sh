@@ -4,6 +4,7 @@ HISTFILE=~/.cache/rofi/man_script_history
 HISTCOUNT=14
 TERMINAL=urxvtcd
 export PAGER=vimpager
+export VIMPAGER_VIM=nvim
 
 if [ ! -d $(dirname "$HISTFILE") ]; then
     mkdir -p "$(dirname "$HISTFILE")"
@@ -24,6 +25,11 @@ else                     # process the choice
     sed -i "$[$HISTCOUNT + 1],\$d" "$HISTFILE"
 
     # lunch
-    manpage=$(awk '{ print $2 " " $1 }' <<< $@ | tr -d '()')
-    eval "exec $TERMINAL -e man $manpage"
+    if [[ $0 =~ 'mankier' ]]; then
+        manpage=$(awk '{ print $2 "/" $1 }' <<< $@ | tr -d '()')
+        eval "exec x-www-browser https://mankier.com/$manpage &>/dev/null"
+    else
+        manpage=$(awk '{ print $2 " " $1 }' <<< $@ | tr -d '()')
+        eval "exec $TERMINAL -e man $manpage"
+    fi
 fi

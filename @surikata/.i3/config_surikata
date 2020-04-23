@@ -4,9 +4,11 @@
 # Should you change your keyboard layout some time, delete
 # this file and re-run i3-config-wizard(1).
 #
+  set $primary HDMI-1
+  set $secondary VGA-1
 
-set $primary DVI-I-1
-set $secondary VGA-1
+  set $STATUS_FONT pango:Terminus 12
+  set $STATUS_CONFFILE ~/.i3/py3status_primary.conf
 
 #set $terminal sakura -f 'Terminus 14'
 set $terminal urxvtcd
@@ -23,7 +25,7 @@ set $mod Mod4
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
 #font -*-terminus-medium-r-*-*-14-*-*-*-*-*-iso10646-1
-font pango:Terminus 11
+font pango:Terminus 12
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 # The font above is very space-efficient, that is, it looks good, sharp and
@@ -45,33 +47,39 @@ bindsym $mod+F8 exec urxvtcd -bg white -fg black -sh 200
 
 # start program launcher
 #bindsym $mod+F1 exec gmrun 'man '
-bindsym $mod+F1 exec rofi -show man
+bindsym $mod+F1       exec --no-startup-id rofi -show man     -matching regex -filter ^
+bindsym $mod+Shift+F1 exec --no-startup-id rofi -show mankier -matching regex -filter ^
 #
-bindsym $mod+d         exec rofi -show run
-bindsym $mod+Control+d exec gmrun
-bindsym $mod+Shift+d   exec kupfer
-bindsym Mod1+F2        exec rofi -show drun
+bindsym $mod+d         exec --no-startup-id rofi -show run
+bindsym $mod+Control+d exec --no-startup-id gmrun
+bindsym $mod+Shift+d   exec --no-startup-id kupfer
+bindsym Mod1+F2        exec --no-startup-id rofi -show drun
 
 #bindsym $mod+x exec apwal
 
-bindsym $mod+F2       exec rofi -show ssh
-bindsym $mod+F3       exec rofi -ssh-client "ssh -xa" -display-ssh 'ssh -xa' -show ssh
-bindsym $mod+Shift+F3 exec rofi -ssh-client "ssh -xA" -display-ssh 'ssh -xA' -show ssh
-bindsym $mod+F4       exec rofi -ssh-client "ssh -Xa" -display-ssh 'ssh -Xa' -show ssh
-bindsym $mod+Shift+F4 exec rofi -ssh-client "ssh -XA" -display-ssh 'ssh -XA' -show ssh
+bindsym $mod+F2       exec --no-startup-id rofi -show ssh
+bindsym $mod+F3       exec --no-startup-id rofi -ssh-client "ssh -xa" -display-ssh 'ssh -xa' -show ssh
+bindsym $mod+Shift+F3 exec --no-startup-id rofi -ssh-client "ssh -xA" -display-ssh 'ssh -xA' -show ssh
+bindsym $mod+F4       exec --no-startup-id rofi -ssh-client "ssh -Xa" -display-ssh 'ssh -Xa' -show ssh
+bindsym $mod+Shift+F4 exec --no-startup-id rofi -ssh-client "ssh -XA" -display-ssh 'ssh -XA' -show ssh
 #bindsym $mod+F3       exec gmrun "ssh -xa "
 #bindsym $mod+F4       exec gmrun "ssh -Xa "
 #bindsym $mod+Shift+F3 exec gmrun "ssh -xA "
 #bindsym $mod+Shift+F4 exec gmrun "ssh -XA "
 
-bindsym $mod+F5 exec rofi -show file
+bindsym $mod+F5 exec --no-startup-id rofi -show file -matching fuzzy
 
 
 
 bindsym $mod+F10 exec xclock -update 1
 # lock
-bindsym $mod+F12 exec i3lock -en -c 000000 -i ~/.i3/jm.png
-bindsym $mod+Shift+F12 exec i3lock-fancy
+
+  bindsym $mod+F12 exec i3lock -en -c 000000 -i ~/.i3/jm.png
+  bindsym $mod+Shift+F12 exec i3lock-fancy -p
+  bindsym $mod+Control+F12 exec --no-startup-id i3lock-fancy -p
+
+bindsym $mod+F11       exec i3lock-fancy 
+bindsym $mod+Shift+F11 exec i3lock-fancy -p
 
 workspace_auto_back_and_forth yes
 
@@ -114,16 +122,17 @@ bindsym $mod+Shift+Right move right
 bindsym $mod+b workspace back_and_forth
 bindsym $mod+Shift+b move container to workspace back_and_forth
 
-bindsym $mod+Tab focus output left
+bindsym $mod+grave focus output left
 bindsym $mod+e move to output left
+bindsym $mod+Control+e move to output left, focus output left
 
 #exec --no-startup-id focus-last.sh
 #bindsym $mod+grave [con_mark=_prevFocus] focus
-exec --no-startup-id focus-last.py
-bindsym $mod+grave exec focus-last.py --switch  # grave == `
+exec --no-startup-id my-focus-last.py
+bindsym $mod+Tab exec --no-startup-id my-focus-last.py --switch  # grave == `
 #bindsym $mod+grave exec i3finder -a back  # grave == `
 #bindsym $mod+v exec i3finder -d "dmenu -i -p okno: -nf #F5FFFA -nb #066 -sb Gold -sf Black -fn '-*-terminus-medium-r-*--*-*-*-*-*-*-iso10646-1\007'"
-bindsym $mod+v exec rofi -show window
+bindsym Mod1+Tab exec --no-startup-id "rofi -show window -kb-accept-entry  Control+j,Control+m,Return,KP_Enter,Alt+Tab,grave -kb-toggle-case-sensitivity dead_grave"
 
 # split in horizontal orientation
 bindsym $mod+o split h
@@ -196,14 +205,25 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
+bindsym $mod+Control+1 move container to workspace 1, workspace 1
+bindsym $mod+Control+2 move container to workspace 2, workspace 2
+bindsym $mod+Control+3 move container to workspace 3, workspace 3
+bindsym $mod+Control+4 move container to workspace 4, workspace 4
+bindsym $mod+Control+5 move container to workspace 5, workspace 5
+bindsym $mod+Control+6 move container to workspace 6, workspace 6
+bindsym $mod+Control+7 move container to workspace 7, workspace 7
+bindsym $mod+Control+8 move container to workspace 8, workspace 8
+bindsym $mod+Control+9 move container to workspace 9, workspace 9
+bindsym $mod+Control+0 move container to workspace 10, workspace 0
+
 # move focused container to Workspace left/right
-bindsym $mod+Mod1+Left move container to workspace prev
-bindsym $mod+Mod1+Right move container to workspace next
+bindsym $mod+Mod1+Left move container to workspace prev; workspace prev
+bindsym $mod+Mod1+Right move container to workspace next; workspace next
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
+bindsym $mod+Shift+c exec "~/.i3/jinja-create-config.py; i3-msg reload"
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
+bindsym $mod+Shift+r exec "~/.i3/jinja-create-config.py; i3-msg restart"
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -f -*-terminus-medium-r-*-*-14-*-*-*-*-*-iso10646-1 -t warning -m 'Fakt chceš odejít?' -b 'Jo!' 'i3-msg exit'"
     
@@ -243,27 +263,16 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 #
 bar {
-    status_command i3blocks -c ~/.i3/i3blocks_primary.conf
+    status_command py3status -c $STATUS_CONFFILE
     output $primary
     position top
     tray_output primary
-    #font -*-terminus-medium-r-*-*-17-*-*-*-*-*-iso10646-1
-    font pango:Terminus 15
+    font $STATUS_FONT
     separator_symbol "|"
     workspace_buttons yes
     strip_workspace_numbers yes
 
    colors {
-        #background #000000
-        #statusline #ffffff
-        #separator #666666
-        ## class            border  backgr. text
-        #focused_workspace  #4c7899 #285577 #ffffff
-        #active_workspace   #333333 #5f676a #ffffff
-        #inactive_workspace #333333 #222222 #888888
-        #urgent_workspace   #2f343a #900000 #ffffff
-        #binding_mode       #2f343a #900000 #ffffff
-
         background #444444
         statusline #ffffff
         separator  #bf3eff
@@ -276,7 +285,7 @@ bar {
 }
 #
 bar {
-    status_command i3blocks -c ~/.i3/i3blocks_secondary.conf
+    status_command py3status -c ~/.i3/py3status_secondary.conf
     output $secondary
     position top
     tray_output none
@@ -314,6 +323,7 @@ client.background       #ffffff
 new_window normal 2
 new_float normal 2
 
+# Floating windows
 for_window [class="Tilda"] border normal 21
 for_window [class="Gmrun"] border normal 21
 for_window [class="Qmv"] floating enable
@@ -330,11 +340,20 @@ for_window [class="Foo"] floating enable
 for_window [class="Tk"] floating enable
 for_window [class="Marrek"] floating enable
 for_window [class="Colormishmash"] floating enable
-for_window [class="Abcde"] floating enable
-for_window [class="Abcde"] floating enable
 for_window [class="copyq"] floating enable
+for_window [class="Gxmessage"] floating enable
+
+for_window [class="twinkle"] floating enable
+for_window [class="Pavucontrol"] floating enable
+
+for_window [class="Abcde"] floating enable
+for_window [class="Abcde"] floating enable
 
 for_window [instance="nmLoginDialog.*"] floating enable
+
+for_window [instance="PacketTracer7"] floating enable
+
+# vim:ft=conf:nospell
 
 #Markery
 bindsym $mod+Shift+g exec i3-input -F 'mark "%s"' -P 'set mark: ' -f '-*-terminus-medium-r-*-*-18-*-*-*-*-*-iso10646-1'
@@ -359,19 +378,43 @@ bindsym $mod+button1 floating toggle
 bindsym $mod+button3 move to output left
 
 
+set $jumpapp "jumpapp: (v)ivaldi (c)laws (z)im (j)upyter"
 
-
-mode "jumpapp" {
+mode jumpapp {
     bindsym v exec jump.sh vivaldi; mode "default"
     bindsym c exec jump.sh claws-mail; mode "default"
     bindsym m exec jump.sh claws-mail; mode "default"
     bindsym z exec jump.sh zim; mode "default"
     bindsym j exec jump.sh jupyter-qtconsole --existing; mode "default"
-    bindsym t exec jump.sh -t root urxvt; mode "default"
+    bindsym r exec jump.sh -t root urxvt; mode "default"
+    bindsym p exec jump.sh password-gorilla; mode "default"
+    bindsym t exec jump.sh telegram-desktop; mode "default"
+    bindsym a       exec jump.sh pavucontrol -t 2 ; mode "default"
+    bindsym Shift+a exec jump.sh pavucontrol ; mode "default"
+
     bindsym x exec apwal; mode "default"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+x mode "jumpapp"
+bindsym $mod+x mode jumpapp
+
+
+    bindsym --release XF86Sleep exec --no-startup-id "sync; sudo sync; sudo s2both;"
+    bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 1+
+    bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 1-
+    bindsym XF86AudioMute exec --no-startup-id amixer set Master toggle
+    bindsym XF86Display exec --no-startup-id arandr
+
+    #bindsym XF86MonBrightnessDown exec --no-startup-id myBrightness.zsh down
+    #bindsym XF86MonBrightnessUp   exec --no-startup-id myBrightness.zsh up
+    bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
+    bindsym XF86MonBrightnessUp   exec --no-startup-id xbacklight -inc 10
+
+    bindsym XF86Tools exec --no-startup-id uspat -p -b
+    #bindsym  exec --no-startup-id 
+
+
+
+# vim:ft=conf:nospell

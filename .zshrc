@@ -370,28 +370,30 @@ compdef _myvim vi vim
 # https://doronbehar.com/articles/ZSH-FZF-completion/
 source /usr/share/zsh/vendor-completions/_fzf
 
-# FZY
-source ~/lib/zsh-fzy/zsh-fzy.plugin.zsh
-# ALT-C: cd into the selected directory
-# CTRL-T: Place the selected file path in the command line
-# CTRL-R: Place the selected command from history in the command line
-# CTRL-P: Place the selected process ID in the command line
-bindkey '\ec' fzy-cd-widget
-bindkey '^F'  fzy-file-widget
-bindkey '^R'  fzy-history-widget
-bindkey '^K'  fzy-proc-widget
+if [[ $USER != root ]]; then
+    # FZY
+    source ~/lib/zsh-fzy/zsh-fzy.plugin.zsh
+    # ALT-C: cd into the selected directory
+    # CTRL-T: Place the selected file path in the command line
+    # CTRL-R: Place the selected command from history in the command line
+    # CTRL-P: Place the selected process ID in the command line
+    bindkey '\ec' fzy-cd-widget
+    bindkey '^F'  fzy-file-widget
+    bindkey '^R'  fzy-history-widget
+    bindkey '^K'  fzy-proc-widget
 
-## forgit
-# https://github.com/wfxr/forgit
-forgit_log=g.log
-forgit_diff=g.diff
-forgit_add=g.add
-forgit_reset_head=g.reset.head #git reset HEAD <file>
-forgit_ignore=g.ignore
-forgit_restore=g.restire # git restore <file>
-forgit_clean=g.clean
-forgit_stash_show=g.stash
-source ~/lib/forgit/forgit.plugin.zsh
+    ## forgit
+    # https://github.com/wfxr/forgit
+    forgit_log=g.log
+    forgit_diff=g.diff
+    forgit_add=g.add
+    forgit_reset_head=g.reset.head #git reset HEAD <file>
+    forgit_ignore=g.ignore
+    forgit_restore=g.restire # git restore <file>
+    forgit_clean=g.clean
+    forgit_stash_show=g.stash
+    source ~/lib/forgit/forgit.plugin.zsh
+fi
 
 #################################################################
 eval $(dircolors -b ~/.dir_colors) 

@@ -49,7 +49,13 @@ adr=".config/nvim"
 [ -d $adr ] || mkdir -p $adr
 cp -a ~/$adr/*~*plugged $adr
 
+adr=".config/ranger"
+[ -d $adr ] || mkdir -p $adr
+cp -a ~/$adr $adr
 
+adr=".config/openbox"
+[ -d $adr ] || mkdir -p $adr
+cp -a ~/$adr $adr
 
 ####################################
 ### Binárky

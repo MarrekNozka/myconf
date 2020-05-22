@@ -4,8 +4,8 @@
 # Should you change your keyboard layout some time, delete
 # this file and re-run i3-config-wizard(1).
 #
-  set $primary HDMI-1
-  set $secondary VGA-1
+  set $primary DVI-0
+  set $secondary VGA-0
 
   set $STATUS_FONT pango:Terminus 12
   set $STATUS_CONFFILE ~/.i3/py3status_primary.conf
@@ -266,7 +266,8 @@ bar {
     status_command py3status -c $STATUS_CONFFILE
     output $primary
     position top
-    tray_output primary
+    # tray_output primary  # u některých GK je to potřeba zadat takto
+    tray_output $primary
     font $STATUS_FONT
     separator_symbol "|"
     workspace_buttons yes
@@ -352,6 +353,9 @@ for_window [class="Abcde"] floating enable
 for_window [instance="nmLoginDialog.*"] floating enable
 
 for_window [instance="PacketTracer7"] floating enable
+
+########################################################################
+for_window [class="Xephyr"] floating disable
 
 # vim:ft=conf:nospell
 

@@ -46,6 +46,9 @@ alias cpr='cp -R'
 alias cprv='cp -Rv'
 alias cpvr='cp -Rv'
 
+
+alias f='ranger'
+
 alias cleanlatex='rm ./*.aux ./*.log'
 alias aptcachesearch='apt-cache search'
 alias apti='sudo aptitude -u; sudo aptitude clean; sudo aptitude forget-new'

@@ -45,8 +45,9 @@ if [ -d ./.vim/backup ]; then
 fi
 
 
-[ -d ./.config/nvim ] || mkdir -p .config/nvim
-cp -a ~/.config/nvim/*~*plugged .config/nvim
+adr=".config/nvim"
+[ -d $adr ] || mkdir -p $adr
+cp -a ~/$adr/*~*plugged $adr
 
 
 

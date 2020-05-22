@@ -367,10 +367,12 @@ compdef _myvim vi vim
 #############################################################
 
 # FZF
+if type fzf >/dev/null; then
 # https://doronbehar.com/articles/ZSH-FZF-completion/
-source /usr/share/zsh/vendor-completions/_fzf
+    source /usr/share/zsh/vendor-completions/_fzf
+fi
 
-if [[ $USER != root ]]; then
+if type fzy >/dev/null && [ -f ~/lib/zsh-fzy/zsh-fzy.plugin.zsh ]; then
     # FZY
     source ~/lib/zsh-fzy/zsh-fzy.plugin.zsh
     # ALT-C: cd into the selected directory
@@ -381,7 +383,9 @@ if [[ $USER != root ]]; then
     bindkey '^F'  fzy-file-widget
     bindkey '^R'  fzy-history-widget
     bindkey '^K'  fzy-proc-widget
+fi
 
+if type git >/dev/null && [ -f ~/lib/forgit/forgit.plugin.zsh ]; then
     ## forgit
     # https://github.com/wfxr/forgit
     forgit_log=g.log

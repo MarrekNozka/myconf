@@ -51,11 +51,11 @@ cp -a ~/$adr/*~*plugged $adr
 
 adr=".config/ranger"
 [ -d $adr ] || mkdir -p $adr
-cp -a ~/$adr $adr
+cp -a ~/$adr/*~*.git $adr
 
 adr=".config/openbox"
 [ -d $adr ] || mkdir -p $adr
-cp -a ~/$adr $adr
+cp -a ~/$adr/*~*.git $adr
 
 ####################################
 ### Binárky
@@ -75,3 +75,7 @@ for file in autoclone.zsh cal.zsh pocasi.sh psql-wrapper.zsh \
     cp -a ~/lib/$file ./lib
 done
 
+for dir in  forgit zsh-fzy; do
+    [ -d ./lib/$dir ] || mkdir ./lib/$dir
+    cp -a ~/lib/$dir/*~*.git ./lib/$dir
+done

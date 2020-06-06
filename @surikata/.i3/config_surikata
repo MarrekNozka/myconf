@@ -11,7 +11,8 @@
   set $STATUS_CONFFILE ~/.i3/py3status_primary.conf
 
 #set $terminal sakura -f 'Terminus 14'
-set $terminal urxvtcd
+#set $terminal urxvtcd
+set $terminal kitty -1
 
 # i3 config file (v4)
 #
@@ -41,7 +42,7 @@ bindsym $mod+Return exec $terminal
 bindsym $mod+Shift+Return exec $terminal -f 'Terminus 10'
 bindsym $mod+Control+Return exec $terminal -e ssh -XA root@localhost
 #bindsym $mod+F6 exec urxvtcd
-bindsym $mod+F6 exec sakura -f 'Terminus 14'
+bindsym $mod+F6 exec urxvtcd
 bindsym $mod+F7 exec urxvtcd -bg white -fg black -sh 196
 bindsym $mod+F8 exec urxvtcd -bg white -fg black -sh 200
 
@@ -390,7 +391,7 @@ mode jumpapp {
     bindsym m exec jump.sh claws-mail; mode "default"
     bindsym z exec jump.sh zim; mode "default"
     bindsym j exec jump.sh jupyter-qtconsole --existing; mode "default"
-    bindsym r exec jump.sh -t root urxvt; mode "default"
+    bindsym r exec jump.sh -t root kitty; mode "default"
     bindsym p exec jump.sh password-gorilla; mode "default"
     bindsym t exec jump.sh telegram-desktop; mode "default"
     bindsym a       exec jump.sh pavucontrol -t 2 ; mode "default"
@@ -416,7 +417,7 @@ bindsym $mod+x mode jumpapp
     bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
     bindsym XF86MonBrightnessUp   exec --no-startup-id xbacklight -inc 10
 
-    bindsym XF86Tools exec --no-startup-id uspat -p -b
+    bindsym XF86Tools exec --no-startup-id uspat -p
     #bindsym  exec --no-startup-id 
 
 

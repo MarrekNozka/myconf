@@ -64,7 +64,7 @@ echo "######## binaries #########"
 [ -d ./bin ] || mkdir bin
 for file in asf2mp3 asf2ogg prumer.pl term without.pl p2or3 \
             pocasi počasí psql-drop.user.db psql-create.user.db \
-            autoclone cal. vimcat vimpager forge melou oliva; do
+            autoclone cal. vimcat vimpager forge meloun oliva; do
     cp -a ~/bin/$file ./bin
 done
 

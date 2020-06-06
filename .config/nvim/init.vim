@@ -5,6 +5,8 @@ set nocompatible "nejí to vi ale vim
 if !exists('g:vscode')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let term=$TERM
+
 
 set noautoread
 "set termguicolors
@@ -84,7 +86,7 @@ set smartcase  "ignorecase platí pouze tehdy pokud v~hledaném výrazu jsou jen
 set incsearch  "ukazuje mi co hledám ještě předtím než dám Enter
 
 set wildmenu "v :příkazovém řádku zobrazí menu pro výběr
-"set wildmode=list:longest,list:full "chování TAB v~příkazovém řádku
+set wildmode=list:longest,list:full "chování TAB v~příkazovém řádku
 set wildignore=*~,*.o,*.log,*.aux "Ignoruje při doplňování tabulátorem
 
 set confirm		"pokud jsem nepoužil ! a měl jsem, tak se mě zeptá co dělat
@@ -130,8 +132,9 @@ vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
 let mapleader = ",,"
 let maplocalleader = ",,"
 
-let g:python_host_prog  = '/usr/bin/python2'	  " Python 2
-let g:python3_host_prog = '/usr/bin/python3'  " Python 3
+let g:python_host_prog  = '/usr/bin/python2'  " Python 2
+"let g:python3_host_prog = '/usr/bin/python3'  " Python 3
+let g:python3_host_prog = '/usr/local/bin/python3.8'  " Python 3
 "let g:ruby_host_prog = '~/.gem/ruby/2.5.0/bin/neovim-ruby-host'
 
 "source ~/.vim/skeletons.vim
@@ -189,7 +192,7 @@ set bg=dark
 map <Leader>l :set bg=light<Return>
 map <Leader>L :set bg=dark<Return>
 
-colorscheme slate
+"colorscheme slate
 colorscheme 256-jungle
 "colorscheme darkblue
 "colorscheme murphy
@@ -359,14 +362,17 @@ Plug 'https://github.com/tmux-plugins/vim-tmux', { 'for': 'tmux'}
 
 "Plug 'https://github.com/Valloric/YouCompleteMe'
 Plug 'https://github.com/ycm-core/YouCompleteMe', { 'do': 'python3 install.py --clangd-completer ' }
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 Plug 'https://github.com/python-mode/python-mode', { 'for': 'python'}
 "Plug 'https://github.com/davidhalter/jedi-vim', { 'for': 'python'}
 "Plug 'https://github.com/rkulla/pydiction', { 'for': 'python'}
 Plug 'https://github.com/wmvanvliet/jupyter-vim', { 'for': 'python'}
-Plug 'https://github.com/python/black',           { 'for': 'python'}
+Plug 'https://github.com/psf/black',           { 'for': 'python', 'tag': '19.10b0'}
 Plug 'https://github.com/hdima/python-syntax',    { 'for': 'python'}
 
-Plug 'https://github.com/Glench/Vim-Jinja2-Syntax'
+"Plug 'https://github.com/Glench/Vim-Jinja2-Syntax'
+"Plug 'https://github.com/hiphish/jinja.vim'
+Plug 'https://gitlab.com/HiPhish/jinja.vim'
 
 Plug 'https://github.com/tpope/vim-markdown', {'for': 'markdown'}
 
@@ -384,6 +390,10 @@ Plug 'honza/vim-snippets'
 Plug 'frazrepo/vim-rainbow'                      "F11
 
 Plug 'jiangmiao/auto-pairs'
+
+if term == 'xterm-kitty'
+    Plug 'norcalli/nvim-colorizer.lua'
+endif
 
 " Initialize plugin system
 call plug#end()
@@ -451,6 +461,12 @@ vmap <Leader>x <plug>NERDCommenterToggle
 "let NERDDefaultNesting=0 
 let NERDDefaultAlign='left'  "Values: 'none', 'left', 'start', 'both'
 let NERDDefaultDelims={ 'left': '#', 'leftAlt': '# ' }
+
+
+"Jinja
+autocmd! BufRead,BufNewFile *.html  call jinja#AdjustFiletype()
+
+
 
 "" Markdown
 "" https://github.com/plasticboy/vim-markdown
@@ -530,10 +546,12 @@ let g:open_url_browser="xdg-open"
 let g:netrw_browsex_viewer= "xdg-open"
 
 
-"" Black -- https://github.com/python/black
+"" Black -- https://github.com/psf/black
 let g:black_linelength=79
-let g:black_virtualenv="~/.vim/black"
+let g:black_virtualenv="~/.local/share/nvim/black"
 autocmd BufWrite *.py Black
+"nebo 
+"au FileType python nnoremap <buffer> <F10> :silent !black % <CR><CR>
 
 "" Skeleton
 map <F4> :SkeletonList <Return>
@@ -585,8 +603,10 @@ let g:UltiSnipsEditSplit="vertical"
 
 " Rainbow Parentheses Improved
 " https://github.com/frazrepo/vim-rainbow
-let g:rainbow_active = 1
-map <F11> :RainbowToggle<Return>
+let g:rainbow_active = 0
+" Shift+F5
+nmap <F15> :RainbowLoad<Return>
+nmap <F5> :e %<CR>
 let g:rainbow_load_separately = [
     \ [ '*'     , [['(', ')'], ['\[', '\]'], ['{', '}'], ['{{', '}}'], ['{%', '%}']] ],
     \ [ '*.tex' , [['(', ')'], ['\[', '\]']] ],
@@ -600,7 +620,16 @@ let g:rainbow_ctermfgs = ['white', 'darkyellow', 'yellow', 'magenta']
 " https://github.com/jiangmiao/auto-pairs
 let g:AutoPairsFlyMode = 1
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
+" colorizer.lua
+" https://github.com/norcalli/nvim-colorizer.lua
+if term == 'xterm-kitty'
+    set termguicolors
+    lua require'colorizer'.setup()
 endif
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+endif
+
+syntax on
 " vim:nospell:

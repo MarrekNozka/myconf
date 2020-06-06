@@ -1,6 +1,7 @@
 # OpenBox autostart
 
-fbsetbg -c ~/Obrázky/pozadi/blackboard_.jpg
+#fbsetbg -c ~/Obrázky/pozadi/blackboard_.jpg
+fbsetbg -c ~/Obrázky/pozadi/blackboard-tabule_.jpg
 
 xfce4-panel &
 parcellite &

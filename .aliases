@@ -71,6 +71,7 @@ alias mkdircd=mkdir.cd
 #psg () { ps ux | grep $* | grep -v grep; }
 alias pgrep.a='pgrep -a'
 alias pgrep.af='pgrep -a -f'
+alias pgrep.='pgrep -a -f'
 alias psg='pgrep.af'
 
 killg () { kill -9 $(ps ax | grep $* | grep -v grep | cut -d" " -f1,2;) }
@@ -253,7 +254,8 @@ if [ $USER != root ]; then
     alias autoclone.tmp='autoclone -t'
 
     alias py37='python3.7'
-    alias py='py37'
+    alias py38='python3.8'
+    alias py='py38'
 
     alias   docal='while true; do ; date; ncal -A 1; sleep 60; done'
     alias docal-1='while true; do ; date; ncal -A 1; sleep  1; done'

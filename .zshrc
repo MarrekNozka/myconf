@@ -405,3 +405,9 @@ eval $(dircolors -b ~/.dir_colors)
 # Ctrl+S zamkne výstup terminálu, který přijámá vstup ale nezobrazuje výstup 
 # Ctrl-Q se to odemkne... A tímto se tahle věc (nechápu k čemu je) vypíná...
 stty -ixon
+
+# save path on cd
+function cd {
+    builtin cd $@
+    pwd > ~/.last_dir
+}

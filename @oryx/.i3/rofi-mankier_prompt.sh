@@ -1,0 +1,1 @@
+rofi-man_prompt.sh

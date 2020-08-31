@@ -10,15 +10,16 @@ from subprocess import check_output
 from lockfile import LockFile
 from sys import argv
 import os
+
 ############################################################################
-fname = '/run/shm/cpu_graph'
-os.environ['LC_ALL'] = "C"
+fname = "/run/shm/cpu_graph"
+os.environ["LC_ALL"] = "C"
 graph_chars = " ▁▃▄▅▆▇█"
 
 if len(argv) > 1:
     secs = argv[1]
 else:
-    secs = "1"
+    secs = "1"  # doba měření
 if len(argv) > 2:
     warn = int(argv[2])
 else:
@@ -50,18 +51,18 @@ bar = graph_chars[int(b * 7.99 / 100)]
 
 with LockFile(fname):
     if os.path.isfile(fname):
-        with open(fname, 'r') as f:
+        with open(fname, "r") as f:
             graph = f.readline()[:-1]
     else:
         graph = ""
 
     graph = graph + bar
 
-    with open(fname, 'w') as f:
-        f.write(graph[-5:] + '\n')
+    with open(fname, "w") as f:
+        f.write(graph[-5:] + "\n")
 
 print("{}% {} {}%".format(a, graph, b))
-print(        "{}% {}%".format(a, b))
+print("{}% {} {}%".format(a, graph[-2:], b))
 
 if b >= crit:
     print("#FF0000")

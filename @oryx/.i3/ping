@@ -1,0 +1,13 @@
+#!/bin/sh
+#----------------------------------------------------------------------------------------------------
+#Check internet connectivity through ping exit code
+
+if ping -c 3 1.1.1.1 > /dev/null 2>&1; then
+	echo "Up"; 
+	echo "U"; 
+	echo "#00FF00"; 
+else
+	echo "Down"; 
+	echo "D"; 
+	echo "#FF0000"; 
+fi

@@ -1,7 +1,7 @@
 # ~/.zprofile: executed by zsh for login shells.
 
 # the default umask is set in /etc/login.defs
-umask 026
+#umask 026
 
 # set PATH so it includes user's private bin if it exists
 if [ -d ~/bin ] ; then

@@ -6,7 +6,7 @@
 # Úloha:   Load pro i3blocks
 ############################################################
 #
-if [ $BLOCK_BUTTON = 3 ]; then
+if [ -n $BLOCK_BUTTON ] && { [[ $BLOCK_BUTTON == 3 ]] || [[ $BLOCK_BUTTON == 1 ]]; }; then
     urxvtcd  -e htop&
 fi
 
@@ -22,7 +22,7 @@ load=$( cut -d ' ' -f $col < /proc/loadavg )
 
 print $load
 if [[ $1 == 15 ]]; then 
-    print
+    print '°'
 else
     print $load
 fi

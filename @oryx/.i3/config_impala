@@ -8,7 +8,8 @@
 set $primary LVDS-1
 set $secondary VGA-1
 
-set $terminal urxvtcd -sh 0
+#set $terminal sakura -f 'Terminus 14'
+set $terminal urxvtcd
 
 # i3 config file (v4)
 #
@@ -21,7 +22,8 @@ set $mod Mod4
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
-font -*-terminus-medium-r-*-*-14-*-*-*-*-*-iso10646-1
+#font -*-terminus-medium-r-*-*-14-*-*-*-*-*-iso10646-1
+font pango:Terminus 11
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 # The font above is very space-efficient, that is, it looks good, sharp and
@@ -34,27 +36,45 @@ floating_modifier $mod
 
 # start a terminal and aplication
 bindsym $mod+Return exec $terminal
-bindsym $mod+Shift+Return exec $terminal -fn '-*-terminus-medium-r-*--16-*-*-*-*-*-iso10646-1'
+bindsym $mod+Shift+Return exec $terminal -f 'Terminus 12'
 bindsym $mod+Control+Return exec $terminal -e ssh -XA root@localhost
+#bindsym $mod+F6 exec urxvtcd
+bindsym $mod+F6 exec sakura -f 'Terminus 14'
 bindsym $mod+F7 exec urxvtcd -bg white -fg black -sh 196
 bindsym $mod+F8 exec urxvtcd -bg white -fg black -sh 200
 
 # start program launcher
-bindsym $mod+F1 exec gmrun 'man '
-bindsym $mod+F2 exec kupfer
-bindsym $mod+d exec gmrun
+#bindsym $mod+F1 exec gmrun 'man '
+bindsym $mod+F1 exec rofi -show man
+#
+bindsym $mod+d         exec rofi -show run
+bindsym $mod+Control+d exec gmrun
+bindsym $mod+Shift+d   exec kupfer
+bindsym Mod1+F2        exec rofi -show drun
+
 bindsym $mod+x exec apwal
 
-bindsym $mod+F3       exec gmrun "ssh -xa "
-bindsym $mod+F4       exec gmrun "ssh -Xa "
-bindsym $mod+Shift+F3 exec gmrun "ssh -xA "
-bindsym $mod+Shift+F4 exec gmrun "ssh -XA "
+bindsym $mod+F2       exec rofi -show ssh
+bindsym $mod+F3       exec rofi -ssh-client "ssh -xa" -display-ssh 'ssh -xa' -show ssh
+bindsym $mod+Shift+F3 exec rofi -ssh-client "ssh -xA" -display-ssh 'ssh -xA' -show ssh
+bindsym $mod+F4       exec rofi -ssh-client "ssh -Xa" -display-ssh 'ssh -Xa' -show ssh
+bindsym $mod+Shift+F4 exec rofi -ssh-client "ssh -XA" -display-ssh 'ssh -XA' -show ssh
+#bindsym $mod+F3       exec gmrun "ssh -xa "
+#bindsym $mod+F4       exec gmrun "ssh -Xa "
+#bindsym $mod+Shift+F3 exec gmrun "ssh -xA "
+#bindsym $mod+Shift+F4 exec gmrun "ssh -XA "
+
+bindsym $mod+F5 exec rofi -show file
+
 
 
 bindsym $mod+F10 exec xclock -update 1
 # lock
-bindsym $mod+F12 exec i3lock -en -c 000000 -i ~/.i3/jm.png
-bindsym $mod+Shift+F12 exec i3lock -end -c 000000 -i ~/.i3/jm.png
+#bindsym $mod+F12 exec i3lock -en -c 000000 -i ~/.i3/jm2.png
+bindsym $mod+F12 exec i3lock -en -c 000000 -i ~/.i3/SheShan1.png
+bindsym $mod+Shift+F12 exec i3lock -en -c 000000 -i ~/.i3/hostyn.png
+
+workspace_auto_back_and_forth yes
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -86,6 +106,25 @@ bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
+
+# move focused window to Workspace left/right
+#bindsym $mod+Control+Left move to output left
+#bindsym $mod+Control+Right move to output right
+
+# switch between the current and the previously focused one
+bindsym $mod+b workspace back_and_forth
+bindsym $mod+Shift+b move container to workspace back_and_forth
+
+bindsym $mod+Tab focus output left
+bindsym $mod+e move to output left
+
+#exec --no-startup-id focus-last.sh
+#bindsym $mod+grave [con_mark=_prevFocus] focus
+exec --no-startup-id focus-last.py
+bindsym $mod+grave exec focus-last.py --switch  # grave == `
+#bindsym $mod+grave exec i3finder -a back  # grave == `
+#bindsym $mod+v exec i3finder -d "dmenu -i -p okno: -nf #F5FFFA -nb #066 -sb Gold -sf Black -fn '-*-terminus-medium-r-*--*-*-*-*-*-*-iso10646-1\007'"
+bindsym $mod+v exec rofi -show window
 
 # split in horizontal orientation
 bindsym $mod+o split h
@@ -141,6 +180,11 @@ bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 
+bindsym $mod+Control+Left workspace prev
+bindsym $mod+Control+h workspace prev
+bindsym $mod+Control+Right workspace next 
+bindsym $mod+Control+l workspace next 
+
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
 bindsym $mod+Shift+2 move container to workspace 2
@@ -152,6 +196,9 @@ bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
+
+bindsym $mod+Mod1+Left move container to workspace prev
+bindsym $mod+Mod1+Right move container to workspace next
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -180,6 +227,11 @@ mode "resize" {
         bindsym Up resize shrink height 7 px or 7 ppt
         bindsym Right resize grow width 7 px or 7 ppt
 
+        bindsym Shift+Left resize shrink width 3 px or 1 ppt
+        bindsym Shift+Down resize grow  height 3 px or 1 ppt
+        bindsym Shift+Up resize shrink  height 3 px or 1 ppt
+        bindsym Shift+Right resize grow  width 3 px or 1 ppt
+
         # back to normal: Enter or Escape
         bindsym Return mode "default"
         bindsym Escape mode "default"
@@ -191,11 +243,13 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 #
 bar {
-    status_command i3blocks -c ~/.i3/i3blocks_primary.conf
+    status_command i3blocks -c ~/.i3/i3blocks_impala.conf
     output $primary
     position top
     tray_output primary
-    font -*-terminus-medium-r-*-*-17-*-*-*-*-*-iso10646-1
+    #font -*-terminus-medium-r-*-*-17-*-*-*-*-*-iso10646-1
+    #font pango:Inconsolata, Icons 13
+    font pango:Terminus 14
     separator_symbol "|"
     workspace_buttons yes
     strip_workspace_numbers yes
@@ -227,6 +281,7 @@ bar {
     output $secondary
     position top
     tray_output none
+    font pango:Terminus 12
 
     colors {
         background #444444
@@ -268,7 +323,15 @@ for_window [class="Gman"] floating enable
 for_window [class="Gorilla.*"] floating enable
 for_window [class="Gtklp"] floating enable
 for_window [class="XClock"] floating enable
-for_window [class="vlc"] floating enable
+for_window [class="Arandr"] floating enable
+for_window [class="Wicd-client.py"] floating enable
+for_window [class="copyq"] floating enable
+
+for_window [class="Foo"] floating enable
+for_window [class="Tk"] floating enable
+for_window [class="Marrek"] floating enable
+for_window [class="Colormishmash"] floating enable
+for_window [class="Abcde"] floating enable
 
 for_window [instance="nmLoginDialog.*"] floating enable
 
@@ -285,5 +348,12 @@ bindsym $mod+y [urgent="newest"] focus
 # sticky -- přilepené na všech plochách
 bindsym $mod+s sticky toggle
 
+# skrytá plocha...
 bindsym $mod+Control+space scratchpad show
 bindsym $mod+Shift+space   move scratchpad
+
+# mouse myš
+# The right button toggles floating
+bindsym $mod+button1 floating toggle
+bindsym $mod+button3 move to output left
+

@@ -346,7 +346,10 @@ cmap <S-Insert> <C-R>*
 "" vim-Plug -- https://github.com/junegunn/vim-plug
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'https://github.com/kien/ctrlp.vim'
+"Plug 'neoclide/coc.nvim', {'branch': 'release', 'for': 'c'}
+
+"Plug 'https://github.com/kien/ctrlp.vim'
+"
 Plug 'https://github.com/Yggdroot/indentLine'
 Plug 'https://github.com/vim-syntastic/syntastic'
 Plug 'https://github.com/drmingdrmer/vim-toggle-quickfix', {'on': '<Plug>window:quickfix:loop'}   " F6
@@ -360,8 +363,9 @@ Plug 'https://github.com/scrooloose/nerdcommenter'
 
 Plug 'https://github.com/tmux-plugins/vim-tmux', { 'for': 'tmux'}
 
-"Plug 'https://github.com/Valloric/YouCompleteMe'
-Plug 'https://github.com/ycm-core/YouCompleteMe', { 'do': 'python3 install.py --clangd-completer ' }
+" https://github.com/junegunn/vim-plug/issues/700
+"Plug 'https://github.com/ycm-core/YouCompleteMe', { 'do': 'python3 install.py --clangd-completer ', 'for': [ 'python', 'zsh', 'sh', 'c'] }
+Plug 'https://github.com/ycm-core/YouCompleteMe', { 'do': 'python3 install.py --clangd-completer '}
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 Plug 'https://github.com/python-mode/python-mode', { 'for': 'python'}
 "Plug 'https://github.com/davidhalter/jedi-vim', { 'for': 'python'}
@@ -423,10 +427,11 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_python_flake8_args = "--ignore=E203,E501,W503"
 let g:syntastic_scss_scss_args = "--compass"
 
-"let g:syntastic_c_checkers = ['make', 'avrgcc']
 "let g:syntastic_c_make_exec="make nocolors"
-let g:syntastic_c_checkers = ['avrgcc -Iinc']
-let g:syntastic_avrgcc_config_file=".syntastic_avrgcc_config"
+"let g:syntastic_c_checkers = ['avrgcc -Iinc']
+"let g:syntastic_avrgcc_config_file=".syntastic_avrgcc_config"
+let g:syntastic_c_checkers = ['make', 'sdcc']
+let g:syntastic_quiet_messages = { 'regex': 'warning 217:\|warning 158' }
 
 let g:syntastic_loc_list_height=4
 set statusline+=%#warningmsg#
@@ -571,6 +576,9 @@ let g:ycm_semantic_triggers = {'python': ['re!from\s', 're!from\s+\S+\s+import\s
 
 let g:ycm_min_num_of_chars_for_completion = 1
 
+" toto nastavení je v after/ftplugin/c
+"let g:ycm_show_diagnostics_ui = 0
+
 
 "" Ack 
 "  https://github.com/mileszs/ack.vim
@@ -593,7 +601,7 @@ nnoremap <leader>t :let g:fuzzy_opencmd='tabe'<cr>:FuzzyOpen<cr>
 " https://github.com/honza/vim-snippets
 
 let g:UltiSnipsExpandTrigger="<c-q>"
-"let g:UltiSnipsListSnippets="<c-i>"
+let g:UltiSnipsListSnippets="<c-i>"
 let g:UltiSnipsJumpForwardTrigger="<c-n>"
 let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 " If you want :UltiSnipsEdit to split your window.

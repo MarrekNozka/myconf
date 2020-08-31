@@ -36,13 +36,13 @@ for f in $files; do
     cp -a ~/$f ./
 done
 
-[ -d ./.vim ] || mkdir .vim
-cp -a ~/.vim/.*~*.netrwhist ~/.vim/*~*(backup|viminfo|.zip|.tmp|vba|.git) ./.vim/
-rm -Rf .vim/bundle/**/.git       
-rm -Rf .vim/bundle/**/.gitignore      
-if [ -d ./.vim/backup ]; then 
-    rm -Rf ./.vim/backup/*
-fi
+#[ -d ./.vim ] || mkdir .vim
+#cp -a ~/.vim/.*~*.netrwhist ~/.vim/*~*(backup|viminfo|.zip|.tmp|vba|.git) ./.vim/
+#rm -Rf .vim/bundle/**/.git       
+#rm -Rf .vim/bundle/**/.gitignore      
+#if [ -d ./.vim/backup ]; then 
+#    rm -Rf ./.vim/backup/*
+#fi
 
 
 adr=".config/nvim"

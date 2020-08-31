@@ -81,6 +81,9 @@ autoload -U compinit # -z
 compinit
 
 
+# Completion for kitty
+kitty + complete setup zsh | source /dev/stdin
+
 #eval "$(~/.local/bin/pip3 completion --zsh)"
 # pip zsh completion start
 function _pip_completion {
@@ -408,6 +411,20 @@ stty -ixon
 
 # save path on cd
 function cd {
-    builtin cd $@
+    if [[ $1 == '-d' ]]; then
+        cd $(find . -type d | fzy -i)
+    elif [[ $1 == '-f' ]]; then
+        cd $( dirname $(find . -type f -o -type l | fzy -i))
+    else
+        builtin cd $@
+    fi
     pwd > ~/.last_dir
 }
+
+# https://github.com/zsh-users/zsh-syntax-highlighting
+#source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /home/marek/lib/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+ZSH_HIGHLIGHT_STYLES[command]='bold'
+ZSH_HIGHLIGHT_STYLES[alias]='bold'
+ZSH_HIGHLIGHT_STYLES[function]='bold'

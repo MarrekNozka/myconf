@@ -4,7 +4,8 @@
 "set autoread
 
 " Makej
-command! Make write | make %<
+"command! Make write | make %<
+command! Make write | make flash
 map <Leader>ma :Make<Return>
 imap <Leader>ma <Esc>:Make<Return>
 
@@ -26,4 +27,7 @@ set nospell
 set nowrap
 
 set keywordprg=urxvt\ -e\ man\ 3
+
+
+let g:ycm_show_diagnostics_ui = 0
 

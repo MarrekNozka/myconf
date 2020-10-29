@@ -20,3 +20,5 @@ if ! [ -d ~/.vim/backup/ ]; then
     mkdir ~/.vim/backup/
 fi
 
+mkdir ~/.local/share/nvim/backup/
+mkdir ~/.local/share/nvim/undo

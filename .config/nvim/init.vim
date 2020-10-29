@@ -14,7 +14,7 @@ set noautoread
 syntax on
 set concealcursor=nv   "skrývání jen v normálním a vizuálním módu
 set conceallevel=1     "skrývání....
-set fileencodings=utf-8,iso8859-2,cp1250
+set fileencodings=utf-8,cp1250,iso8859-2
 set fileformats=unix,dos
 command Widle set ff=dos | set fenc=cp1250
 command Unix set ff=unix | set fenc=utf-8
@@ -126,6 +126,7 @@ set mouse=a          "myš v konzole
 
 "clikbord
 set clipboard=unnamed "Vše, co se ukládá do "unnamed" registru, se bude ukládat zároveň i do clipboardu.
+set clipboard=unnamedplus
 vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
 
 "set langmap=ě2,š3,č4,ř5,ž6,ý7,á8,í9,é0,\":,-/,_?
@@ -378,7 +379,8 @@ Plug 'https://github.com/hdima/python-syntax',    { 'for': 'python'}
 "Plug 'https://github.com/hiphish/jinja.vim'
 Plug 'https://gitlab.com/HiPhish/jinja.vim'
 
-Plug 'https://github.com/tpope/vim-markdown', {'for': 'markdown'}
+"Plug 'https://github.com/tpope/vim-markdown', {'for': 'markdown'}
+Plug 'https://github.com/plasticboy/vim-markdown', {'for': 'markdown'}
 
 Plug 'https://github.com/MarrekNozka/vim-skeletonlist'                    "F4
 
@@ -425,6 +427,7 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 "let g:syntastic_python_flake8_args = "--ignore=E202,E201"
 let g:syntastic_python_flake8_args = "--ignore=E203,E501,W503"
+let g:syntastic_python_flake8_args = "--ignore=E402"
 let g:syntastic_scss_scss_args = "--compass"
 
 "let g:syntastic_c_make_exec="make nocolors"

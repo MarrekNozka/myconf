@@ -284,6 +284,7 @@ precmd () {
         unset RPROMPT
     fi
     title 
+    rehash
 }
 
 ##########################################
@@ -421,10 +422,15 @@ function cd {
     pwd > ~/.last_dir
 }
 
-# https://github.com/zsh-users/zsh-syntax-highlighting
-#source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /home/marek/lib/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#https://github.com/zsh-users/zsh-autosuggestions
+#source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh 
 
+# Zsh Syntax Highlight: https://github.com/zsh-users/zsh-syntax-highlighting
+#source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/lib/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh || \
+    source /home/marek/lib/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters/main.md
 ZSH_HIGHLIGHT_STYLES[command]='bold'
 ZSH_HIGHLIGHT_STYLES[alias]='bold'
 ZSH_HIGHLIGHT_STYLES[function]='bold'

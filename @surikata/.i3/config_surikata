@@ -124,8 +124,10 @@ bindsym $mod+b workspace back_and_forth
 bindsym $mod+Shift+b move container to workspace back_and_forth
 
 bindsym $mod+grave focus output left
-bindsym $mod+e move to output left
-bindsym $mod+Control+e move to output left, focus output left
+bindsym $mod+v         move to output left
+bindsym $mod+Control+v move to output left, focus output left
+bindsym $mod+e         move to output left, focus output left
+bindsym $mod+Control+e move to output left
 
 #exec --no-startup-id focus-last.sh
 #bindsym $mod+grave [con_mark=_prevFocus] focus
@@ -381,6 +383,7 @@ bindsym $mod+Shift+space   move scratchpad
 # The right button toggles floating
 bindsym $mod+button1 floating toggle
 bindsym $mod+button3 move to output left
+bindsym $mod+Shift+button3 fullscreen
 
 
 set $jumpapp "jumpapp: (v)ivaldi (c)laws (z)im (j)upyter"
@@ -392,6 +395,7 @@ mode jumpapp {
     bindsym z exec jump.sh zim; mode "default"
     bindsym j exec jump.sh jupyter-qtconsole --existing; mode "default"
     bindsym r exec jump.sh -t root kitty; mode "default"
+    bindsym f exec jump.sh -t Ranger kitty -T Ranger ranger; mode "default"
     bindsym p exec jump.sh password-gorilla; mode "default"
     bindsym t exec jump.sh telegram-desktop; mode "default"
     bindsym a       exec jump.sh pavucontrol -t 2 ; mode "default"
